@@ -25,7 +25,7 @@ do
   local function visudo(arg, data)
     local cmd = arg.cmd
     local chat_id = arg.chat_id
-    local user_id = data.id_
+    local user_id = tostring(data.id_)
     local name = data.first_name_
     local msg_id = arg.msg_id
 
@@ -95,7 +95,7 @@ do
     if matches[1] == 'sudolist' then
       local sudoers = _msg('<b>List of sudoers</b>:\n')
       for k,v in pairs(_config.sudoers) do
-        if v:match('^%d+$') then
+        if tostring(v):match('^%d+$') then
           v = '<code>' .. v .. '</code>'
         end
         sudoers = sudoers .. '• ' .. v .. '\n'

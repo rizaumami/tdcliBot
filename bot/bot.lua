@@ -10,8 +10,8 @@ ltn12 = require "ltn12"
 json = require "cjson"
 db = (loadfile "./bot/libs/redis.lua")()
 serpent = require "serpent"
-td = (loadfile './bot/tdcli.lua')()
-util = (loadfile './bot/libs/utils.lua')()
+td = (loadfile './bot/libs/tdcli.lua')()
+util = (loadfile './bot/utils.lua')()
 
 config_file = './bot/config.lua'
 
@@ -94,7 +94,7 @@ local function apiGetMe(token)
     sink = ltn12.sink.table(response),
   }
   local body = table.concat(response or {"no response"})
-  local jbody = json:decode(body)
+  local jbody = json.decode(body)
 
   if jbody.ok then
     botid = jbody.result
@@ -419,7 +419,7 @@ plugins = {}
 loadPlugins()
 
 function tdcli_update_callback(data)
-  util.vardump(data)
+  --util.vardump(data)
   if (data.ID == 'UpdateNewMessage') then
     if data.message_ and msgValid(data.message_) then
       local msg = data.message_
