@@ -1,0 +1,205 @@
+#!/usr/bin/env bash
+
+
+## VARIABLES -------------------------------------------------------------------
+
+# This script must be aware that it's on the root of tdcliBot directory
+THIS_DIR=$(cd "$(dirname "$0")"; pwd)
+# Telegram-cli binary version on https://valtman.name/telegram-cli
+TDCLI='https://valtman.name/files/telegram-cli-1222'
+# Luarocks release on https://github.com/keplerproject/luarocks
+LUAROCKS_VER='2.4.2'
+# tdcli directory
+TDCLI_DIR="$THIS_DIR/tg"
+
+
+## FUNCTIONS -------------------------------------------------------------------
+
+# Update existing tdcliBot
+update() {
+  git pull
+  install_rocks
+}
+
+# Print text in red
+prtred() {
+  printf '\e[1;31m%s\n\e[0;39;49m' "$@"
+}
+
+# Print text in green
+prtgrn() {
+  printf '\e[1;32m%s\n\e[0;39;49m' "$@"
+}
+
+# Print text in brown
+prtbrown() {
+  printf '\e[1;33m%s\n\e[0;39;49m' "$@"
+}
+
+# Download telegram-cli binary
+get_tdcli() {
+  prtgrn ">> Fetching $TDCLI"
+  wget "$TDCLI" -O "$TDCLI_DIR"/telegram-cli
+  sudo chmod +x "$TDCLI_DIR"/telegram-cli
+}
+
+# Install luarocks on THIS_DIR/.luarocks
+install_luarocks() {
+  prtgrn '>> Installing LuaRocks from sources'
+  git clone https://github.com/keplerproject/luarocks.git
+  cd luarocks || exit
+  git checkout tags/v"$LUAROCKS_VER"
+
+  PREFIX="$THIS_DIR/.luarocks"
+
+  ./configure --prefix="$PREFIX" --sysconfdir="$PREFIX"/luarocks --force-config --lua-version=5.2
+
+  RET=$?
+  if [ $RET -ne 0 ]; then
+    prtred 'Error. Exiting.'
+    exit $RET
+  fi
+
+  make build && make install
+  RET=$?
+  if [ $RET -ne 0 ]; then
+    prtred 'Error. Exiting.'
+    exit $RET
+  fi
+
+  cd ..
+  rm -rf luarocks
+}
+
+# Install rocks needed by tdcliBot or its plugins
+install_rocks() {
+  prtgrn '>> Installing rocks'
+  for i in luasec luasocket oauth redis-lua lua-cjson fakeredis xml feedparser serpent multipart-post; do
+    ./.luarocks/bin/luarocks install "$i"
+    RET=$?
+    if [ $RET -ne 0 ]; then
+      prtred 'Error. Exiting.'
+      exit $RET
+    fi
+  done
+}
+
+# install tdcliBot
+install() {
+  prtgrn 'Do you want me to install tdcliBot? (Yy/Nn): '
+  read -rp ' ' install
+
+  case "$install" in
+    Y|y)
+      prtgrn '>> Create tg folder'
+      mkdir -p tg
+
+      prtgrn '>> Updating packages'
+      sudo apt-get update --yes && sudo apt-get upgrade
+
+      prtgrn '>> Installing dependencies'
+      sudo apt-get --yes install wget libconfig9 libjansson4 lua5.2 liblua5.2 make unzip git redis-server g++
+
+      prtgrn '>> Fetching latest tdcliBot source code'
+      git pull
+      get_tdcli
+      install_luarocks
+      install_rocks
+      prtgrn '>> tdcliBot successfully installed!'
+      prtbrown ">> Change values in config file and run $0"
+    ;;
+    N|n)
+      prtbrown ' Exiting...'
+    ;;
+  esac
+}
+
+# Create telegram-cli config file
+tdcli_config() {
+  mkdir -p "$TDCLI_DIR"/.telegram-cli
+  printf '%s\n' "
+default_profile = \"tdcliBot\";
+
+tdcliBot = {
+  config_directory = \"$TDCLI_DIR/.telegram-cli\";
+  test = false;
+  msg_num = true;
+  log_level = 2;
+  wait_dialog_list = true;
+};
+" > "$TDCLI_DIR"/tdcli.cfg
+}
+
+# How to use this script
+usage() {
+  cat <<EOF
+
+  Usage: $0 [options]
+
+    Options:
+      install           Install ${0##*/}
+      start             Start ${0##*/}
+      update            Update ${0##*/}
+      create-locale     Create locales
+      update-locale     Update locales
+      help              Print this message
+
+EOF
+}
+
+make_template() {
+  xgettext  --from-code=UTF-8 \
+            --language=Lua \
+            --keyword=_msg \
+            --add-comments=TRANSLATORS \
+            --package-name=tdcliBot \
+            --package-version=0.1 \
+            --msgid-bugs-address=https://t.me/kuncen \
+            --force-po \
+            --files-from=/dev/stdin \
+            --output=/dev/stdout < <(find bot plugins -name "*.lua" | sort)
+}
+
+
+## MAIN ------------------------------------------------------------------------
+
+# Make sure this script run inside tdcliBot directory
+cd "$THIS_DIR" || exit
+
+case $1 in
+  create-locale)
+    if [ -z "$2" ]; then
+      echo "Using: $0 $1 <locale_name>" >&2
+    elif [ -a locales/$2.po ]; then
+      echo "Locale exists" >&2
+    else
+      make_template | msginit --locale=$2 --input=/dev/stdin --output-file=locales/$2.po
+    fi
+    exit
+  ;;
+  install)
+    install
+  ;;
+  start)
+    if [ ! -f "$TDCLI_DIR"/telegram-cli ]; then
+      prtred '  telegram-cli not found' "  Run $0 install"
+      exit 1
+    fi
+    tdcli_config
+    "$TDCLI_DIR"/telegram-cli -WRs ./bot/bot.lua -c "$TDCLI_DIR"/tdcli.cfg -p tdcliBot "$@"
+  ;;
+  update)
+    update
+  ;;
+  update-locale)
+    if [ -z "$2" ]; then
+      echo "Using: $0 $1 <locale_name>" >&2
+    else
+      make_template | msgmerge --update locales/$2.po /dev/stdin
+    fi
+    exit
+  ;;
+  *|help)
+    usage
+  ;;
+esac
