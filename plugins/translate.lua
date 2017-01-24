@@ -3,7 +3,6 @@ do
   local function yandexTranslate(chat_id, msg_id, language, text)
     local url = 'https://translate.yandex.net/api/v1.5/tr.json/translate?key='
                 .. _config.key.translate .. '&lang=' .. language .. '&text=' .. URL.escape(text)
-    print(url)
     local str, res = https.request(url)
     local jstr = json.decode(str)
 

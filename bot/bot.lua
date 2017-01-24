@@ -24,7 +24,7 @@ local append_ids_to_msg = false
 -- FUNCTIONS -------------------------------------------------------------------
 
 -- An alias to sendText.
-function sendText(chat_id, reply_to_message_id, text, disable_web_page_preview, parse_mode)
+function sendText(chat_id, reply_to_message_id, text, disable_web_page_preview, parse_mode, cb, cmd)
   local parse_mode = parse_mode or 'HTML'
   local disable_web_page_preview = disable_web_page_preview or 1
   local message = {}
@@ -35,13 +35,14 @@ function sendText(chat_id, reply_to_message_id, text, disable_web_page_preview, 
   while #text > 4096 do
     message[n] = text:sub(1, 4096)
     text = text:sub(4096, #text)
+    parse_mode = nil
     n = n + 1
   end
   message[n] = text
 
   for i = 1, #message do
     local reply = i > 1 and 0 or reply_to_message_id
-    td.sendText(chat_id, reply, 0, 1, nil, message[i], disable_web_page_preview, parse_mode)
+    td.sendText(chat_id, reply, 0, 1, nil, message[i], disable_web_page_preview, parse_mode, cb, cmd)
   end
 end
 
