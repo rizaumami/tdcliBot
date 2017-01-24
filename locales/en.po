@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tdcliBot 0.1\n"
 "Report-Msgid-Bugs-To: https://t.me/kuncen\n"
-"POT-Creation-Date: 2017-01-23 16:42+0700\n"
-"PO-Revision-Date: 2017-01-23 16:42+0700\n"
+"POT-Creation-Date: 2017-01-24 21:50+0700\n"
+"PO-Revision-Date: 2017-01-24 21:50+0700\n"
 "Last-Translator: Sahri Riza Umami <iza@sid>\n"
 "Language-Team: English\n"
 "Language: en\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: bot/bot.lua:291
+#: bot/bot.lua:292
 #, lua-format
 msgid "Plugin %s is disabled on this chat"
 msgstr "Plugin %s is disabled on this chat"
 
-#: bot/bot.lua:389
+#: bot/bot.lua:390
 msgid "<b>This plugin requires privileged user</b>"
 msgstr "<b>This plugin requires privileged user</b>"
 
@@ -147,17 +147,17 @@ msgstr ""
 "\n"
 "Get it from "
 
-#: bot/plugins/plugins.lua:155
+#: bot/plugins/plugins.lua:154
 #, lua-format
 msgid "Plugin %s does not exists"
 msgstr "Plugin %s does not exists"
 
-#: bot/plugins/plugins.lua:167
+#: bot/plugins/plugins.lua:166
 #, lua-format
 msgid "Plugin %s does not exists."
 msgstr "Plugin %s does not exists."
 
-#: bot/plugins/plugins.lua:173
+#: bot/plugins/plugins.lua:172
 #, lua-format
 msgid ""
 "\n"
@@ -166,61 +166,61 @@ msgstr ""
 "\n"
 "Plugin %s not enabled."
 
-#: bot/plugins/plugins.lua:204
+#: bot/plugins/plugins.lua:203
 msgid "There aren't any disabled plugins"
 msgstr "There aren't any disabled plugins"
 
-#: bot/plugins/plugins.lua:208
+#: bot/plugins/plugins.lua:207
 msgid "There aren't any disabled plugins for this chat"
 msgstr "There aren't any disabled plugins for this chat"
 
-#: bot/plugins/plugins.lua:212
+#: bot/plugins/plugins.lua:211
 msgid "This plugin is not disabled"
 msgstr "This plugin is not disabled"
 
-#: bot/plugins/plugins.lua:217
+#: bot/plugins/plugins.lua:216
 #, lua-format
 msgid "Plugin %s is enabled again"
 msgstr "Plugin %s is enabled again"
 
-#: bot/plugins/plugins.lua:225
+#: bot/plugins/plugins.lua:224
 msgid "Plugin doesn't exists"
 msgstr "Plugin doesn't exists"
 
-#: bot/plugins/plugins.lua:238
+#: bot/plugins/plugins.lua:237
 #, lua-format
 msgid "Plugin %s disabled on this chat"
 msgstr "Plugin %s disabled on this chat"
 
-#: bot/plugins/plugins.lua:248
+#: bot/plugins/plugins.lua:247
 msgid "Plugin to manage other plugins. Enable, disable or reload."
 msgstr "Plugin to manage other plugins. Enable, disable or reload."
 
-#: bot/plugins/plugins.lua:252
+#: bot/plugins/plugins.lua:251
 msgid "Set plugins API key."
 msgstr "Set plugins API key."
 
-#: bot/plugins/plugins.lua:255
+#: bot/plugins/plugins.lua:254
 msgid "Enable plugin."
 msgstr "Enable plugin."
 
-#: bot/plugins/plugins.lua:258
+#: bot/plugins/plugins.lua:257
 msgid "Disable plugin."
 msgstr "Disable plugin."
 
-#: bot/plugins/plugins.lua:261
+#: bot/plugins/plugins.lua:260
 msgid "Reloads all plugins."
 msgstr "Reloads all plugins."
 
-#: bot/plugins/plugins.lua:265
+#: bot/plugins/plugins.lua:264
 msgid "List all plugins."
 msgstr "List all plugins."
 
-#: bot/plugins/plugins.lua:268
+#: bot/plugins/plugins.lua:267
 msgid "Re-enable plugin only this chat."
 msgstr "Re-enable plugin only this chat."
 
-#: bot/plugins/plugins.lua:271
+#: bot/plugins/plugins.lua:270
 msgid "Disable plugin only this chat."
 msgstr "Disable plugin only this chat."
 
@@ -397,25 +397,25 @@ msgstr "This chat [<code>%s</code>] has been whitelisted."
 msgid "This chat [<code>"
 msgstr "This chat [<code>"
 
-#: bot/plugins/whitelist.lua:170
+#: bot/plugins/whitelist.lua:169
 msgid "Various sudo commands."
 msgstr "Various sudo commands."
 
-#: bot/plugins/whitelist.lua:175
+#: bot/plugins/whitelist.lua:174
 msgid "Enable or disable whitelist mode."
 msgstr "Enable or disable whitelist mode."
 
-#: bot/plugins/whitelist.lua:178
+#: bot/plugins/whitelist.lua:177
 msgid ""
 "If type in reply, allow user to use the bot when whitelist mode is enabled."
 msgstr ""
 "If type in reply, allow user to use the bot when whitelist mode is enabled."
 
-#: bot/plugins/whitelist.lua:181
+#: bot/plugins/whitelist.lua:180
 msgid "If type in reply, remove user from whitelist."
 msgstr "If type in reply, remove user from whitelist."
 
-#: bot/plugins/whitelist.lua:184
+#: bot/plugins/whitelist.lua:183
 msgid ""
 "Allow everybody on current chat to use the bot when whitelist mode is "
 "enabled."
@@ -423,58 +423,58 @@ msgstr ""
 "Allow everybody on current chat to use the bot when whitelist mode is "
 "enabled."
 
-#: bot/plugins/whitelist.lua:187
+#: bot/plugins/whitelist.lua:186
 msgid "Remove chat from whitelist."
 msgstr "Remove chat from whitelist."
 
-#: bot/plugins/whitelist.lua:191
+#: bot/plugins/whitelist.lua:190
 msgid "Allow user to use the bot when whitelist mode is enabled."
 msgstr "Allow user to use the bot when whitelist mode is enabled."
 
-#: bot/plugins/whitelist.lua:195
+#: bot/plugins/whitelist.lua:194
 msgid "Remove user from whitelist."
 msgstr "Remove user from whitelist."
 
-#: bot/plugins/whitelist.lua:199
+#: bot/plugins/whitelist.lua:198
 msgid ""
 "If type in reply, allow user to use the bot when whitelist mode is enabled"
 msgstr ""
 "If type in reply, allow user to use the bot when whitelist mode is enabled"
 
-#: bot/plugins/whitelist.lua:202
+#: bot/plugins/whitelist.lua:201
 msgid "If type in reply, remove user from whitelist"
 msgstr "If type in reply, remove user from whitelist"
 
-#: bot/plugins/whitelist.lua:205
+#: bot/plugins/whitelist.lua:204
 msgid "Allow user_id to use the bot when whitelist mode is enabled"
 msgstr "Allow user_id to use the bot when whitelist mode is enabled"
 
-#: bot/plugins/whitelist.lua:208
+#: bot/plugins/whitelist.lua:207
 msgid "Allow username to use the bot when whitelist mode is enabled"
 msgstr "Allow username to use the bot when whitelist mode is enabled"
 
-#: bot/plugins/whitelist.lua:211
+#: bot/plugins/whitelist.lua:210
 msgid "Allow user_id to use the bot in chat_id when whitelist mode is enabled"
 msgstr "Allow user_id to use the bot in chat_id when whitelist mode is enabled"
 
-#: bot/plugins/whitelist.lua:214
+#: bot/plugins/whitelist.lua:213
 msgid "Allow username to use the bot in chat_id when whitelist mode is enabled"
 msgstr ""
 "Allow username to use the bot in chat_id when whitelist mode is enabled"
 
-#: bot/plugins/whitelist.lua:217
+#: bot/plugins/whitelist.lua:216
 msgid "Remove user_id from whitelist"
 msgstr "Remove user_id from whitelist"
 
-#: bot/plugins/whitelist.lua:220
+#: bot/plugins/whitelist.lua:219
 msgid "Remove username from whitelist"
 msgstr "Remove username from whitelist"
 
-#: bot/plugins/whitelist.lua:223
+#: bot/plugins/whitelist.lua:222
 msgid "Remove user_id from chat_id whitelist"
 msgstr "Remove user_id from chat_id whitelist"
 
-#: bot/plugins/whitelist.lua:226
+#: bot/plugins/whitelist.lua:225
 msgid "Remove username from chat_id whitelist"
 msgstr "Remove username from chat_id whitelist"
 
@@ -495,10 +495,9 @@ msgstr ""
 "*Request must be in following format*:\n"
 "`!%s YYYY-MM-DD`"
 
-#: plugins/apod.lua:23 plugins/wikipedia.lua:29 plugins/wikipedia.lua:41
-#: plugins/wikipedia.lua:53
-msgid "<b>No results found</b>"
-msgstr "<b>No results found</b>"
+#: plugins/apod.lua:23 plugins/wikipedia.lua:41 plugins/wikipedia.lua:53
+msgid "No results found"
+msgstr "No results found"
 
 #: plugins/apod.lua:34
 msgid ""
@@ -544,6 +543,14 @@ msgstr "Returns the explanation of the APOD."
 #: plugins/apod.lua:60
 msgid "Returns the explanation of <code>YYYY-MM-DD</code> APOD."
 msgstr "Returns the explanation of <code>YYYY-MM-DD</code> APOD."
+
+#: plugins/base64.lua:39
+msgid "Converts the given string to base64."
+msgstr "Converts the given string to base64."
+
+#: plugins/base64.lua:44
+msgid "Converts the given <code>string</code> to base64."
+msgstr "Converts the given <code>string</code> to base64."
 
 #: plugins/bing.lua:18
 msgid "<b>No Bing results for</b>: "
@@ -659,10 +666,10 @@ msgid "Returns a cat fact."
 msgstr "Returns a cat fact."
 
 #: plugins/cats.lua:14 plugins/currency.lua:34 plugins/currency.lua:40
-#: plugins/fact.lua:7 plugins/imdb.lua:16 plugins/urbandictionary.lua:8
-#: plugins/wikipedia.lua:23 plugins/wikipedia.lua:47
-msgid "<b>Connection error</b>"
-msgstr "<b>Connection error</b>"
+#: plugins/dilbert.lua:14 plugins/exec.lua:57 plugins/fact.lua:7
+#: plugins/urbandictionary.lua:8 plugins/wikipedia.lua:47
+msgid "Connection error"
+msgstr "Connection error"
 
 #: plugins/cats.lua:27
 msgid "A random picture of a cat!"
@@ -712,6 +719,11 @@ msgstr "Returns todays Dilbert comic"
 msgid "Returns Dilbert comic published on <code>YYYY-MM-DD</code>"
 msgstr "Returns Dilbert comic published on <code>YYYY-MM-DD</code>"
 
+#: plugins/doge.lua:13
+#, lua-format
+msgid "Can't build a good URL with parameter %s"
+msgstr "Can't build a good URL with parameter %s"
+
 #: plugins/doge.lua:18
 msgid ""
 "Doge-ifies the given text.\n"
@@ -723,6 +735,40 @@ msgstr ""
 #: plugins/doge.lua:23
 msgid "Create a doge with the image and words."
 msgstr "Create a doge with the image and words."
+
+#: plugins/echo.lua:16 plugins/echo.lua:20
+msgid "Repeats a string of text."
+msgstr "Repeats a string of text."
+
+#: plugins/echo.lua:23
+msgid ""
+"HTML format a string of text.\n"
+"Not support link format."
+msgstr ""
+"HTML format a string of text.\n"
+"Not support link format."
+
+#: plugins/echo.lua:26
+msgid ""
+"Markdown format a string of text.\n"
+"Not support link format"
+msgstr ""
+"Markdown format a string of text.\n"
+"Not support link format"
+
+#: plugins/exec.lua:80
+msgid ""
+"Executes the specified code in the given language and returns the output."
+msgstr ""
+"Executes the specified code in the given language and returns the output."
+
+#: plugins/exec.lua:84
+msgid ""
+"Executes the specified <code>code</code> in the given <code>language</code> "
+"and returns the output."
+msgstr ""
+"Executes the specified <code>code</code> in the given <code>language</code> "
+"and returns the output."
 
 #: plugins/fact.lua:17
 msgid "Returns a random fact!"
@@ -838,11 +884,11 @@ msgstr ""
 "F    -> FFFFFF</code>\n"
 "The preceding hash symbol is optional."
 
-#: plugins/hexcolor.lua:72
+#: plugins/hexcolor.lua:73
 msgid "Returns an image of the given color code."
 msgstr "Returns an image of the given color code."
 
-#: plugins/id.lua:5
+#: plugins/id.lua:4
 #, lua-format
 msgid ""
 "<b>%s</b>\n"
@@ -851,7 +897,7 @@ msgstr ""
 "<b>%s</b>\n"
 "First name: %s"
 
-#: plugins/id.lua:8
+#: plugins/id.lua:7
 #, lua-format
 msgid ""
 "<b>%s %s</b>\n"
@@ -862,7 +908,7 @@ msgstr ""
 "First name: %s\n"
 "Last name: %s"
 
-#: plugins/id.lua:14
+#: plugins/id.lua:13
 #, lua-format
 msgid ""
 "Username: @%s\n"
@@ -871,7 +917,7 @@ msgstr ""
 "Username: @%s\n"
 "Link: https://t.me/%s"
 
-#: plugins/id.lua:62
+#: plugins/id.lua:60
 msgid ""
 "Sends the name, ID, and (if applicable) username for the given user, group, "
 "channel or bot."
@@ -879,21 +925,25 @@ msgstr ""
 "Sends the name, ID, and (if applicable) username for the given user, group, "
 "channel or bot."
 
-#: plugins/id.lua:66
+#: plugins/id.lua:64
 msgid "Returns the IDs of the replied users."
 msgstr "Returns the IDs of the replied users."
 
-#: plugins/id.lua:69
+#: plugins/id.lua:67
 msgid "Return the IDs for the given user_id."
 msgstr "Return the IDs for the given user_id."
 
-#: plugins/id.lua:72
+#: plugins/id.lua:70
 msgid "Return the IDs for the given username."
 msgstr "Return the IDs for the given username."
 
-#: plugins/id.lua:77
+#: plugins/id.lua:75
 msgid "Returns your IDs."
 msgstr "Returns your IDs."
+
+#: plugins/imdb.lua:16 plugins/wikipedia.lua:23
+msgid "<b>Connection error</b>"
+msgstr "<b>Connection error</b>"
 
 #: plugins/imdb.lua:27
 #, lua-format
@@ -995,6 +1045,14 @@ msgstr "Replace all matches for the given pattern."
 msgid "Replace <code>from</code> with <code>to</code>"
 msgstr "Replace <code>from</code> with <code>to</code>"
 
+#: plugins/qr.lua:13
+msgid "Converts the given string to a QR code."
+msgstr "Converts the given string to a QR code."
+
+#: plugins/qr.lua:17
+msgid "Converts the given <code>string</code> to a QR code."
+msgstr "Converts the given <code>string</code> to a QR code."
+
 #: plugins/quran.lua:209
 msgid ""
 "<b>Unknown language.</b>\n"
@@ -1025,7 +1083,7 @@ msgstr "Returns Qur'an verse by surah and ayah number."
 msgid "Returns Qur'an verse and its translation by surah and ayah number."
 msgstr "Returns Qur'an verse and its translation by surah and ayah number."
 
-#: plugins/quran.lua:268 plugins/translate.lua:74
+#: plugins/quran.lua:268 plugins/translate.lua:71
 msgid "Languages are two letter ISO 639-1 language code."
 msgstr "Languages are two letter ISO 639-1 language code."
 
@@ -1158,55 +1216,69 @@ msgstr "Returns the time, date, and timezone for the given location."
 msgid "Displays the local time in that <code>[area]</code><b>Example</b>"
 msgstr "Displays the local time in that <code>[area]</code><b>Example</b>"
 
-#: plugins/translate.lua:51
+#: plugins/translate.lua:48
 msgid "Translates input or the replied-to message into the bot's language."
 msgstr "Translates input or the replied-to message into the bot's language."
 
-#: plugins/translate.lua:55
+#: plugins/translate.lua:52
 msgid ""
 "Translate the <code>text</code> into the default language (or english).\n"
 "<b>Example</b>"
 msgstr ""
 "Translate the <code>text</code> into the default language (or english).\n"
+"<b>Example</b>"
+
+#: plugins/translate.lua:55
+msgid ""
+"Translate the <code>text</code> to <code>target_lang</code>.\n"
+"<b>Example</b>"
+msgstr ""
+"Translate the <code>text</code> to <code>target_lang</code>.\n"
 "<b>Example</b>"
 
 #: plugins/translate.lua:58
 msgid ""
-"Translate the <code>text</code> to <code>target_lang</code>.\n"
-"<b>Example</b>"
-msgstr ""
-"Translate the <code>text</code> to <code>target_lang</code>.\n"
-"<b>Example</b>"
-
-#: plugins/translate.lua:61
-msgid ""
 "Translate the <code>source</code> to <code>target</code>.\n"
 "<b>Example</b>"
 msgstr ""
 "Translate the <code>source</code> to <code>target</code>.\n"
 "<b>Example</b>"
 
-#: plugins/translate.lua:63
+#: plugins/translate.lua:60
 msgid "<b>Use</b> <code>!translate</code> <b>when reply!</b>"
 msgstr "<b>Use</b> <code>!translate</code> <b>when reply!</b>"
 
-#: plugins/translate.lua:66
+#: plugins/translate.lua:63
 msgid ""
 "By reply. Translate the replied text into the default language (or english)."
 msgstr ""
 "By reply. Translate the replied text into the default language (or english)."
 
-#: plugins/translate.lua:69
+#: plugins/translate.lua:66
 msgid "By reply. Translate the replied text into <code>target_lang</code>."
 msgstr "By reply. Translate the replied text into <code>target_lang</code>."
 
-#: plugins/translate.lua:72
+#: plugins/translate.lua:69
 msgid ""
 "By reply. Translate the replied text <code>source</code> to <code>target</"
 "code>."
 msgstr ""
 "By reply. Translate the replied text <code>source</code> to <code>target</"
 "code>."
+
+#: plugins/unicode.lua:30
+msgid ""
+"Returns the given text as a json-encoded table of Unicode (UTF-32) values."
+msgstr ""
+"Returns the given text as a json-encoded table of Unicode (UTF-32) values."
+
+#: plugins/unicode.lua:34
+msgid ""
+"Returns the given <code>text</code> as a json-encoded table of Unicode "
+"(UTF-32) values."
+msgstr ""
+"Returns the given <code>text</code> as a json-encoded table of Unicode "
+"(UTF-32) values."
 
 #: plugins/urbandictionary.lua:15
 #, lua-format
@@ -1234,6 +1306,23 @@ msgstr ""
 "By reply. Returns a <code>[query]</code> definition from urbandictionary."
 "com.\n"
 "The <code>[query]</code> is the replied message text."
+
+#: plugins/whois.lua:21
+#, lua-format
+msgid "<b>No match for</b> %s"
+msgstr "<b>No match for</b> %s"
+
+#: plugins/whois.lua:24
+msgid ""
+"<b>sh: 1: whois: not found</b>\n"
+"Please install <code>whois</code> package on your system."
+msgstr ""
+"<b>sh: 1: whois: not found</b>\n"
+"Please install <code>whois</code> package on your system."
+
+#: plugins/wikipedia.lua:29
+msgid "<b>No results found</b>"
+msgstr "<b>No results found</b>"
 
 #: plugins/wikipedia.lua:79
 msgid "Returns an article from Wikipedia."

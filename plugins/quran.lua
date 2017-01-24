@@ -205,7 +205,7 @@ do
       local res_lang, code_lang = http.request(gq_lang)
       local jlang = json.decode(res_lang)
 
-      if next(jlang.quran) == nil then
+      if util.emtpyTable(jlang.quran) then
         local nolang =  _msg('<b>Unknown language.</b>\nPlease consult '
                         .. 'http://api.globalquran.com/quran for full list of '
                         .. 'the supported languages.')

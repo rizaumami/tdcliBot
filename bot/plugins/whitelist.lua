@@ -50,7 +50,7 @@ do
     if user.last_name_ then
       name = name .. ' <b>' .. user.last_name_ .. '</b>'
     end
-    print(arg.chat_id, user.id_, arg.msg_id, name, arg.cmd)
+
     whitelisting(arg.chat_id, user.id_, arg.msg_id, name, arg.cmd)
   end
 
@@ -147,7 +147,6 @@ do
               cmd = 'unwhitelist'
           })
         elseif matches[2] == '@' then
-          print(chat_id, msg.id_, matches[3])
           td.searchPublicChat(matches[3], whitelistByUsername, {
               chat_id = chat_id,
               msg_id = msg.id_,

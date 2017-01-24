@@ -20,7 +20,7 @@ do
     end
 
     if jstr.error then
-      return sendText(msg.chat_id_, msg.id_, _msg('<b>No results found</b>'))
+      return sendText(msg.chat_id_, msg.id_, _msg('No results found'))
     end
 
     local img_url = jstr.hdurl or jstr.url

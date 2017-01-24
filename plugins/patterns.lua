@@ -29,7 +29,7 @@ do
   end
 
   local function run(msg, matches)
-    if (msg.reply_to_message_id_ ~= 0) then
+    if util.isReply(msg) then
       td.getMessage(msg.chat_id_, msg.reply_to_message_id_, patternsByReply, {
           chat_id = msg.chat_id_,
           text = msg.content_.text_

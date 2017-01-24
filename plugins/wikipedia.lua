@@ -38,19 +38,19 @@ do
       end
     end
     if not title then
-      return sendText(msg.chat_id_, msg.id_, _msg('<b>No results found</b>'))
+      return sendText(msg.chat_id_, msg.id_, _msg('No results found'))
     end
 
     local res_jstr, res_code = https.request(res_url .. URL.escape(title))
 
     if res_code ~= 200 then
-      return sendText(msg.chat_id_, msg.id_, _msg('<b>Connection error</b>'))
+      return sendText(msg.chat_id_, msg.id_, _msg('Connection error'))
     end
 
     local _, text = next(json.decode(res_jstr).query.pages)
 
     if not text then
-      return sendText(msg.chat_id_, msg.id_, _msg('<b>No results found</b>'))
+      return sendText(msg.chat_id_, msg.id_, _msg('No results found'))
     end
 
     text = text.extract

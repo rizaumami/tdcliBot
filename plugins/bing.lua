@@ -14,7 +14,7 @@ do
     local dat = json.decode(table.concat(resbody))
     local jresult = dat.d.results
 
-    if next(jresult) == nil then
+    if util.emtpyTable(result) then
       sendText(msg.chat_id_, msg.id_, _msg('<b>No Bing results for</b>: ') .. terms)
     else
       local reslist = {}
@@ -46,7 +46,7 @@ do
       burl = burl .. '&Adult=%%27Strict%%27'
     end
 
-    if (msg.reply_to_message_id_ ~= 0) then
+    if util.isReply(msg) then
       td.getMessage(chat_id, msg.reply_to_message_id_, bingByReply, {msg=msg, burl=burl, cmd='bing'})
     else
       bingo(msg, burl, matches[2])

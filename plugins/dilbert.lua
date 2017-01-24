@@ -11,7 +11,7 @@ do
     local str, res = http.request(url)
 
     if res ~= 200 then
-      return sendText(msg.chat_id_, msg.id_, '<b>Connection error</b>')
+      return sendText(msg.chat_id_, msg.id_, _msg('Connection error'))
     end
 
     local strip_title = str:match('<meta property="article:publish_date" content="(.-)"/>')

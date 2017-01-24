@@ -5,7 +5,7 @@ do
     local jstr, res = http.request(url)
 
     if res ~= 200 then
-      sendText(chat_id, msg_id, _msg('<b>Connection error</b>'))
+      sendText(chat_id, msg_id, _msg('Connection error'))
       return
     end
 
@@ -32,7 +32,7 @@ do
   local function run(msg, matches)
     local query = matches[1]
 
-    if (msg.reply_to_message_id_ ~= 0) then
+    if util.isReply(msg) then
       if query == 'urbandictionary' or query == 'ud' or query == 'urban' then
         td.getMessage(msg.chat_id_, msg.reply_to_message_id_, udByReply, msg.chat_id_)
       end

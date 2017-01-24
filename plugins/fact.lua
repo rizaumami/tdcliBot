@@ -4,7 +4,7 @@ do
     local jstr, res = http.request('http://mentalfloss.com/api/1.0/views/amazing_facts.json?limit=5000')
 
     if res ~= 200 then
-      return sendText(msg.chat_id_, msg.id_, _msg('<b>Connection error</b>'))
+      return sendText(msg.chat_id_, msg.id_, _msg('Connection error'))
     end
 
     local jdat = json.decode(jstr)

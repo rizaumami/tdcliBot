@@ -8,9 +8,9 @@ do
     local urlm = 'https?://[%%%w-_%.%?%.:/%+=&]+'
 
     if string.match(url, urlm) == url then
-      util.apiSendPhoto(url)
+      util.apiSendPhoto(msg, url)
     else
-      print("Can't build a good URL with parameter " .. matches[1])
+      sendText(msg.chat_id_, msg.id_, _msg("Can't build a good URL with parameter %s"):format(matches[1]))
     end
   end
 

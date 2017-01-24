@@ -1,6 +1,6 @@
 URL = require 'socket.url'
 http = require 'socket.http'
-local encode = require 'multipart-post'
+multipart = require 'multipart-post'
 
 http.TIMEOUT = 10
 
@@ -27,6 +27,17 @@ end
 
 U.isChatMsg = isChatMsg
 
+-- Is it a chat or a private message?
+local function extractGUId(msg)
+  local gid = msg.chat_id_
+  local uid = msg.sender_user_id_
+  local gid_str = tostring(gid)
+  local uid_str = tostring(uid)
+  return gid, uid, gid_str, uid_str
+end
+
+U.extractGUId = extractGUId
+
 -- http://www.lua.org/manual/5.2/manual.html#pdf-io.popen
 local function shellCommand(str)
   local cmd = io.popen(str)
@@ -36,6 +47,26 @@ local function shellCommand(str)
 end
 
 U.shellCommand = shellCommand
+
+local function isReply(msg)
+  local r = false
+  if msg.reply_to_message_id_ ~= 0 then  
+     r = true
+  end
+  return r
+end
+
+U.isReply = isReply
+
+local function emtpyTable(tbl)
+  local t = false
+  if next(tbl) == nil then
+     t = true
+  end
+  return t
+end
+
+U.emtpyTable = emtpyTable
 
 -- http://stackoverflow.com/a/11130774/3163199
 local function scanDir(directory)
@@ -133,8 +164,6 @@ local function getCoord(msg, input)
     return
   end
 
-  vardump(jdat)
-
   return {
     lat = jdat.results[1].geometry.location.lat,
     lon = jdat.results[1].geometry.location.lng,
@@ -155,7 +184,7 @@ U.trim = trim
 -- Make bot API request
 local function makeRequest(method, msg, request_body)
   local response = {}
-  local body, boundary = encode.encode(request_body)
+  local body, boundary = multipart.encode(request_body)
 
   local success, code, headers, status = https.request{
     url = 'https://api.telegram.org/bot' .. _config.api.token .. '/' .. method

@@ -31,13 +31,13 @@ do
       local str, res = https.request(url)
 
       if res ~= 200 then
-        return sendText(msg.chat_id_, msg.id_, _msg('<b>Connection error</b>'))
+        return sendText(msg.chat_id_, msg.id_, _msg('Connection error'))
       end
 
       str = str:match('<span class=bld>(.*) %u+</span>')
 
       if not str then
-        return sendText(msg.chat_id_, msg.id_, _msg('<b>Connection error</b>'))
+        return sendText(msg.chat_id_, msg.id_, _msg('Connection error'))
       end
 
       result = string.format('%.2f', str):gsub('%.', ',')

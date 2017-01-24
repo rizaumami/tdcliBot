@@ -11,7 +11,7 @@ do
     local str, res = https.request(url)
 
     if res ~= 200 then
-      return sendText(msg.chat_id_, msg.id_, _msg('<b>Connection error</b>'))
+      return sendText(msg.chat_id_, msg.id_, _msg('Connection error'))
     end
 
     local cat = str:match('<img src="(.-)">')

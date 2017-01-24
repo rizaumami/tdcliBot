@@ -13,7 +13,7 @@ do
     local dat = json.decode(table.concat(resbody))
     local jresult = dat.d.results
 
-    if next(jresult) ~= nil then
+    if not util.emtpyTable(jresult) then
       return jresult[1].Url
     end
   end
@@ -27,7 +27,7 @@ do
     local gsm = json.decode(res)
     local phdata = {}
 
-    if gsm == nil or gsm.status == 'error' or next(gsm.data) == nil then
+    if gsm == nil or gsm.status == 'error' or util.emtpyTable(gsm.data) then
       local nogsm = _msg('<b>No phones found!</b>\n'
                     .. 'Request must be in the following format:\n')
                     .. '<code>!gsm brand type</code>'

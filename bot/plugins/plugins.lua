@@ -72,10 +72,10 @@ do
         text = text .. status .. '  ' .. pname .. '\n'
       end
     end
-    print(text)
+
     local footer = _msg('\n<b>%s plugins installed</b>\n'
         .. '✅  %s enabled.\n❌  %s disabled.'):format(psum, pact, psum-pact)
-    print(text .. footer)
+
     sendText(msg.chat_id_, msg.id_, text .. footer)
   end
 
@@ -141,7 +141,6 @@ do
                                 .. 'Will not be enabled.\n\n'
                                 .. 'Get it from ' .. plug.need_api_key .. ' and set by using these command:\n'
                                 .. '<code>!setkey %s [api_key]</code>'):format(plugin, plugin)
-                print(missing)
                 return sendText(msg.chat_id_, msg.id_, missing)
               end
             end

@@ -14,8 +14,6 @@ do
   end
 
   function translateByReply(arg, data)
-    util.vardump(arg)
-    util.vardump(data)
     yandexTranslate(arg.chat_id, data.id_, arg.lang, data.content_.text_)
   end
 
@@ -24,7 +22,7 @@ do
     local msg_id = msg.id_
     local botslang = _config.language.default
 
-    if (msg.reply_to_message_id_ ~= 0) then
+    if util.isReply(msg) then
       local replied_id = msg.reply_to_message_id_
       local pattern = {}
 
@@ -32,7 +30,7 @@ do
       if matches[1] == '!tl' or matches[1] == '!translate' then
         pattern = {chat_id = chat_id, lang = botslang}
       else
-        pattern = {chat_id = chat_id, lang = matches[1]}
+        pattern = {chat_id = chat_id, lang = matches[1]:gsub(',', '-')}
       end
 
       td.getMessage(chat_id, replied_id, translateByReply, pattern)
@@ -40,7 +38,7 @@ do
       -- translate id-en uji - translate en uji
       if matches[1] == 'tl' or matches[1] == 'translate' then
         yandexTranslate(chat_id, msg_id, botslang, matches[2])
-      elseif matches[1]:match('%a%a') or matches[1]:match('%a%a-%a%a') then
+      elseif matches[1]:match('%a%a') or matches[1]:match('%a%a,%a%a') then
         yandexTranslate(chat_id, msg_id, matches[1]:gsub(',', '-'), matches[2])
       end
     end
@@ -80,6 +78,8 @@ do
       _config.cmd .. 'translate (%a%a)$',
       _config.cmd .. 'tl (%a%a) (.+)$',
       _config.cmd .. 'translate (%a%a) (.+)$',
+      _config.cmd .. 'tl (%a%a,%a%a)$',
+      _config.cmd .. 'translate (%a%a,%a%a)$',
       _config.cmd .. 'tl (%a%a,%a%a) (.+)$',
       _config.cmd .. 'translate (%a%a,%a%a) (.+)$',
     },

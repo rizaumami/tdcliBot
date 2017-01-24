@@ -69,6 +69,7 @@ do
     usage = {
       user = {
         '<code>!color [ffffff]</code>',
+        '<code>!hexcolor [ff00ff]</code>',
         _msg('Returns an image of the given color code.'),
       },
     },

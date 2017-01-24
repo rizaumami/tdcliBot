@@ -1,7 +1,6 @@
 do
 
   local function getUserIds(chat_id, msg_id, user)
-    util.vardump(user)
     local name =  _msg("<b>%s</b>\nFirst name: %s"):format(user.first_name_, user.first_name_)
 
     if user.last_name_ then
@@ -35,14 +34,13 @@ do
 --------------------------------------------------------------------------------
 
   local function run(msg, matches)
-    util.vardump(matches)
     local chat_id = msg.chat_id_
     local user_id = msg.sender_user_id_
     local input = msg.content_.text_
     local extra = {chat_id = chat_id, msg_id = msg.id_}
 
     if isMod(user_id, chat_id) then
-      if msg.reply_to_message_id_ ~= 0 and matches[1] == 'id' then
+      if util.isReply(msg) and matches[1] == 'id' then
         td.getMessage(chat_id, msg.reply_to_message_id_, idByReply, {chat_id = msg.chat_id_})
       elseif matches[1] == '@' then
         td.searchPublicChat(matches[2], searchPublicChat_cb, extra)
