@@ -14,7 +14,7 @@ do
 
   local function run(msg, matches)
     local url = matches[1]:gsub('^.-//', '')
-    local result = os.execute('whois ' .. url .. ' > ' .. whofile)
+    local result = os.execute('whois "' .. url .. '" > ' .. whofile)
 
     if not result then
       if whoinfo():match('no match') then

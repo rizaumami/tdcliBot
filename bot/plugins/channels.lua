@@ -75,7 +75,7 @@ do
       _config.cmd .. 'channel? (disable)'
     },
     run = run,
-    privileged = 5,
+    privilege = 5,
     pre_process = pre_process
   }
 

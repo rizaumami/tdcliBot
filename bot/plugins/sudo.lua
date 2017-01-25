@@ -145,21 +145,6 @@ do
       end
     end
 
-    if matches[1] == 'setlang' then
-      if not matches[2] then return end
-
-      local lang = matches[2]:lower()
-
-      if lang:match('%a%a') then
-        _config.language = lang
-        saveConfig()
-        local text = _msg('Bot language is set to %s'):format(matches[2])
-        sendText(chat_id, msg.id_, text)
-      else
-        sendText(chat_id, msg.id_, _msg('Language must be in form of two letter ISO 639-1 language code.'))
-      end
-    end
-
     if matches[1] == 'version' then
       local f = assert(io.popen('/usr/bin/git describe --tags', 'r'))
       local version = assert(f:read('*a'))
@@ -193,10 +178,6 @@ do
         '',
         '<code>!settoken [token]</code>',
         _msg('Set token or bot API key.'),
-        '',
-        '<code>!setlang [language]</code>',
-        'Set bots language.',
-        _msg('Language ID is in a form of ISO 639-1 language code.'),
         '',
         '<code>!dump</code>',
         _msg('Returns the raw json of a message.'),
@@ -236,7 +217,6 @@ do
     patterns = {
       _config.cmd .. '(bin) (.*)$',
       _config.cmd .. '(run) (.*)$',
-      _config.cmd .. '(setlang) (%a%a)$',
       _config.cmd .. '(dump)$',
       _config.cmd .. '(dumptext)$',
       _config.cmd .. '(getconfig)$',
