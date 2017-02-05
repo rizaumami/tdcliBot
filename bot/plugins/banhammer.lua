@@ -80,7 +80,7 @@ do
       banned[i] = i .. '. [<code>' .. id .. '</code>] ' .. name
       i = i + 1
     end
-    if not util.emtpyTable(banned) then
+    if not util.emptyTable(banned) then
       local banlist = table.concat(banned, '\n')
       return title .. banlist
     else
@@ -99,7 +99,7 @@ do
       gbanned[i] = i .. '. [<code>' .. id .. '</code>] ' .. name
       i = i + 1
     end
-    if not util.emtpyTable(gbanned) then
+    if not util.emptyTable(gbanned) then
       local gbanlist = table.concat(gbanned, '\n')
       return title .. gbanlist
     else

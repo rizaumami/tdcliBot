@@ -147,7 +147,10 @@ local function loadConfig()
       plugins = {
         path = {['sys'] = 'bot/plugins/', ['usr'] = 'plugins/'},
         sys = {
+          'administration',
+          'banhammer',
           'channels',
+          'groupmanager',
           'help',
           'plugins',
           'setlang',
@@ -157,6 +160,8 @@ local function loadConfig()
         usr = {
           '9gag',
           'apod',
+          'base64',
+          'binary',
           'bing',
           'boobs',
           'btc',
@@ -170,6 +175,7 @@ local function loadConfig()
           'exec',
           'fact',
           'forecast',
+          'github',
           'gsmarena',
           'hexcolor',
           'id',

@@ -91,7 +91,7 @@ do
       mods[i] = '<b>' .. i .. '</b>. [<code>' .. id .. '</code>] ' .. name
       i = i + 1
     end
-    if not util.emtpyTable(mods) then
+    if not util.emptyTable(mods) then
       local modlist = table.concat(mods, '\n')
       return title .. modlist
     else
@@ -263,7 +263,7 @@ do
         util.kickUser(chat_id, user_id)
       -- Anti chats/channels promotion
       elseif db:hget(key, 'link') == 'true' then
-        if not util.emtpyTable(msg.content_.entities_) and msg.content_.entities_[0].ID == 'MessageEntityUrl' then
+        if not util.emptyTable(msg.content_.entities_) and msg.content_.entities_[0].ID == 'MessageEntityUrl' then
           local e = msg.content_.entities_[0]
           local link = string.sub(text, e.offset_ + 1, e.length_ + e.offset_)
           local sl = link:gsub('t.me', 'telegram.me')
@@ -376,7 +376,7 @@ do
         rule[i] = '<b>' .. i .. '</b>. ' .. rules[i]
       end
 
-      if not util.emtpyTable(rule) then
+      if not util.emptyTable(rule) then
         local rules = table.concat(rule, '\n')
         text = _msg('<b>%s</b> rules:\n%s'):format(title, rules)
       end

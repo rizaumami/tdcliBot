@@ -44,23 +44,26 @@ do
   return {
     description = 'Whois lookup.',
     usage = {
-      '<code>!whois [url]</code>',
-      'Returns whois lookup for <code>[url]</code>',
-      '',
-      '<code>!whois [url] txt</code>',
-      'Returns whois lookup for <code>[url]</code> and then send as text file.',
-      '',
-      '<code>!whois [url] pm</code>',
-      'Returns whois lookup for <code>[url]</code> into requester PM.',
-      '',
-      '<code>!whois [url] pmtxt</code>',
-      'Returns whois lookup file for <code>[url]</code> and then send into requester PM.',
+      sudo = {
+        '<code>!whois [url]</code>',
+        'Returns whois lookup for <code>[url]</code>',
+        '',
+        '<code>!whois [url] txt</code>',
+        'Returns whois lookup for <code>[url]</code> and then send as text file.',
+        '',
+        '<code>!whois [url] pm</code>',
+        'Returns whois lookup for <code>[url]</code> into requester PM.',
+        '',
+        '<code>!whois [url] pmtxt</code>',
+        'Returns whois lookup file for <code>[url]</code> and then send into requester PM.',
+        '',
+      },
     },
     patterns = {
-      '^!whois (%g+)$',
-      '^!whois (%g+) (txt)$',
-      '^!whois (%g+) (pm)$',
-      '^!whois (%g+) (pmtxt)$'
+      _config.cmd .. 'whois (%g+)$',
+      _config.cmd .. 'whois (%g+) (txt)$',
+      _config.cmd .. 'whois (%g+) (pm)$',
+      _config.cmd .. 'whois (%g+) (pmtxt)$'
     },
     run = run
   }

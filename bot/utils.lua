@@ -138,7 +138,7 @@ end
 
 U.isReply = isReply
 
-local function emtpyTable(tbl)
+local function emptyTable(tbl)
   local t = false
   if next(tbl) == nil then
      t = true
@@ -146,7 +146,7 @@ local function emtpyTable(tbl)
   return t
 end
 
-U.emtpyTable = emtpyTable
+U.emptyTable = emptyTable
 
 -- http://stackoverflow.com/a/11130774/3163199
 local function scanDir(directory)

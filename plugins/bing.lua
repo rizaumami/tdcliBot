@@ -14,7 +14,7 @@ do
     local dat = json.decode(table.concat(resbody))
     local jresult = dat.d.results
 
-    if util.emtpyTable(result) then
+    if util.emptyTable(jresult) then
       sendText(msg.chat_id_, msg.id_, _msg('<b>No Bing results for</b>: ') .. terms)
     else
       local reslist = {}
@@ -32,10 +32,6 @@ do
     end
   end
 
-  function bingByReply(arg, data)
-    bingo(arg.msg, arg.burl, data.content_.text_)
-  end
-
   local function run(msg, matches)
     local burl = "https://api.datamarket.azure.com/Data.ashx/Bing/Search/Web?Query=%s&$format=json"
     local chat_id = msg.chat_id_
@@ -47,7 +43,9 @@ do
     end
 
     if util.isReply(msg) then
-      td.getMessage(chat_id, msg.reply_to_message_id_, bingByReply, {msg=msg, burl=burl, cmd='bing'})
+      td.getMessage(chat_id, msg.reply_to_message_id_, function(a, d)
+        bingo(a.msg, a.burl, d.content_.text_)
+      end, {msg=msg, burl=burl, cmd='bing'})
     else
       bingo(msg, burl, matches[2])
     end

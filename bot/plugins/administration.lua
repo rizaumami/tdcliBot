@@ -261,7 +261,7 @@ do
     if matches[1] == 'groups' then
       local managed = _config.chats.managed
 
-      if util.emtpyTable(managed) then
+      if util.emptyTable(managed) then
         sendText(chat_id, msg.id_, _msg('There are no groups.'))
       else
         local groups = {}
