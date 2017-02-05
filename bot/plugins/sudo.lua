@@ -4,11 +4,7 @@ do
     local dump = serpent.block(value, {comment=false})
     if file then
       local textfile = '/tmp/msgdump_' .. os.date('%y%m%d-%H%M%S', value.date_) .. '.json'
-      local info =  _msg('From: %s\nID: %s\nDate: %s'):format(value.chat_id_,
-                                                              value.id_,
-                                                              os.date('%c', value.date_)
-      )
-
+      local info =  _msg('From: %s\nID: %s\nDate: %s'):format(value.chat_id_, value.id_, os.date('%c', value.date_))
       saveConfig(value, textfile, 'noname')
       td.sendDocument(_config.bot.id, 0, 0, 1, nil, textfile, info)
       os.remove(textfile)
@@ -25,36 +21,31 @@ do
   local function visudo(arg, data)
     local cmd = arg.cmd
     local chat_id = arg.chat_id
-    local user_id = tostring(data.id_)
-    local name = data.first_name_
+    local user_id = data.id_
+    local name = data.username_ and '@' .. data.username_ or data.first_name_
     local msg_id = arg.msg_id
+    local text
 
-    if data.username_ then
-      name = '@' .. data.username_
-    end
     if cmd == 'sudo' then
       if _config.sudoers[user_id] then
-        local text = _msg('%s is already a sudoer.'):format(name)
-        sendText(chat_id, msg_id, text)
+        text = _msg('%s is already a sudoer.'):format(name)
       else
         _config.sudoers[user_id] = name
         saveConfig()
-        local text = _msg('%s is now a sudoer.'):format(name)
-        sendText(chat_id, msg_id, text)
+        text = _msg('%s is now a sudoer.'):format(name)
       end
     elseif cmd == 'desudo' then
       if not _config.sudoers[user_id] then
-        local text = _msg('%s is not a sudoer.'):format(name)
-        sendText(chat_id, msg_id, text)
+        text = _msg('%s is not a sudoer.'):format(name)
       elseif user_id == _config.bot.id then
-        sendText(chat_id, msg_id, _msg("You can't demote yourself."))
+        text = _msg("You can't demote yourself.")
       else
         _config.sudoers[user_id] = nil
         saveConfig()
-        local text = _msg('%s is no longer a sudoer.'):format(name)
-        sendText(chat_id, msg_id, text)
+        text = _msg('%s is no longer a sudoer.'):format(name)
       end
     end
+    sendText(chat_id, msg_id, text)
   end
 
   local function sudoByReply(arg, data)
@@ -67,9 +58,20 @@ do
     end
   end
 
-  local function sudoByUsername(arg, data)
-    td.getUser(data.id_, visudo, arg)
+--------------------------------------------------------------------------------
+
+  local function pre_process(msg)
+    local chat_id = msg.chat_id_
+
+    if msg.content_.ID == "MessageChatAddMembers" and _config.autoleave then
+      print 'Autoleave is enabled and this is not our groups, leaving...'
+      td.changeChatMemberStatus(chat_id, _config.bot.id, 'Left')
+    end
+    -- End of pre-processing
+    return msg
   end
+
+--------------------------------------------------------------------------------
 
   function run(msg, matches)
     local chat_id = msg.chat_id_
@@ -79,12 +81,14 @@ do
     if matches[1] == 'sudo' or matches[1] == 'desudo' then
       local extra = {cmd = matches[1], chat_id = msg.chat_id_, msg_id = msg.id_}
 
-      if (msg.reply_to_message_id_ ~= 0) then
+      if util.isReply(msg) then
         td.getMessage(chat_id, msg.reply_to_message_id_, sudoByReply, extra)
       end
       if matches[2] then
         if matches[2]:match('^@%g+$') then
-          td.searchPublicChat(matches[2], sudoByUsername, extra)
+          td.searchPublicChat(matches[2], function(a, d)
+            td.getUser(d.id_, visudo, a)
+          end, extra)
         elseif matches[2]:match('^%d+$') then
           td.getUser(matches[2], visudo, extra)
         end
@@ -93,14 +97,16 @@ do
 
     -- list sudoers
     if matches[1] == 'sudolist' then
-      local sudoers = _msg('<b>List of sudoers</b>:\n')
+      local sudoers = {}
+      local title = _msg('<b>Sudo users</b>:\n')
+
+      i = 1
       for k,v in pairs(_config.sudoers) do
-        if tostring(v):match('^%d+$') then
-          v = '<code>' .. v .. '</code>'
-        end
-        sudoers = sudoers .. '• ' .. v .. '\n'
+        sudoers[i] = '• [<code>' .. k .. '</code>] ' .. v
+        i = i + 1
       end
-      sendText(chat_id, msg.id_, sudoers)
+      local sudolist = table.concat(sudoers, '\n')
+      sendText(chat_id, msg.id_, sudolist)
     end
 
     if matches[1] == 'bin' or matches[1] == 'run' then
@@ -154,15 +160,38 @@ do
     end
 
     if matches[1] == 'dump' or matches[1] == 'dumptext' then
-      if msg.reply_to_message_id_ ~= 0 then
+      if util.isReply(msg) then
         td.getMessage(chat_id, msg.reply_to_message_id_, sudoByReply, {cmd = matches[1], chat_id = chat_id})
       else
         msgDump(chat_id, msg.id_, msg, true)
       end
     end
 
-    if matches[1] == 'getconfig' then
+    if matches[1] == 'getconfig' and chat_id == _config.bot.id then
       td.sendDocument(_config.bot.id, 0, 0, 1, nil, config_file, os.date('%c', msg.date_))
+    end
+
+    -- Automatically leaving from unadministrated group
+    if matches[1] == 'autoleave' then
+      local text
+      if matches[2] == 'enable' then
+        if _config.autoleave then
+          text = _msg('Autoleave is already enabled.')
+        else
+          _config.autoleave = true
+          text = _msg('Autoleave has been enabled.')
+        end
+      end
+      if matches[2] == 'disable' then
+        if not _config.autoleave then
+          text = _msg('Autoleave is already disabled.')
+        else
+          _config.autoleave = false
+          text = _msg('Autoleave has been disabled.')
+        end
+      end
+      saveConfig()
+      sendText(chat_id, msg.id_, text)
     end
   end
 
@@ -172,6 +201,10 @@ do
     description = _msg('Various bot control commands.'),
     usage = {
       sudo = {
+        '<code>!autoleave enable</code>',
+        '<code>!autoleave disable</code>',
+        _msg('Leave from unmanaged groups.'),
+        '',
         '<code>!bin [command]</code>',
         '<code>!run [command]</code>',
         _msg('Run a system shell <code>command</code>'),
@@ -215,6 +248,7 @@ do
       },
     },
     patterns = {
+      _config.cmd .. '(autoleave) (%w+)$',
       _config.cmd .. '(bin) (.*)$',
       _config.cmd .. '(run) (.*)$',
       _config.cmd .. '(dump)$',

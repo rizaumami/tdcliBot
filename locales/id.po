@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tdcliBot 0.1\n"
 "Report-Msgid-Bugs-To: https://t.me/kuncen\n"
-"POT-Creation-Date: 2017-01-24 21:50+0700\n"
-"PO-Revision-Date: 2017-01-24 21:50+0700\n"
+"POT-Creation-Date: 2017-02-05 15:34+0700\n"
+"PO-Revision-Date: 2017-02-05 15:34+0700\n"
 "Last-Translator: Sahri Riza Umami <iza@sid>\n"
 "Language-Team: Indonesian\n"
 "Language: id\n"
@@ -16,13 +16,339 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: bot/bot.lua:292
+#: bot/bot.lua:296
 #, lua-format
 msgid "Plugin %s is disabled on this chat"
 msgstr ""
 
-#: bot/bot.lua:390
-msgid "<b>This plugin requires privileged user</b>"
+#: bot/bot.lua:355
+msgid "This plugin requires privileged user."
+msgstr ""
+
+#: bot/plugins/administration.lua:29
+#, lua-format
+msgid "%s is already an administrator."
+msgstr ""
+
+#: bot/plugins/administration.lua:33
+#, lua-format
+msgid "%s is now an administrator."
+msgstr ""
+
+#: bot/plugins/administration.lua:46
+#, lua-format
+msgid "%s is no longer an administrator."
+msgstr ""
+
+#: bot/plugins/administration.lua:48
+#, lua-format
+msgid "%s is not an administrator."
+msgstr ""
+
+#: bot/plugins/administration.lua:58
+#, lua-format
+msgid "%s is already the owner of <b>%s</b>"
+msgstr ""
+
+#: bot/plugins/administration.lua:63
+#, lua-format
+msgid "%s is the owner of <b>%s</b>"
+msgstr ""
+
+#: bot/plugins/administration.lua:77
+msgid "There are currently no owner for this group."
+msgstr ""
+
+#: bot/plugins/administration.lua:86
+#, lua-format
+msgid ""
+"%s is no longer the owner of <b>%s</b>.\n"
+"This group is temporarily owned by me."
+msgstr ""
+
+#: bot/plugins/administration.lua:158 bot/plugins/administration.lua:284
+msgid "I am already administrating this group."
+msgstr ""
+
+#: bot/plugins/administration.lua:218
+msgid "I am now administrating this group."
+msgstr ""
+
+#: bot/plugins/administration.lua:237
+#, lua-format
+msgid "%s [<code>%s</code>] is the owner of <b>%s</b>"
+msgstr ""
+
+#: bot/plugins/administration.lua:255
+msgid "There are currently no administrators."
+msgstr ""
+
+#: bot/plugins/administration.lua:265
+msgid "There are no groups."
+msgstr ""
+
+#: bot/plugins/administration.lua:299
+msgid "I am no longer administrating this group."
+msgstr ""
+
+#: bot/plugins/administration.lua:301
+msgid "I do not administrate this group."
+msgstr ""
+
+#: bot/plugins/administration.lua:347 bot/plugins/administration.lua:361
+#: bot/plugins/administration.lua:371
+msgid "Please specify the new group title."
+msgstr ""
+
+#: bot/plugins/administration.lua:349 bot/plugins/administration.lua:363
+msgid "Group's title is limited to 255 characters."
+msgstr ""
+
+#: bot/plugins/administration.lua:365
+msgid "Please specify the new group description."
+msgstr ""
+
+#: bot/plugins/administration.lua:367
+msgid "Group's description is limited to 255 characters."
+msgstr ""
+
+#: bot/plugins/administration.lua:383 bot/plugins/groupmanager.lua:829
+#: plugins/id.lua:56
+msgid ""
+"Sends the name, ID, and (if applicable) username for the given user, group, "
+"channel or bot."
+msgstr ""
+
+#: bot/plugins/administration.lua:387
+msgid "Creates new group chat."
+msgstr ""
+
+#: bot/plugins/administration.lua:390
+msgid "Creates new supergroup chat."
+msgstr ""
+
+#: bot/plugins/administration.lua:393
+msgid "Adds a group to the administration system."
+msgstr ""
+
+#: bot/plugins/administration.lua:396
+msgid "Removes a group from the administration system."
+msgstr ""
+
+#: bot/plugins/administration.lua:399
+msgid "Returns a list of all administrated groups."
+msgstr ""
+
+#: bot/plugins/administration.lua:402
+msgid "Promotes a user to an administrator by reply."
+msgstr ""
+
+#: bot/plugins/administration.lua:405
+msgid "Promotes a user to an administrator by username."
+msgstr ""
+
+#: bot/plugins/administration.lua:408
+msgid "Promotes a user to an administrator by user_id."
+msgstr ""
+
+#: bot/plugins/administration.lua:411
+msgid "Returns a list of administrators."
+msgstr ""
+
+#: bot/plugins/administration.lua:414
+msgid "Demotes an administrator to a user by reply."
+msgstr ""
+
+#: bot/plugins/administration.lua:417
+msgid "Demotes an administrator to a user by username."
+msgstr ""
+
+#: bot/plugins/administration.lua:420
+msgid "Demotes an administrator to a user by user_id."
+msgstr ""
+
+#: bot/plugins/administration.lua:423
+msgid "Promotes a user to the owner by reply."
+msgstr ""
+
+#: bot/plugins/administration.lua:426
+msgid "Promotes a user to the owner by username."
+msgstr ""
+
+#: bot/plugins/administration.lua:429
+msgid "Promotes a user to the owner by user_id."
+msgstr ""
+
+#: bot/plugins/administration.lua:432
+msgid ""
+"Demotes the group's owner to a user and temporarily replaced by the bot."
+msgstr ""
+
+#: bot/plugins/administration.lua:435
+msgid "Sends message to all of the managed groups."
+msgstr ""
+
+#: bot/plugins/administration.lua:440
+msgid "Returns the owner of current group."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:12
+#, lua-format
+msgid "I won't ban %s"
+msgstr ""
+
+#: bot/plugins/banhammer.lua:14
+#, lua-format
+msgid "%s is already banned."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:17
+#, lua-format
+msgid "%s has been banned."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:32
+#, lua-format
+msgid "%s has been unbanned."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:34
+#, lua-format
+msgid "%s is not banned."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:46
+#, lua-format
+msgid "I won't globally ban %s"
+msgstr ""
+
+#: bot/plugins/banhammer.lua:48
+#, lua-format
+msgid "%s is already globally banned."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:50
+#, lua-format
+msgid "%s has been globally banned."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:63
+#, lua-format
+msgid "%s has been globally unbanned."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:66
+#, lua-format
+msgid "%s is not globally banned."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:75
+#, lua-format
+msgid "<b>Ban list for %s</b>:\n"
+msgstr ""
+
+#: bot/plugins/banhammer.lua:87
+msgid "There are no banned users for this group."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:94
+msgid "<b>Global ban list</b>\n"
+msgstr ""
+
+#: bot/plugins/banhammer.lua:106
+msgid "There are no globally banned users."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:200
+msgid "Bans record for this group has been cleared."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:213
+msgid "Global bans has been cleared."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:247
+msgid "Kicks or bans a user from the groups."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:251
+msgid "Removes a user from the group by reply."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:254
+msgid "Removes a user from the group by username."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:257
+msgid "Removes a user from the group by user_id."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:260
+msgid "Bans a user from the group by reply."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:263
+msgid "Bans a user from the group by username."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:266
+msgid "Bans a user from the group by user_id."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:269
+msgid "Unbans a user from the group by reply."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:272
+msgid "Unbans a user from the group by username."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:275
+msgid "Unbans a user from the group by user_id."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:278
+msgid "Bans a user from all groups by reply."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:281
+msgid "Bans a user from all groups by username."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:284
+msgid "Bans a user from all groups by user_id."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:287
+msgid "Removes a global ban by reply."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:290
+msgid "Removes a global ban by username."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:293
+msgid "Removes a global ban by user_id."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:296
+msgid "Returns list of globally banned users."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:299
+msgid "Clear group's bans record."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:302
+msgid "Returns list of banned users."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:305
+msgid "Clear bot's global bans record."
+msgstr ""
+
+#: bot/plugins/banhammer.lua:310
+msgid "Removes a user from the group"
 msgstr ""
 
 #: bot/plugins/channels.lua:13
@@ -49,6 +375,522 @@ msgstr ""
 msgid "Disable bot on current chat"
 msgstr ""
 
+#: bot/plugins/groupmanager.lua:5
+msgid "This group is unlisted."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:6
+msgid "This group is no longer listed in <code>!groups</code>"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:7
+msgid "This group is now listed in <code>!groups</code>."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:10
+msgid "Does not allow Arabic script or RTL characters."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:11
+msgid ""
+"Users will now be removed automatically for posting Arabic script and/or RTL "
+"characters."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:12
+msgid ""
+"Users will no longer be removed automatically for posting Arabic script and/"
+"or RTL characters."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:15
+msgid ""
+"Does not allow users whose names contain Arabic script or RTL characters."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:16
+msgid ""
+"Users whose names contain Arabic script and/or RTL characters will now be "
+"removed automatically."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:17
+msgid ""
+"Users whose names contain Arabic script and/or RTL characters will no longer "
+"be removed automatically."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:20
+msgid "Does not allow users to add bots."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:21
+msgid "Non-moderators will no longer be able to add bots."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:22
+msgid "Non-moderators will now be able to add bots."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:25
+msgid "Automatically removes users who flood."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:26
+msgid ""
+"Users will now be removed automatically for excessive messages. Use !"
+"antiflood to configure limits."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:27
+msgid "Users will no longer be removed automatically for excessive messages."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:30
+msgid "Does not acknowledge global bans."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:31
+msgid "This group will no longer remove users for being globally banned."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:32
+msgid "This group will now remove users for being globally banned."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:35
+msgid "Does not provide a public kick log."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:36
+msgid "This group will no longer publicly log kicks and bans."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:37
+msgid "This group will now publicly log kicks and bans."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:40
+msgid "Does not allow posting join links to outside groups."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:41
+msgid "Users will now be removed automatically for posting outside join links."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:42
+msgid "Users will no longer be removed for posting outside join links."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:45 bot/plugins/groupmanager.lua:926
+msgid "Allows moderators to set the group photo, title, motd, and link."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:46
+msgid ""
+"Moderators will now be able to set the group photo, title, motd, and link."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:47
+msgid ""
+"Moderators will no longer be able to set the group photo, title, motd, and "
+"link."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:48
+msgid "Modrights must be unlocked for moderators to use this command."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:59
+msgid "is already a moderator."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:62
+msgid "is now a moderator."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:75
+msgid "is no longer a moderator."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:77
+msgid "is not a moderator."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:86
+#, lua-format
+msgid "<b>Moderators for %s</b>:\n"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:98
+msgid "There are currently no moderators for this group."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:208
+msgid ""
+"You're kicked because of Arabic script and/or RTL characters on your name."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:261
+#, lua-format
+msgid "You're kicked for %s Arabic script and/or RTL characters."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:273
+msgid "You're kicked for posting an outside join link."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:286
+#, lua-format
+msgid "You're kicked for using a filtered term: %s"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:381
+#, lua-format
+msgid ""
+"<b>%s</b> rules:\n"
+"%s"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:396
+#, lua-format
+msgid "No MOTD has been set for %s"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:398
+#, lua-format
+msgid ""
+"<b>MOTD for %s</b>\n"
+"%s"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:407
+#, lua-format
+msgid "No link has been set for %s"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:431
+msgid ""
+"Set group's photo by:\n"
+"• Upload a compressed image and give <code>!setphoto</code> as caption\n"
+"• Reply a picture by <code>!setphoto</code>"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:448
+msgid "Successfully set the new message of the day."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:453
+msgid "The MOTD has been cleared."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:460
+msgid "The link has been regenerated."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:471
+msgid "Successfully set the new description."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:480
+msgid "The groups description has been cleared."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:486
+msgid "Please specify the new rules."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:490
+#, lua-format
+msgid "<b>Rules for %s</b>:\n"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:510
+#, lua-format
+msgid "Usage: <code>%saddrule [num] [rule]</code>"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:515
+msgid "Please specify where you want to add the new rule."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:541
+#, lua-format
+msgid "Usage: <code>%schange [num] [rule]</code>"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:546
+msgid "Please specify which rule you want to change."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:548
+msgid "Please specify the new rule."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:550 bot/plugins/groupmanager.lua:571
+msgid "There is no rule with that number."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:569
+msgid "That rule has been deleted."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:575
+msgid "The custom rules have been cleared."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:589
+msgid "That term has been removed from the filter."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:592
+msgid "That term has been added to the filter."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:598
+#, lua-format
+msgid ""
+"<b>Filtered Terms for %s</b>:\n"
+"• %s"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:600
+msgid "There are currently no filtered terms."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:635
+msgid "All moderators of this group has been demoted."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:644
+msgid ""
+"Anti flood is not enabled.\n"
+"Use `!lock flood` to enable it."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:652
+#, lua-format
+msgid "*%s* messages are now worth *%s* points."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:669
+#, lua-format
+msgid ""
+"Users will now be automatically banned after <b>%s</b> automatic kick(s)."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:800
+#, lua-format
+msgid "New media setted as %s message!"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:803
+msgid "Only use animations, images, or stickers as a welcome message!"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:808
+msgid "Custom welcome message saved!"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:810
+msgid ""
+"Set group's greetings by:\n"
+"• Type <code>!setwelcome [message]</code>\n"
+"• Reply a picture by <code>!setwelcome [message]</code>\n"
+"• Reply an animation or a sticker by <code>!setwelcome</code>"
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:820
+#, lua-format
+msgid "%s has been disabled."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:833
+msgid "Sets group's description."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:836
+msgid "Delete group's description."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:839
+msgid "Sets the group's message of the day. HTML is supported."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:842
+msgid "Delete the group's message of the day."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:845
+msgid "Sets group's title."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:848
+msgid "Sets group's photo."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:851
+msgid ""
+"Sets the group's rules. Rules will be automatically numbered. Separate rules "
+"with a new line. HTML is supported."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:854
+msgid ""
+"Inserts a single rule as i. If i is a number for which there is no rule, "
+"adds a rule indexed higher than the highest-indexed rule."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:857
+msgid ""
+"Changes a single rule. If i is a number for which there is no rule, adds a "
+"rule indexed higher than the highest-indexed rule."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:860
+msgid "Delete a single rule."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:863
+msgid "Delete a whole rules."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:866
+msgid "Sets the group's invite link."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:869
+msgid ""
+"Lists all word filters. Users are automatically kicked after using a "
+"filtered term."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:872
+msgid ""
+"Adds or removes a word filters. Users are automatically kicked after using a "
+"filtered term."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:875
+msgid "Promotes a user to a moderator by reply."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:878
+msgid "Promotes a user to a moderator by username."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:881
+msgid "Promotes a user to a moderator by user_id."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:884
+msgid "Demotes a moderator to a user by reply."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:887
+msgid "Demotes a moderator to a user by username."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:890
+msgid "Demotes a moderator to a user by user_id."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:893
+msgid "Demotes all moderators to users."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:896
+msgid "Prevents the addition of bots by non-moderators."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:899
+msgid "Prevents flooding by rate-limiting messages per user."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:902
+msgid "Denied globally banned users to enter this group."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:905
+msgid "Automatically removes users who post Telegram links to outside groups."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:908
+msgid "Denied moderators to set the group photo, title, motd, and link."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:911
+msgid "Automatically removes users who post Arabic script or RTL characters."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:914
+msgid "Allow the addition of bots by non-moderators."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:917
+msgid "Will not rate-limiting messages per user."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:920
+msgid "Allow globally banned users to enter this group."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:923
+msgid "Allow users to post Telegram links to outside groups."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:929
+msgid "Allow users to posting Arabic script and/or RTL characters."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:932
+msgid "Returns group's settings."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:935
+msgid "Get groups configuration file."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:938
+msgid "Sets autokicks number before a user be banned."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:941
+msgid "Returns a list of antiflood values."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:944
+msgid "Sets antiflood values."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:947
+msgid "Removes this group from the group listing."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:950
+msgid "List this group to the group listing."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:955
+msgid "Returns a description of the group."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:958
+msgid "Returns the group's message of the day."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:961
+msgid "Returns the group's list of rules, or a specific rule."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:964
+msgid "Returns a list of moderators for the group."
+msgstr ""
+
+#: bot/plugins/groupmanager.lua:967
+msgid "Returns the group's link."
+msgstr ""
+
 #: bot/plugins/help.lua:41
 msgid "The plugins is not for your privilege."
 msgstr ""
@@ -63,34 +905,34 @@ msgid ""
 "<b>-</b> <code>!help all</code> to show all info."
 msgstr ""
 
-#: bot/plugins/help.lua:92
+#: bot/plugins/help.lua:91
 msgid "Please read @thefinemanual"
 msgstr ""
 
-#: bot/plugins/help.lua:103
+#: bot/plugins/help.lua:102
 #, lua-format
 msgid ""
 "No help entry for \"<b>%s</b>\".\n"
 "Please visit @thefinemanual for the complete list."
 msgstr ""
 
-#: bot/plugins/help.lua:114
+#: bot/plugins/help.lua:111
 msgid "Get info from other plugins."
 msgstr ""
 
-#: bot/plugins/help.lua:117
+#: bot/plugins/help.lua:114
 msgid "<code>!help</code>"
 msgstr ""
 
-#: bot/plugins/help.lua:121
+#: bot/plugins/help.lua:118
 msgid "Show all commands for every plugin."
 msgstr ""
 
-#: bot/plugins/help.lua:124
+#: bot/plugins/help.lua:121
 msgid "Commands for that plugin."
 msgstr ""
 
-#: bot/plugins/help.lua:127
+#: bot/plugins/help.lua:124
 msgid "Commands for that plugin. Type !help to get the plugin number."
 msgstr ""
 
@@ -103,24 +945,24 @@ msgid ""
 "❌  %s disabled."
 msgstr ""
 
-#: bot/plugins/plugins.lua:107
+#: bot/plugins/plugins.lua:108
 #, lua-format
 msgid "%s  api key has been saved."
 msgstr ""
 
-#: bot/plugins/plugins.lua:110
+#: bot/plugins/plugins.lua:111
 #, lua-format
 msgid ""
 "<b>Failed to set %s key</b>\n"
 "%s.lua doesn't exist."
 msgstr ""
 
-#: bot/plugins/plugins.lua:129
+#: bot/plugins/plugins.lua:130
 #, lua-format
 msgid "Plugin %s is enabled"
 msgstr ""
 
-#: bot/plugins/plugins.lua:140
+#: bot/plugins/plugins.lua:141
 #, lua-format
 msgid ""
 "<b>%s.lua is missing its api key</b>\n"
@@ -129,79 +971,117 @@ msgid ""
 "Get it from "
 msgstr ""
 
-#: bot/plugins/plugins.lua:154
+#: bot/plugins/plugins.lua:155
 #, lua-format
 msgid "Plugin %s does not exists"
 msgstr ""
 
-#: bot/plugins/plugins.lua:166
+#: bot/plugins/plugins.lua:167
 #, lua-format
 msgid "Plugin %s does not exists."
 msgstr ""
 
-#: bot/plugins/plugins.lua:172
+#: bot/plugins/plugins.lua:173
 #, lua-format
 msgid ""
 "\n"
 "Plugin %s not enabled."
 msgstr ""
 
-#: bot/plugins/plugins.lua:203
+#: bot/plugins/plugins.lua:204
 msgid "There aren't any disabled plugins"
 msgstr ""
 
-#: bot/plugins/plugins.lua:207
+#: bot/plugins/plugins.lua:208
 msgid "There aren't any disabled plugins for this chat"
 msgstr ""
 
-#: bot/plugins/plugins.lua:211
+#: bot/plugins/plugins.lua:212
 msgid "This plugin is not disabled"
 msgstr ""
 
-#: bot/plugins/plugins.lua:216
+#: bot/plugins/plugins.lua:217
 #, lua-format
 msgid "Plugin %s is enabled again"
 msgstr ""
 
-#: bot/plugins/plugins.lua:224
+#: bot/plugins/plugins.lua:225
 msgid "Plugin doesn't exists"
 msgstr ""
 
-#: bot/plugins/plugins.lua:237
+#: bot/plugins/plugins.lua:238
 #, lua-format
 msgid "Plugin %s disabled on this chat"
 msgstr ""
 
-#: bot/plugins/plugins.lua:247
+#: bot/plugins/plugins.lua:248
 msgid "Plugin to manage other plugins. Enable, disable or reload."
 msgstr ""
 
-#: bot/plugins/plugins.lua:251
+#: bot/plugins/plugins.lua:252
 msgid "Set plugins API key."
 msgstr ""
 
-#: bot/plugins/plugins.lua:254
+#: bot/plugins/plugins.lua:255
 msgid "Enable plugin."
 msgstr ""
 
-#: bot/plugins/plugins.lua:257
+#: bot/plugins/plugins.lua:258
 msgid "Disable plugin."
 msgstr ""
 
-#: bot/plugins/plugins.lua:260
+#: bot/plugins/plugins.lua:261
 msgid "Reloads all plugins."
 msgstr ""
 
-#: bot/plugins/plugins.lua:264
+#: bot/plugins/plugins.lua:265
 msgid "List all plugins."
 msgstr ""
 
-#: bot/plugins/plugins.lua:267
+#: bot/plugins/plugins.lua:268
 msgid "Re-enable plugin only this chat."
 msgstr ""
 
-#: bot/plugins/plugins.lua:270
+#: bot/plugins/plugins.lua:271
 msgid "Disable plugin only this chat."
+msgstr ""
+
+#: bot/plugins/setlang.lua:9
+#, lua-format
+msgid "Bot language is set to <b>%s</b>"
+msgstr ""
+
+#: bot/plugins/setlang.lua:12
+msgid "Language must be in form of two letter ISO 639-1 language code."
+msgstr ""
+
+#: bot/plugins/setlang.lua:26
+msgid "<b>List of available languages</b>:\n"
+msgstr ""
+
+#: bot/plugins/setlang.lua:34
+msgid "Set bots language."
+msgstr ""
+
+#: bot/plugins/setlang.lua:39
+msgid "List available languages."
+msgstr ""
+
+#: bot/plugins/setlang.lua:42
+msgid ""
+"Set bots language.\n"
+"Language ID is in a form of ISO 639-1 language code."
+msgstr ""
+
+#: bot/plugins/setlang.lua:43 plugins/apod.lua:54 plugins/apod.lua:61
+#: plugins/currency.lua:59 plugins/dilbert.lua:35 plugins/doge.lua:24
+#: plugins/forecast.lua:81 plugins/gsmarena.lua:101 plugins/imdb.lua:68
+#: plugins/imdb.lua:73 plugins/maps.lua:19 plugins/quran.lua:254
+#: plugins/quran.lua:258 plugins/quran.lua:262 plugins/quran.lua:266
+#: plugins/reddit.lua:88 plugins/reddit.lua:93 plugins/reddit.lua:98
+#: plugins/reddit.lua:103 plugins/salat.lua:114 plugins/salat.lua:125
+#: plugins/xkcd.lua:56 plugins/yify.lua:47
+msgid "<b>Example</b>"
 msgstr ""
 
 #: bot/plugins/sudo.lua:7
@@ -212,125 +1092,132 @@ msgid ""
 "Date: %s"
 msgstr ""
 
-#: bot/plugins/sudo.lua:17
+#: bot/plugins/sudo.lua:13
 #, lua-format
 msgid ""
 "Message is more than 4000 characters.\n"
 "Use <code>%sdumptext</code> instead."
 msgstr ""
 
-#: bot/plugins/sudo.lua:37
+#: bot/plugins/sudo.lua:31
 #, lua-format
 msgid "%s is already a sudoer."
 msgstr ""
 
-#: bot/plugins/sudo.lua:42
+#: bot/plugins/sudo.lua:35
 #, lua-format
 msgid "%s is now a sudoer."
 msgstr ""
 
-#: bot/plugins/sudo.lua:47
+#: bot/plugins/sudo.lua:39
 #, lua-format
 msgid "%s is not a sudoer."
 msgstr ""
 
-#: bot/plugins/sudo.lua:50
+#: bot/plugins/sudo.lua:41
 msgid "You can't demote yourself."
 msgstr ""
 
-#: bot/plugins/sudo.lua:54
+#: bot/plugins/sudo.lua:45
 #, lua-format
 msgid "%s is no longer a sudoer."
 msgstr ""
 
-#: bot/plugins/sudo.lua:96
-msgid "<b>List of sudoers</b>:\n"
+#: bot/plugins/sudo.lua:101
+msgid "<b>Sudo users</b>:\n"
 msgstr ""
 
-#: bot/plugins/sudo.lua:108
+#: bot/plugins/sudo.lua:114
 msgid "Please specify a command to run."
 msgstr ""
 
-#: bot/plugins/sudo.lua:142
+#: bot/plugins/sudo.lua:148
 msgid "<b>API bots token has been saved</b>"
 msgstr ""
 
-#: bot/plugins/sudo.lua:144
+#: bot/plugins/sudo.lua:150
 msgid "<b>Error</b>: "
 msgstr ""
 
-#: bot/plugins/sudo.lua:156
-#, lua-format
-msgid "Bot language is set to %s"
-msgstr ""
-
-#: bot/plugins/sudo.lua:159
-msgid "Language must be in form of two letter ISO 639-1 language code."
-msgstr ""
-
-#: bot/plugins/sudo.lua:167
+#: bot/plugins/sudo.lua:158
 #, lua-format
 msgid "<b>tdcliBot</b> <code>%s</code>"
 msgstr ""
 
+#: bot/plugins/sudo.lua:179
+msgid "Autoleave is already enabled."
+msgstr ""
+
+#: bot/plugins/sudo.lua:182
+msgid "Autoleave has been enabled."
+msgstr ""
+
 #: bot/plugins/sudo.lua:187
+msgid "Autoleave is already disabled."
+msgstr ""
+
+#: bot/plugins/sudo.lua:190
+msgid "Autoleave has been disabled."
+msgstr ""
+
+#: bot/plugins/sudo.lua:201
 msgid "Various bot control commands."
 msgstr ""
 
-#: bot/plugins/sudo.lua:192
+#: bot/plugins/sudo.lua:206
+msgid "Leave from unmanaged groups."
+msgstr ""
+
+#: bot/plugins/sudo.lua:210
 msgid "Run a system shell <code>command</code>"
 msgstr ""
 
-#: bot/plugins/sudo.lua:195
+#: bot/plugins/sudo.lua:213
 msgid "Set token or bot API key."
 msgstr ""
 
-#: bot/plugins/sudo.lua:199
-msgid "Language ID is in a form of ISO 639-1 language code."
-msgstr ""
-
-#: bot/plugins/sudo.lua:202
+#: bot/plugins/sudo.lua:216
 msgid "Returns the raw json of a message."
 msgstr ""
 
-#: bot/plugins/sudo.lua:205
+#: bot/plugins/sudo.lua:219
 msgid ""
 "Returns the raw json of a message, then send it as a file to bot private."
 msgstr ""
 
-#: bot/plugins/sudo.lua:208
+#: bot/plugins/sudo.lua:222
 msgid "Promote replied user as a sudoer."
 msgstr ""
 
-#: bot/plugins/sudo.lua:211
+#: bot/plugins/sudo.lua:225
 msgid "Promote <code>username</code> as a sudoer."
 msgstr ""
 
-#: bot/plugins/sudo.lua:214
+#: bot/plugins/sudo.lua:228
 msgid "Promote <code>user_id</code> as a sudoer."
 msgstr ""
 
-#: bot/plugins/sudo.lua:217
+#: bot/plugins/sudo.lua:231
 msgid "Returns a list of sudo users."
 msgstr ""
 
-#: bot/plugins/sudo.lua:220
+#: bot/plugins/sudo.lua:234
 msgid "Demote replied user from sudoer."
 msgstr ""
 
-#: bot/plugins/sudo.lua:223
+#: bot/plugins/sudo.lua:237
 msgid "Demote <code>username</code> from sudoer."
 msgstr ""
 
-#: bot/plugins/sudo.lua:226
+#: bot/plugins/sudo.lua:240
 msgid "Demote <code>user_id</code> from sudoer."
 msgstr ""
 
-#: bot/plugins/sudo.lua:229
+#: bot/plugins/sudo.lua:243
 msgid "Shows bot version."
 msgstr ""
 
-#: bot/plugins/sudo.lua:232
+#: bot/plugins/sudo.lua:246
 msgid "Download bots config file."
 msgstr ""
 
@@ -354,97 +1241,106 @@ msgstr ""
 msgid "%s removed from whitelist"
 msgstr ""
 
-#: bot/plugins/whitelist.lua:91
+#: bot/plugins/whitelist.lua:105
 msgid "Whitelist has been enabled."
 msgstr ""
 
-#: bot/plugins/whitelist.lua:94
+#: bot/plugins/whitelist.lua:108
 msgid "Whitelist has been disabled."
 msgstr ""
 
-#: bot/plugins/whitelist.lua:104
+#: bot/plugins/whitelist.lua:118
 #, lua-format
 msgid "This chat [<code>%s</code>] has been whitelisted."
 msgstr ""
 
-#: bot/plugins/whitelist.lua:115
+#: bot/plugins/whitelist.lua:129
 msgid "This chat [<code>"
 msgstr ""
 
-#: bot/plugins/whitelist.lua:169
+#: bot/plugins/whitelist.lua:137
 msgid "Various sudo commands."
 msgstr ""
 
-#: bot/plugins/whitelist.lua:174
+#: bot/plugins/whitelist.lua:142
 msgid "Enable or disable whitelist mode."
 msgstr ""
 
-#: bot/plugins/whitelist.lua:177
+#: bot/plugins/whitelist.lua:145
 msgid ""
 "If type in reply, allow user to use the bot when whitelist mode is enabled."
 msgstr ""
 
-#: bot/plugins/whitelist.lua:180
+#: bot/plugins/whitelist.lua:148
 msgid "If type in reply, remove user from whitelist."
 msgstr ""
 
-#: bot/plugins/whitelist.lua:183
+#: bot/plugins/whitelist.lua:151
 msgid ""
 "Allow everybody on current chat to use the bot when whitelist mode is "
 "enabled."
 msgstr ""
 
-#: bot/plugins/whitelist.lua:186
+#: bot/plugins/whitelist.lua:154
 msgid "Remove chat from whitelist."
 msgstr ""
 
-#: bot/plugins/whitelist.lua:190
+#: bot/plugins/whitelist.lua:158
 msgid "Allow user to use the bot when whitelist mode is enabled."
 msgstr ""
 
-#: bot/plugins/whitelist.lua:194
+#: bot/plugins/whitelist.lua:162
 msgid "Remove user from whitelist."
 msgstr ""
 
-#: bot/plugins/whitelist.lua:198
+#: bot/plugins/whitelist.lua:166
 msgid ""
 "If type in reply, allow user to use the bot when whitelist mode is enabled"
 msgstr ""
 
-#: bot/plugins/whitelist.lua:201
+#: bot/plugins/whitelist.lua:169
 msgid "If type in reply, remove user from whitelist"
 msgstr ""
 
-#: bot/plugins/whitelist.lua:204
+#: bot/plugins/whitelist.lua:172
 msgid "Allow user_id to use the bot when whitelist mode is enabled"
 msgstr ""
 
-#: bot/plugins/whitelist.lua:207
+#: bot/plugins/whitelist.lua:175
 msgid "Allow username to use the bot when whitelist mode is enabled"
 msgstr ""
 
-#: bot/plugins/whitelist.lua:210
+#: bot/plugins/whitelist.lua:178
 msgid "Allow user_id to use the bot in chat_id when whitelist mode is enabled"
 msgstr ""
 
-#: bot/plugins/whitelist.lua:213
+#: bot/plugins/whitelist.lua:181
 msgid "Allow username to use the bot in chat_id when whitelist mode is enabled"
 msgstr ""
 
-#: bot/plugins/whitelist.lua:216
+#: bot/plugins/whitelist.lua:184
 msgid "Remove user_id from whitelist"
 msgstr ""
 
-#: bot/plugins/whitelist.lua:219
+#: bot/plugins/whitelist.lua:187
 msgid "Remove username from whitelist"
 msgstr ""
 
-#: bot/plugins/whitelist.lua:222
+#: bot/plugins/whitelist.lua:190
 msgid "Remove user_id from chat_id whitelist"
 msgstr ""
 
-#: bot/plugins/whitelist.lua:225
+#: bot/plugins/whitelist.lua:193
 msgid "Remove username from chat_id whitelist"
+msgstr ""
+
+#: bot/utils.lua:269
+#, lua-format
+msgid "I won't kick %s"
+msgstr ""
+
+#: bot/utils.lua:274
+msgid "You have been banned for being autokicked too many times."
 msgstr ""
 
 #: plugins/9gag.lua:30
@@ -489,17 +1385,6 @@ msgstr ""
 msgid "Returns the <code>YYYY-MM-DD</code> APOD."
 msgstr ""
 
-#: plugins/apod.lua:54 plugins/apod.lua:61 plugins/currency.lua:59
-#: plugins/dilbert.lua:35 plugins/doge.lua:24 plugins/forecast.lua:81
-#: plugins/gsmarena.lua:101 plugins/imdb.lua:68 plugins/imdb.lua:73
-#: plugins/maps.lua:19 plugins/quran.lua:254 plugins/quran.lua:258
-#: plugins/quran.lua:262 plugins/quran.lua:266 plugins/reddit.lua:88
-#: plugins/reddit.lua:93 plugins/reddit.lua:98 plugins/reddit.lua:103
-#: plugins/salat.lua:114 plugins/salat.lua:125 plugins/xkcd.lua:56
-#: plugins/yify.lua:47
-msgid "<b>Example</b>"
-msgstr ""
-
 #: plugins/apod.lua:57
 msgid "Returns the explanation of the APOD."
 msgstr ""
@@ -514,6 +1399,18 @@ msgstr ""
 
 #: plugins/base64.lua:44
 msgid "Converts the given <code>string</code> to base64."
+msgstr ""
+
+#: plugins/binary.lua:5
+msgid "You must enter a numerical value!"
+msgstr ""
+
+#: plugins/binary.lua:28
+msgid "Converts the given number to binary."
+msgstr ""
+
+#: plugins/binary.lua:32
+msgid "Converts the given <code>number</code> to binary."
 msgstr ""
 
 #: plugins/bing.lua:18
@@ -621,7 +1518,7 @@ msgstr ""
 
 #: plugins/cats.lua:14 plugins/currency.lua:34 plugins/currency.lua:40
 #: plugins/dilbert.lua:14 plugins/exec.lua:57 plugins/fact.lua:7
-#: plugins/urbandictionary.lua:8 plugins/wikipedia.lua:47
+#: plugins/github.lua:7 plugins/urbandictionary.lua:8 plugins/wikipedia.lua:47
 msgid "Connection error"
 msgstr ""
 
@@ -742,6 +1639,14 @@ msgstr ""
 msgid "Forecast for that <code>[area]</code>."
 msgstr ""
 
+#: plugins/github.lua:13
+msgid "Shit happens"
+msgstr ""
+
+#: plugins/github.lua:28 plugins/github.lua:32
+msgid "Returns information about the specified GitHub repository."
+msgstr ""
+
 #: plugins/gsmarena.lua:31
 msgid ""
 "<b>No phones found!</b>\n"
@@ -818,24 +1723,18 @@ msgid ""
 msgstr ""
 
 #: plugins/id.lua:60
-msgid ""
-"Sends the name, ID, and (if applicable) username for the given user, group, "
-"channel or bot."
-msgstr ""
-
-#: plugins/id.lua:64
 msgid "Returns the IDs of the replied users."
 msgstr ""
 
-#: plugins/id.lua:67
+#: plugins/id.lua:63
 msgid "Return the IDs for the given user_id."
 msgstr ""
 
-#: plugins/id.lua:70
+#: plugins/id.lua:66
 msgid "Return the IDs for the given username."
 msgstr ""
 
-#: plugins/id.lua:75
+#: plugins/id.lua:71
 msgid "Returns your IDs."
 msgstr ""
 
@@ -914,11 +1813,11 @@ msgid ""
 "\"%s\""
 msgstr ""
 
-#: plugins/patterns.lua:41
+#: plugins/patterns.lua:45
 msgid "Replace all matches for the given pattern."
 msgstr ""
 
-#: plugins/patterns.lua:49
+#: plugins/patterns.lua:53
 msgid "Replace <code>from</code> with <code>to</code>"
 msgstr ""
 

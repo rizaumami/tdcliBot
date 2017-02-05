@@ -35,29 +35,12 @@ do
     whitelisting(arg.chat_id, data.id_, arg.msg_id, name, arg.cmd)
   end
 
-  local function whitelistByReply(arg, data)
-    td.getUser(data.sender_user_id_, getUser_cb, {
-        chat_id = arg.chat_id,
-        msg_id = data.id_,
-        cmd = arg.cmd
-    })
-  end
-
-  local function whitelistByUsername(arg, data)
-    local user = data.type_.user_
-    local name = '[<code>' .. user.id_ .. '</code>] <b>' .. user.first_name_ .. '</b>'
-
-    if user.last_name_ then
-      name = name .. ' <b>' .. user.last_name_ .. '</b>'
-    end
-
-    whitelisting(arg.chat_id, user.id_, arg.msg_id, name, arg.cmd)
-  end
+--------------------------------------------------------------------------------
 
   local function pre_process(msg)
     -- If whitelist enabled
     -- Allow all sudo users even if whitelist is allowed
-    if db:get('whitelist:enabled') and not isSudo(msg.sender_user_id_) then
+    if db:get('whitelist:enabled') and not _config.sudoers[user_id] then
       print('>>> Whitelist enabled and not sudo')
       -- Check if user or chat is whitelisted
       local chat_id = msg.chat_id_
@@ -82,84 +65,69 @@ do
   local function run(msg, matches)
     local chat_id = msg.chat_id_
     local user_id = msg.sender_user_id_
+    local extra = {chat_id = chat_id, user_id = user_id, msg_id = msg.id_}
 
-    if isAdmin(user_id) then
-      -- Enable whitelist
-      if matches[1] == 'whitelist' then
-        if matches[2] == 'enable' then
-          db:set('whitelist:enabled', true)
-          sendText(chat_id, msg.id_, _msg('Whitelist has been enabled.'))
-        elseif matches[2] == 'disable' then
-          db:del('whitelist:enabled')
-          sendText(chat_id, msg.id_, _msg('Whitelist has been disabled.'))
-        elseif matches[2] == 'clear' then
-          db:del('whitelist')
-          return 'Whitelist cleared.'
-        elseif matches[2] == 'chat' then
-          local chat = chat_id
-          if matches[3] and not util.isChatMsg(msg) then
-            chat = matches[3]
-          end
-          db:sadd('whitelist', chat)
-          local text = _msg('This chat [<code>%s</code>] has been whitelisted.'):format(chat)
-          sendText(chat_id, msg.id_, text)
+    if not db:hexists('owner' .. chat_id, user_id) then return end
+
+    if matches[1] == 'whitelist' then
+      extra.cmd = 'whitelist'
+    elseif matches[1] == 'unwhitelist' then
+      extra.cmd = 'unwhitelist'
+    end
+
+    -- Allow/disallow user by {is|name|username|reply} to use the bot when whitelist is enabled.
+    if util.isReply(msg) then
+      td.getMessage(chat_id, msg.reply_to_message_id_, function(a, d)
+        local extra = {chat_id = a.chat_id, msg_id = d.id_, cmd = a.cmd}
+        td.getUser(data.sender_user_id_, getUser_cb, extra)
+      end, extra)
+    elseif matches[2] == '@' then
+      td.searchPublicChat(matches[3], function(a, d)
+        local user = d.type_.user_
+        local name = '[<code>' .. user.id_ .. '</code>] <b>' .. user.first_name_ .. '</b>'
+
+        if user.last_name_ then
+          name = name .. ' <b>' .. user.last_name_ .. '</b>'
         end
-      end
-      -- Remove user from whitelist by {id|username|name|reply}
-      if matches[1] == 'unwhitelist' and matches[2] == 'chat' then
+
+        whitelisting(a.chat_id, user.id_, a.msg_id, name, a.cmd)
+      end, extra)
+    elseif matches[3] and matches[3]:match('^%d+$') then
+      td.getUser(matches[3], getUser_cb, extra)
+    end
+
+    if not _config.administrators[user_id] then return end
+
+    -- Enable whitelist
+    if matches[1] == 'whitelist' then
+      if matches[2] == 'enable' then
+        db:set('whitelist:enabled', true)
+        sendText(chat_id, msg.id_, _msg('Whitelist has been enabled.'))
+      elseif matches[2] == 'disable' then
+        db:del('whitelist:enabled')
+        sendText(chat_id, msg.id_, _msg('Whitelist has been disabled.'))
+      elseif matches[2] == 'clear' then
+        db:del('whitelist')
+        return 'Whitelist cleared.'
+      elseif matches[2] == 'chat' then
         local chat = chat_id
         if matches[3] and not util.isChatMsg(msg) then
           chat = matches[3]
         end
-        db:srem('whitelist', chat)
-        local text = _msg('This chat [<code>' .. chat .. '</code>] removed from whitelist'):format(chat)
+        db:sadd('whitelist', chat)
+        local text = _msg('This chat [<code>%s</code>] has been whitelisted.'):format(chat)
         sendText(chat_id, msg.id_, text)
       end
     end
-
-    if isOwner(user_id, chat_id) then
-      -- Allow user by {is|name|username|reply} to use the bot when whitelist is enabled.
-      if matches[1] == 'whitelist' then
-        if (msg.reply_to_message_id_ ~= 0) then
-          td.getMessage(msg.chat_id_, msg.reply_to_message_id_, whitelistByReply, {
-              chat_id = chat_id,
-              cmd = 'whitelist'
-          })
-        elseif matches[2] == '@' then
-          td.searchPublicChat(matches[3], whitelistByUsername, {
-              chat_id = chat_id,
-              msg_id = msg.id_,
-              cmd = 'whitelist'
-          })
-        elseif matches[3] and matches[3]:match('^%d+$') then
-          td.getUser(matches[3], getUser_cb, {
-              chat_id = chat_id,
-              msg_id = msg.id_,
-              cmd = 'whitelist'
-          })
-        end
+    -- Remove user from whitelist by {id|username|name|reply}
+    if matches[1] == 'unwhitelist' and matches[2] == 'chat' then
+      local chat = chat_id
+      if matches[3] and not util.isChatMsg(msg) then
+        chat = matches[3]
       end
-      -- Remove users permission by {is|name|username|reply} to use the bot when whitelist is enabled.
-      if matches[1] == 'unwhitelist' then
-        if (msg.reply_to_message_id_ ~= 0) then
-          td.getMessage(msg.chat_id_, msg.reply_to_message_id_, whitelistByReply, {
-              chat_id = chat_id,
-              cmd = 'unwhitelist'
-          })
-        elseif matches[2] == '@' then
-          td.searchPublicChat(matches[3], whitelistByUsername, {
-              chat_id = chat_id,
-              msg_id = msg.id_,
-              cmd = 'unwhitelist'
-          })
-        elseif matches[3] and matches[3]:match('^%d+$') then
-          td.getUser(matches[3], getUser_cb, {
-              chat_id = chat_id,
-              msg_id = msg.id_,
-              cmd = 'unwhitelist'
-          })
-        end
-      end
+      db:srem('whitelist', chat)
+      local text = _msg('This chat [<code>' .. chat .. '</code>] removed from whitelist'):format(chat)
+      sendText(chat_id, msg.id_, text)
     end
   end
 

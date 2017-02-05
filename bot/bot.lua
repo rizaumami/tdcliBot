@@ -17,7 +17,7 @@ config_file = './bot/config.lua'
 
 -- The message structure is lack of its sender identifications
 -- Set line below to "true" to append sender first_name_, last_name_, and username_ to the message
--- WARNING: This will requesting getUser for every valid messages, I'm not quite sure for its implications.
+-- NOTE: This will requesting getUser for every valid messages, I'm not quite sure for its implications.
 local append_ids_to_msg = false
 
 
@@ -31,7 +31,6 @@ function sendText(chat_id, reply_to_message_id, text, disable_web_page_preview, 
   local n = 1
   -- If text is longer than 4096 chars, send multiple messages.
   -- https://core.telegram.org/method/messages.sendMessage
-  -- Message will be failed to delivered if there is unclosed HTML or Markdown tag
   while #text > 4096 do
     message[n] = text:sub(1, 4096)
     text = text:sub(4096, #text)
@@ -139,7 +138,6 @@ local function loadConfig()
       db = 2,
       chats = {disabled = {}, managed = {}},
       cmd = '^[/!#]',
-      globalbans = {},
       key = {},
       language = {
         allow_fuzzy_translations = false,
@@ -194,7 +192,8 @@ local function loadConfig()
           'yify'
         },
       },
-      sudoers = {}
+      sudoers = {},
+      whitelist = false
     }
     saveConfig()
     prtInClr('Green', ' Created new config file: ' .. config_file)
@@ -289,7 +288,6 @@ end
 -- Check if plugin is on _config.plugins.disabled_on_chat table
 local function isPluginDisabledOnChat(plugin_name, receiver)
   local disabled_chats = _config.plugins.disabled_on_chat
-  local receiver = tostring(receiver)
   -- Table exists and chat has disabled plugins
   if disabled_chats and disabled_chats[receiver] then
     -- Checks if plugin is disabled on this chat
@@ -305,81 +303,42 @@ local function isPluginDisabledOnChat(plugin_name, receiver)
   return false
 end
 
-local function getRank(user_id, chat_id)
-  local user_id_str = tostring(user_id)
-  local chat_id_str = tostring(user_id)
-  -- Return 5 if the user_id_str is the bot or its owner.
-  if _config.sudoers[user_id_str] then
-    return 5
+function getRank(user_id, chat_id)
+  -- Return 5 if the user_id is the bot or sudoers.
+  if _config.sudoers[user_id] then
+    return 5, 'a sudoer'
   end
-  -- Return 4 if the user_id_str is an administrator.
-  if _config.administrators[user_id_str] then
-    return 4
+  -- Return 4 if the user_id is an administrator.
+  if _config.administrators[user_id] then
+    return 4, 'an administrator'
   end
-  if _config.chats.managed[chat_id_str] then
-    -- Return 3 if the user_id_str is the governor of the chat_id_str.
-    if _config.chats.managed[chat_id_str].owner == user_id then
-      return 3
-    -- Return 2 if the user_id_str is a moderator of the chat_id_str.
-    elseif _config.chats.managed[chat_id_str].mods[user_id] then
-      return 2
-    -- Return 0 if the user_id_str is banned from the chat_id_str.
-    elseif _config.chats.managed[chat_id_str].bans[user_id] then
-      return 0
+  if _config.chats.managed[chat_id] then
+    -- Return 3 if the user_id is the governor of the chat_id.
+    if db:hexists('owner' .. chat_id, user_id) then
+      return 3, 'an owner'
+    elseif db:hexists('moderators' .. chat_id, user_id) then
+    -- Return 2 if the user_id is a moderator of the chat_id.
+      return 2, 'a moderator'
+    elseif db:hexists('bans' .. chat_id, user_id) then
+    -- Return 0 if the user_id is banned from the chat_id.
+      return 0, 'is banned'
     -- Return 1 if antihammer is enabled.
-    --elseif _config.chats.managed[chat_id].flags[6] then
-      --return 1
+    elseif db:hget('anti' .. chat_id, 'hammer') == 'true' then
+      return 1, 'is banned, but allowed in this group'
     end
   end
-  -- Return 0 if the user_id_str is globally banned (and antihammer is not enabled).
-  if _config.globalbans[user_id] then
+  -- Return 0 if the user_id is globally banned (and antihammer is not enabled).
+  if db:exists('globalbans') and db:hexists('globalbans', user_id)then
     return 0
   end
-  -- Return 1 if the user_id_str is a regular user.
+  -- Return 1 if the user_id is a regular user.
   return 1
-end
-
--- User has privileges
-function isSudo(user_id)
-  local su = false
-  if getRank(user_id) == 5 then
-    su = true
-  end
-  return su
-end
-
--- User is a global administrator
-function isAdmin(user_id)
-  local adm = false
-  if getRank(user_id) >= 4 then
-    adm = true
-  end
-  return adm
-end
-
--- User is a group owner
-function isOwner(user_id, chat_id)
-  local own = false
-  if getRank(user_id, chat_id) >= 3 then
-    own = true
-  end
-  return own
-end
-
--- User is a group moderator
-function isMod(user_id, chat_id)
-  print(getRank(user_id, chat_id))
-  local mods = false
-  if getRank(user_id, chat_id) >= 2 then
-    mods = true
-  end
-  return mods
 end
 
 -- Is bots id already saved in config.lua?
 local function setMyId(id)
   if not _config.sudoers[id] then
-    _config.sudoers[tostring(id)]= id
+    _config.sudoers[id]= id
     saveConfig()
   end
   if not _config.bot.id then
@@ -393,7 +352,7 @@ local function runPlugin(msg, matches, plugin)
   if plugin.run then
     -- If plugin is for privileged users only
     if plugin.privilege and plugin.privilege > getRank(msg.sender_user_id_) then
-      local unprivileged = _msg('<b>This plugin requires privileged user</b>')
+      local unprivileged = _msg('This plugin requires privileged user.')
       return sendText(msg.chat_id_, msg.id_, unprivileged)
     else
       local result = plugin.run(msg, matches)
@@ -437,23 +396,20 @@ function tdcli_update_callback(data)
       if msg.chat_id_ == _config.api.id then
         local hash = 'tgapibridge'
         local tgl = msg.date_
-        local all = db:hgetall(hash)
-        if next(all) then
-          for k, v in pairs(all) do
-            if tgl == tonumber(k) then
-              local tg = (loadstring(v))()
-              if msg.content_.ID == 'MessagePhoto' then
-                local photo = msg.content_.photo_.sizes_[0].photo_.persistent_id_
-                td.sendPhoto(tg.chat_id, tg.msg_id, 0, 1, nil, photo, tg.caption)
-              elseif msg.content_.ID == 'MessageAnimation' then
-                local animation = msg.content_.animation_.animation_.persistent_id_
-                td.sendAnimation(tg.chat_id, tg.msg_id, 0, 1, nil, animation, 0, 0, tg.caption)
-              else
-                td.forwardMessages(tg.chat_id, msg.chat_id_, {[0] = msg.id_}, 0)
-              end
-              db:hdel(hash, k)
-            end
+
+        if db:hexists(hash, tgl) then
+          local sm = db:hget(hash, tgl)
+          local tg = loadstring(sm)()
+          if msg.content_.ID == 'MessagePhoto' then
+            local photo = msg.content_.photo_.sizes_[0].photo_.persistent_id_
+            td.sendPhoto(tg.chat_id, tg.msg_id, 0, 1, nil, photo, tg.caption)
+          elseif msg.content_.ID == 'MessageAnimation' then
+            local animation = msg.content_.animation_.animation_.persistent_id_
+            td.sendAnimation(tg.chat_id, tg.msg_id, 0, 1, nil, animation, 0, 0, tg.caption)
+          else
+            td.forwardMessages(tg.chat_id, msg.chat_id_, {[0] = msg.id_}, 0)
           end
+          db:hdel(hash, tgl)
         end
       end
       -- Go over enabled plugins patterns.
@@ -466,7 +422,8 @@ function tdcli_update_callback(data)
         -- Go over patterns. If one matches it's enough.
         for p = 1, #plugin.patterns do
           local pattern = plugin.patterns[p]
-          local matches = matchPattern(pattern, msg.content_.text_)
+          local input = msg.content_.text_ or msg.content_.caption_
+          local matches = matchPattern(pattern, input)
 
           if matches then
             print('msg matches: ', pattern)
@@ -492,7 +449,7 @@ function tdcli_update_callback(data)
     local id = data.value_.value_
     -- Is bots id already saved in config.lua?
     if not _config.sudoers[id] then
-      _config.sudoers[tostring(id)]= id
+      _config.sudoers[id]= id
       saveConfig()
     end
     if not _config.bot.id then

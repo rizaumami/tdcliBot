@@ -15,6 +15,75 @@ end
 
 U.vardump = vardump
 
+-- This table will store unsavory characters that are not properly displayed,
+-- or are just not fun to type.
+local char = {
+  zwnj = '‌',
+  arabic = '[\216-\219][\128-\191]',
+  rtl_override = '‮',
+  rtl_mark = '‏',
+  em_dash = '—',
+  utf_8 = '[%z\1-\127\194-\244][\128-\191]',
+  braille_space = '⠀',
+}
+
+U.char = char
+
+-- User is a sudoer
+local function isSudo(user_id)
+  local su = false
+  if getRank(user_id) == 5 then
+    su = true
+  end
+  return su
+end
+
+U.isSudo = isSudo
+
+-- User is a global administrator
+local function isAdmin(user_id)
+  local adm = false
+  if getRank(user_id) >= 4 then
+    adm = true
+  end
+  return adm
+end
+
+U.isAdmin = isAdmin
+
+-- User is a group owner
+local function isOwner(user_id, chat_id)
+  local own = false
+  if getRank(user_id, chat_id) >= 3 then
+    own = true
+  end
+  return own
+end
+
+U.isOwner = isOwner
+
+-- User is a group moderator
+local function isMod(user_id, chat_id)
+  local mods = false
+  if getRank(user_id, chat_id) >= 2 then
+    mods = true
+  end
+  return mods
+end
+
+U.isMod = isMod
+
+-- User has privileges
+local function isPrivileged(user_id)
+  local priv = false
+  if getRank(user_id) >= 5 then
+    su = true
+  end
+  return su
+end
+
+U.isPrivileged = isPrivileged
+
 -- Is it a chat or a private message?
 local function isChatMsg(msg)
   local chat_id = tostring(msg.chat_id_)
@@ -38,6 +107,17 @@ end
 
 U.extractGUId = extractGUId
 
+local function isSuperGroup(chat_id)
+  local chat_id = tostring(chat_id)
+  local super = false
+  if chat_id:match('^-100') then
+    super = true
+  end
+  return super
+end
+
+U.isSuperGroup = isSuperGroup
+
 -- http://www.lua.org/manual/5.2/manual.html#pdf-io.popen
 local function shellCommand(str)
   local cmd = io.popen(str)
@@ -50,8 +130,8 @@ U.shellCommand = shellCommand
 
 local function isReply(msg)
   local r = false
-  if msg.reply_to_message_id_ ~= 0 then  
-     r = true
+  if msg.reply_to_message_id_ ~= 0 then
+    r = true
   end
   return r
 end
@@ -180,6 +260,26 @@ local function trim(str)
 end
 
 U.trim = trim
+
+-- Kick user
+local function kickUser(chat_id, user_id, block)
+  local hash = 'autokicks' .. chat_id
+  local rank, role = getRank(user_id, chat_id)
+  if rank > 1 then
+    return _msg("I won't kick %s"):format(role)
+  else
+    if db:hexists(hash, user_id) and db:hget(hash, user_id) >= db:get('autoban' .. chat_id) then
+      db:hset('bans' .. chat_id, user_id, 'autobanned')
+      block = true
+      sendText(chat_id, 0, _msg('You have been banned for being autokicked too many times.'))
+    end
+    td.kickChatMember(chat_id, user_id, block)
+    local count = (db:hget(hash, user_id) or 0) + 1
+    db:hset(hash, user_id, count)
+  end
+end
+
+U.kickUser = kickUser
 
 -- Make bot API request
 local function makeRequest(method, msg, request_body)

@@ -14,7 +14,7 @@ do
     elseif matches[1] == 'listlang' or matches[1] == 'setlang' then
       local l = {}
       local lt = _config.language.available_languages
-  
+
       for i = 1, #lt do
         if _config.language.default == lt[i] then
           l[i] = '• ' .. lt[i] .. '  (default)'
@@ -25,7 +25,7 @@ do
 
       local title = _msg("<b>List of available languages</b>:\n")
       local langs = table.concat(l, '\n')
-        
+
       sendText(msg.chat_id_, msg.id_, title .. langs)
     end
   end

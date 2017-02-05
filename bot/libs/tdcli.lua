@@ -1164,7 +1164,7 @@ end
 
 M.reportChannelSpam = reportChannelSpam
 
-local function getChannelMembers(channel_id, offset, filter, limit, cb, cmd)
+local function getChannelMembers(channel_id, filter, offset, limit, cb, cmd)
   if not limit or limit > 200 then
     limit = 200
   end
@@ -1540,17 +1540,17 @@ end
 
 M.sendForwarded = sendForwarded
 
-local function kickUser(chat_id, user_id, block, cb, cmd)
+local function kickChatMember(chat_id, user_id, block, cb, cmd)
   local gid = tostring(chat_id)
-  local block = block or true
+  local block = block or false
 
-  changeChatMemberStatus(chat_id, user_id, 'Kicked', cb, cmd)
-
-  if gid:match('^-100') and not block then
-    unblockUser(user_id)
-  end
+  changeChatMemberStatus(chat_id, user_id, 'Kicked', function(a, d)
+    if d.ID == 'Ok' and gid:match('^-100') and not block then
+      changeChatMemberStatus(a.chat_id, a.user_id, 'Left')
+    end
+  end, {chat_id = chat_id, user_id = user_id, block = block})
 end
 
-M.kickUser = kickUser
+M.kickChatMember = kickChatMember
 
 return M

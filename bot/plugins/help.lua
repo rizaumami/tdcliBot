@@ -72,20 +72,19 @@ do
   local function run(msg, matches)
     local user_id = msg.sender_user_id_
     local chat_id = msg.chat_id_
+    local text
 
-    if isSudo(user_id) then
+    if _config.sudoers[user_id] then
       requester = 5
-    elseif isAdmin(user_id) then
+    elseif _config.administrators[user_id] then
       requester = 4
-    elseif isOwner(user_id, chat_id) then
+    elseif db:hexists('owner' .. chat_id, user_id) then
       requester = 3
-    elseif isMod(user_id, chat_id) then
+    elseif db:hexists('moderators' .. chat_id, user_id) then
       requester = 2
     else
       requester = 1
     end
-
-    local text
 
     if matches[2] then
       if matches[2] == 'all' then
@@ -100,11 +99,9 @@ do
     end
 
     if not text then
-      local notxt = _msg('No help entry for "<b>%s</b>".\n'
-                    .. 'Please visit @thefinemanual for the complete list.'):format(matches[2])
-      return sendText(chat_id, msg.id_, notxt)
+      text =  _msg('No help entry for "<b>%s</b>".\n'
+              .. 'Please visit @thefinemanual for the complete list.'):format(matches[2])
     end
-
     sendText(chat_id, msg.id_, text)
   end
 

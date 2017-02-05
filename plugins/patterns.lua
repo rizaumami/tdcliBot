@@ -23,9 +23,13 @@ do
   end
 
   local function patternsByReply(arg, data)
-    arg.replied_text = data.content_.text_
-    arg.msg_id = data.id_
-    td.getUser(data.sender_user_id_, replacePatterns, arg)
+    local text = data.content_.text_
+
+    if not text:match(', did you mean:') then
+      arg.replied_text = text
+      arg.msg_id = data.id_
+      td.getUser(data.sender_user_id_, replacePatterns, arg)
+    end
   end
 
   local function run(msg, matches)

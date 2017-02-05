@@ -28,7 +28,7 @@ do
 
   local function pre_process(msg)
     -- If sender is sudo then re-enable the channel
-    if msg.content_.text_ == '!channel enable' and isSudo(msg.sender_user_id_) then
+    if msg.content_.text_ == '!channel enable' and _config.sudoers[msg.sender_user_id_] then
       msg.channel_is_enabled_ = true
       enableChannel(msg.chat_id_, msg.id_)
     end
