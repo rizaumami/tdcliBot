@@ -1,13 +1,7 @@
 do
 
   -- If you have a google api key for the geocoding/timezone api
-  local need_api_key  = nil
-  local dateFormat = '%A, %F %T'
-
-  -- Need the utc time for the google api
-  local function utctime()
-    return os.time(os.date('!*t'))
-  end
+  local need_api_key
 
   -- Use timezone api to get the time in the lat,
   -- Note: this needs an API key
@@ -15,10 +9,11 @@ do
     local api = 'https://maps.googleapis.com/maps/api/timezone/json?'
 
     -- Get a timestamp (server time is relevant here)
-    local timestamp = utctime()
+    -- Need the utc time for the google api
+    local timestamp = os.time(os.date('!*t'))
     local parameters = 'location=' .. lat .. ',' .. lng .. '&timestamp=' .. timestamp
 
-    if need_api_key ~=nil then
+    if need_api_key ~= nil then
       parameters = URL.escape(parameters) .. '&key=' .. need_api_key
     end
 
@@ -42,15 +37,21 @@ do
     return localTime
   end
 
-  local function getformattedLocalTime(msg, area)
+--------------------------------------------------------------------------------
+
+  local function run(msg, matches)
+    local area = matches[1]
+    local chat_id = msg.chat_id_
+    local dateFormat = '%A, %F %T'
+
     if area == nil then
-      sendText(msg.chat_id_, msg.id_, _msg('<b>The time in nowhere is never</b>'))
+      sendText(chat_id, msg.id_, _msg('<b>The time in nowhere is never</b>'))
     end
 
     local coordinats, code = util.getCoord(msg, area)
 
     if not coordinats then
-      sendText(msg.chat_id_, msg.id_, _msg('It seems that in "<b>%s</b>" they do not have a concept of time.'):format(area))
+      sendText(chat_id, msg.id_, _msg('It seems that in "<b>%s</b>" they do not have a concept of time.'):format(area))
       return
     end
 
@@ -58,13 +59,11 @@ do
     local long = coordinats.lon
     local localTime, timeZoneId = getTime(lat, long)
 
-    local atime = _msg('The local time in <i>%s (%s)</i> is:\n<b>%s</b>'):format(area, timeZoneId, os.date(dateFormat,localTime))
-    sendText(msg.chat_id_, msg.id_, atime)
+    local atime = _msg('The local time in <i>%s (%s)</i> is:\n<b>%s</b>'):format(area, timeZoneId, os.date(dateFormat, localTime))
+    sendText(chat_id, msg.id_, atime)
   end
 
-  local function run(msg, matches)
-    return getformattedLocalTime(msg, matches[1])
-  end
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Returns the time, date, and timezone for the given location.'),

@@ -16,6 +16,8 @@ do
     sendText(msg.chat_id_, msg_id, output)
   end
 
+--------------------------------------------------------------------------------
+
   return {
     description = _msg('Returns a cat fact.'),
     usage = {

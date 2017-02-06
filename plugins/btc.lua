@@ -3,12 +3,7 @@ do
   -- See https://bitcoinaverage.com/api
   local function run(msg, matches)
     local base_url = 'https://api.bitcoinaverage.com/ticker/global/'
-    local currency = 'USD'
-
-    if matches[2] then
-      currency = matches[2]:upper()
-    end
-
+    local currency = matches[2] and matches[2]:upper() or 'USD'
     -- Do request on bitcoinaverage, the final / is critical!
     local res, code = https.request(base_url .. currency .. '/')
 
@@ -24,7 +19,7 @@ do
     sendText(msg.chat_id_, msg.id_, index)
   end
 
-  --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Displays the current Bitcoin price.'),

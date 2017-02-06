@@ -1,6 +1,7 @@
 do
 
   local function run(msg, matches)
+    local chat_id = msg.chat_id_
     local lang = _config.language.default
     local query = matches[1]
 
@@ -20,13 +21,13 @@ do
     local jstr, code = https.request(search_url .. URL.escape(query))
 
     if code ~= 200 then
-      return sendText(msg.chat_id_, msg.id_, _msg('<b>Connection error</b>'))
+      return sendText(chat_id, msg.id_, _msg('<b>Connection error</b>'))
     end
 
     local data = json.decode(jstr)
 
     if data.query.searchinfo.totalhits == 0 then
-      return sendText(msg.chat_id_, msg.id_, _msg('<b>No results found</b>'))
+      return sendText(chat_id, msg.id_, _msg('No results found'))
     end
 
     local title
@@ -38,19 +39,19 @@ do
       end
     end
     if not title then
-      return sendText(msg.chat_id_, msg.id_, _msg('No results found'))
+      return sendText(chat_id, msg.id_, _msg('No results found'))
     end
 
     local res_jstr, res_code = https.request(res_url .. URL.escape(title))
 
     if res_code ~= 200 then
-      return sendText(msg.chat_id_, msg.id_, _msg('Connection error'))
+      return sendText(chat_id, msg.id_, _msg('Connection error'))
     end
 
     local _, text = next(json.decode(res_jstr).query.pages)
 
     if not text then
-      return sendText(msg.chat_id_, msg.id_, _msg('No results found'))
+      return sendText(chat_id, msg.id_, _msg('No results found'))
     end
 
     text = text.extract
@@ -72,8 +73,10 @@ do
       body = '<b>' .. title .. '</b>\n' .. text
     end
 
-    sendText(msg.chat_id_, msg.id_, body .. '\n' .. url)
+    sendText(chat_id, msg.id_, body .. '\n' .. url)
   end
+
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Returns an article from Wikipedia.'),

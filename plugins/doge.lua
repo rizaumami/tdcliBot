@@ -10,9 +10,12 @@ do
     if string.match(url, urlm) == url then
       util.apiSendPhoto(msg, url)
     else
-      sendText(msg.chat_id_, msg.id_, _msg("Can't build a good URL with parameter %s"):format(matches[1]))
+      local text = _msg("Can't build a good URL with parameter %s"):format(matches[1])
+      sendText(msg.chat_id_, msg.id_, text)
     end
   end
+
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Doge-ifies the given text.\nSentences are separated using slashes.'),

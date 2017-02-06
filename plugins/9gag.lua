@@ -1,8 +1,7 @@
 do
 
-  local function get_9GAG()
-    local url = 'http://api-9gag.herokuapp.com/'
-    local b,c = http.request(url)
+  local function run(msg, matches)
+    local b, c = http.request('http://api-9gag.herokuapp.com/')
 
     if c ~= 200 then
       return nil
@@ -14,17 +13,14 @@ do
     local link_image = gag[i].src
     local title = gag[i].title
 
-    if link_image:sub(0,2) == '//' then
-      link_image = msg.text:sub(3,-1)
+    if link_image:sub(0, 2) == '//' then
+      link_image = link_image:sub(3, -1)
     end
 
-    return link_image, title
+    util.apiSendPhoto(msg, link_image, title)
   end
 
-  local function run(msg, matches)
-    local url, title = get_9GAG()
-    util.apiSendPhoto(msg, url, title)
-  end
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Returns a random image from the latest 9gag posts.'),

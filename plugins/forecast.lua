@@ -31,9 +31,11 @@ do
     end
   end
 
-  -- Use timezone api to get the time in the lat
-  local function getforecast(msg, area)
-    local coords, code = util.getCoord(msg, area)
+--------------------------------------------------------------------------------
+
+  local function run(msg, matches)
+    -- Use timezone api to get the time in the lat
+    local coords, code = util.getCoord(msg, matches[1])
     local lat = coords.lat
     local long = coords.lon
     local address = coords.formatted_address
@@ -62,13 +64,10 @@ do
                                                     wemoji(jcast.daily),
                                                     jcast.daily.summary
     )
-
     sendText(msg.chat_id_, msg.id_, forecast)
   end
 
-  local function run(msg, matches)
-    return getforecast(msg, matches[1])
-  end
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Returns the current weather conditions for a given location.'),

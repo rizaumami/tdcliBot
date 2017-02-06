@@ -1,6 +1,7 @@
 do
 
-  local function search_yify(msg, query)
+  local function run(msg, matches)
+    local query = matches[1]
     local url = 'https://yts.ag/api/v2/list_movies.json?limit=1&query_term=' .. URL.escape(query)
     local resp = {}
     local b,c = https.request {
@@ -33,9 +34,7 @@ do
     end
   end
 
-  local function run(msg, matches)
-    return search_yify(msg, matches[1])
-  end
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Searches Yify torrents for the given query.'),

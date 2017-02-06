@@ -13,9 +13,7 @@ do
     end
   end
 
-  function translateByReply(arg, data)
-    yandexTranslate(arg.chat_id, data.id_, arg.lang, data.content_.text_)
-  end
+--------------------------------------------------------------------------------
 
   local function run(msg, matches)
     local chat_id = msg.chat_id_
@@ -33,7 +31,9 @@ do
         pattern = {chat_id = chat_id, lang = matches[1]:gsub(',', '-')}
       end
 
-      td.getMessage(chat_id, replied_id, translateByReply, pattern)
+      td.getMessage(chat_id, replied_id, function(a, d)
+        yandexTranslate(a.chat_id, d.id_, a.lang, d.content_.text_)
+      end, pattern)
     else
       -- translate id-en uji - translate en uji
       if matches[1] == 'tl' or matches[1] == 'translate' then
@@ -43,6 +43,8 @@ do
       end
     end
   end
+
+--------------------------------------------------------------------------------
 
   return {
     description = _msg("Translates input or the replied-to message into the bot's language."),

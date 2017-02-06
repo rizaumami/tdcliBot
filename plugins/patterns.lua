@@ -22,24 +22,23 @@ do
     end
   end
 
-  local function patternsByReply(arg, data)
-    local text = data.content_.text_
-
-    if not text:match(', did you mean:') then
-      arg.replied_text = text
-      arg.msg_id = data.id_
-      td.getUser(data.sender_user_id_, replacePatterns, arg)
-    end
-  end
+--------------------------------------------------------------------------------
 
   local function run(msg, matches)
     if util.isReply(msg) then
-      td.getMessage(msg.chat_id_, msg.reply_to_message_id_, patternsByReply, {
-          chat_id = msg.chat_id_,
-          text = msg.content_.text_
-      })
+      td.getMessage(msg.chat_id_, msg.reply_to_message_id_, function(a, d)
+        local text = d.content_.text_
+
+        if not text:match(', did you mean:') then
+          a.replied_text = text
+          a.msg_id = d.id_
+          td.getUser(d.sender_user_id_, replacePatterns, a)
+        end
+      end, {chat_id = msg.chat_id_, text = msg.content_.text_})
     end
   end
+
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Replace all matches for the given pattern.'),

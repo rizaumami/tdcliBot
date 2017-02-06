@@ -8,6 +8,8 @@ do
     end
   end
 
+--------------------------------------------------------------------------------
+
   return {
     description = _msg('Returns a location from Google Maps.'),
     usage = {

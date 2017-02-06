@@ -829,7 +829,7 @@ do
 --------------------------------------------------------------------------------
 
   return {
-    description = _msg('Sends the name, ID, and (if applicable) username for the given user, group, channel or bot.'),
+    description = _msg('Plugin to manage a chat group.'),
     usage = {
       moderator = {
         '<code>!setabout [about]</code>',

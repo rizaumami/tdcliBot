@@ -25,21 +25,24 @@ do
     sendText(chat_id, msg_id, output)
   end
 
-  function udByReply(arg, data)
-    getUdescription(arg, data.id_, data.content_.text_)
-  end
+--------------------------------------------------------------------------------
 
   local function run(msg, matches)
     local query = matches[1]
+    local chat_id = msg.chat_id_
 
     if util.isReply(msg) then
       if query == 'urbandictionary' or query == 'ud' or query == 'urban' then
-        td.getMessage(msg.chat_id_, msg.reply_to_message_id_, udByReply, msg.chat_id_)
+        td.getMessage(chat_id, msg.reply_to_message_id_, function(a, d)
+          getUdescription(a, d.id_, d.content_.text_)
+        end, chat_id)
       end
     else
-      getUdescription(msg.chat_id_, msg.id_, query)
+      getUdescription(chat_id, msg.id_, query)
     end
   end
+
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Returns a definition from Urban Dictionary.'),

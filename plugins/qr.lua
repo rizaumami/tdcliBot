@@ -9,6 +9,8 @@ do
     end
   end
 
+--------------------------------------------------------------------------------
+
   return {
     description = _msg('Converts the given string to a QR code.'),
     usage = {

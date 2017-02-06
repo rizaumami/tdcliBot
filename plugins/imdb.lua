@@ -3,6 +3,7 @@ do
   local function run(msg, matches)
     local omdbapi = 'http://www.omdbapi.com/?plot=full&r=json'
     local movietitle = matches[1]
+    local chat_id = msg.chat_id_
 
     if matches[1]:match(' %d%d%d%d$') then
       local movieyear = matches[1]:match('%d%d%d%d$')
@@ -13,15 +14,15 @@ do
     local success, code = http.request(omdbapi .. '&t=' .. URL.escape(movietitle))
 
     if not success then
-      return sendText(msg.chat_id_, msg.id_, _msg('<b>Connection error</b>'))
+      return sendText(chat_id, msg.id_, _msg('Connection error'))
     end
 
     local jomdb = json.decode(success)
 
     if not jomdb then
-      return sendText(msg.chat_id_, msg.id_, '<b>' .. json.decode(code) .. '</b>')
+      return sendText(chat_id, msg.id_, '<b>' .. json.decode(code) .. '</b>')
     elseif jomdb.Response == 'False' then
-      return sendText(msg.chat_id_, msg.id_, '<b>' .. jomdb.Error .. '</b>')
+      return sendText(chat_id, msg.id_, '<b>' .. jomdb.Error .. '</b>')
     end
 
     local omdb = _msg('<b>%s</b>\n\n'
@@ -57,6 +58,8 @@ do
     )
     util.apiSendMessage(msg, omdb, 'HTML', false)
   end
+
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('The Open Movie Database plugin for Telegram.'),

@@ -1,16 +1,17 @@
 do
 
   local function run(msg, matches)
+    local chat_id = msg.chat_id_
     local jstr, res = https.request('https://api.github.com/repos/' .. matches[1] .. '/' .. matches[2])
 
     if res ~= 200 then
-      return sendText(msg.chat_id_, msg.id_, _msg('Connection error'))
+      return sendText(chat_id, msg.id_, _msg('Connection error'))
     end
 
     local jdat = json.decode(jstr)
 
     if not jdat.id then
-      return sendText(msg.chat_id_, msg.id_, _msg('Shit happens'))
+      return sendText(chat_id, msg.id_, _msg('Shit happens'))
     end
 
     local description = '\n' .. util.escapeHtml(jdat.description) .. '\n\n' or '\n\n'
@@ -21,8 +22,10 @@ do
                   .. '\n<b>Watcher</b>: ' .. jdat.subscribers_count
                   .. '\n\n• Last updated at ' .. jdat.updated_at:gsub('%a', ' ')
 
-    sendText(msg.chat_id_, msg.id_, text)
+    sendText(chat_id, msg.id_, text)
   end
+
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Returns information about the specified GitHub repository.'),

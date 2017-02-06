@@ -26,6 +26,8 @@ do
     sendText(msg.chat_id_, msg.id_, unicode)
   end
 
+--------------------------------------------------------------------------------
+
   return {
     description = _msg('Returns the given text as a json-encoded table of Unicode (UTF-32) values.'),
     usage = {

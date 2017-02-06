@@ -9,8 +9,10 @@ do
       parse_mode = 'Markdown'
     end
 
-    sendText(msg.chat_id_, 0, matches[2], 1, parse_mode)
+    td.sendText(msg.chat_id_, 0, 0, 1, nil, matches[2], 1, parse_mode)
   end
+
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Repeats a string of text.'),

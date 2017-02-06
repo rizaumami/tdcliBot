@@ -20,6 +20,8 @@ do
     util.apiSendPhoto(msg, strip_url .. '.gif', strip_title)
   end
 
+--------------------------------------------------------------------------------
+
   return {
     description = _msg('Returns the latest Dilbert strip or that of the provided date.\n'
                   .. 'Dates before the first strip will return the first strip. '

@@ -21,6 +21,8 @@ do
     return false
   end
 
+--------------------------------------------------------------------------------
+
   local function run(msg, matches)
     if #matches > 2 then return end
 
@@ -75,6 +77,8 @@ do
 
     sendText(msg.chat_id_, msg.id_, output)
   end
+
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Executes the specified code in the given language and returns the output.'),

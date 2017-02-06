@@ -18,6 +18,8 @@ do
     end
   end
 
+--------------------------------------------------------------------------------
+
   local function run(msg, matches)
     local phone = get_galink(msg, matches[2])
     local slug = phone:gsub('^.+/', '')

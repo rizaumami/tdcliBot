@@ -24,6 +24,8 @@ do
     sendText(msg.chat_id_, msg.id_, '<code>' .. text .. '</code>')
   end
 
+--------------------------------------------------------------------------------
+
   return {
     description = _msg('Converts the given number to binary.'),
     usage = {

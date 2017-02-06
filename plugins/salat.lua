@@ -48,6 +48,8 @@ do
     return (hour .. ':' .. minute)
   end
 
+--------------------------------------------------------------------------------
+
   function run(msg, matches)
     local area = matches[1]
     local method = 5
@@ -104,6 +106,8 @@ do
 
     sendText(msg.chat_id_, msg.id_, is_salat_time)
   end
+
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Returns todays prayer times.'),

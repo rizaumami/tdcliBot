@@ -12,6 +12,8 @@ do
     return t[i] or false
   end
 
+--------------------------------------------------------------------------------
+
   local function run(msg, matches)
     local input = msg.content_.text_:upper()
 
@@ -49,7 +51,7 @@ do
     sendText(msg.chat_id_, msg.id_, headerapi .. source)
   end
 
-  --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Returns (Google Finance) exchange rates for various currencies.'),

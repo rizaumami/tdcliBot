@@ -162,7 +162,7 @@ do
   }
 
   local function getVerseNum(verse)
-    for i=1, 6666 do
+    for i = 1, 6666 do
       if verse.quran['quran-simple'][tostring(i)] then
         return tostring(i)
       end
@@ -171,7 +171,7 @@ do
 
   local function getAyah(msg, surah, ayah, verse, lang)
     local gq = 'http://api.globalquran.com/ayah/'
-    local gq_lang = nil
+    local gq_lang
 
     if lang then
       if language[tostring(lang)] then
@@ -223,6 +223,8 @@ do
     sendText(msg.chat_id_, msg.id_, gq_output)
   end
 
+--------------------------------------------------------------------------------
+
   function run(msg, matches)
     if #matches == 1 then
       print('method #1')
@@ -244,6 +246,8 @@ do
       getAyah(msg, matches[1], matches[3], nil, matches[4])
     end
   end
+
+--------------------------------------------------------------------------------
 
   return {
     description = _msg("Returns Al Qur'an verse."),

@@ -1,12 +1,7 @@
 do
 
   function run(msg, matches)
-    local filetype = '&type=jpg'
-
-    if (matches[1] == 'gif') then
-      filetype = '&type=gif'
-    end
-
+    local filetype = (matches[1] == 'gif') and '&type=gif' or '&type=jpg'
     local url = 'https://thecatapi.com/api/images/get?format=html' .. filetype .. '&need_api_key=' .. _config.key.cats
     local str, res = https.request(url)
 
@@ -22,6 +17,8 @@ do
       util.apiSendPhoto(msg, cat)
     end
   end
+
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('A random picture of a cat!'),

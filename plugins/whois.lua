@@ -12,6 +12,8 @@ do
     return content:sub(1, 4000)
   end
 
+--------------------------------------------------------------------------------
+
   local function run(msg, matches)
     local url = matches[1]:gsub('^.-//', '')
     local result = os.execute('whois "' .. url .. '" > ' .. whofile)
@@ -41,10 +43,12 @@ do
     end
   end
 
+--------------------------------------------------------------------------------
+
   return {
     description = 'Whois lookup.',
     usage = {
-      sudo = {
+      user = {
         '<code>!whois [url]</code>',
         'Returns whois lookup for <code>[url]</code>',
         '',

@@ -134,7 +134,7 @@ do
 --------------------------------------------------------------------------------
 
   return {
-    description = _msg('Various sudo commands.'),
+    description = _msg('Plugin to control who could use the bot.'),
     usage = {
       admin = {
         '<code>!whitelist enable</code>',

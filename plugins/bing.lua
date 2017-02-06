@@ -32,15 +32,12 @@ do
     end
   end
 
+--------------------------------------------------------------------------------
+
   local function run(msg, matches)
     local burl = "https://api.datamarket.azure.com/Data.ashx/Bing/Search/Web?Query=%s&$format=json"
     local chat_id = msg.chat_id_
-
-    if matches[1] == 'nsfw' then
-      burl = burl .. '&Adult=%%27Off%%27'
-    else
-      burl = burl .. '&Adult=%%27Strict%%27'
-    end
+    burl = matches[1] == 'nsfw' and burl .. '&Adult=%%27Off%%27' or burl .. '&Adult=%%27Strict%%27'
 
     if util.isReply(msg) then
       td.getMessage(chat_id, msg.reply_to_message_id_, function(a, d)

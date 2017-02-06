@@ -35,6 +35,8 @@ do
     return getXkcd(msg, i)
   end
 
+--------------------------------------------------------------------------------
+
   function run(msg, matches)
     if matches[1] == 'xkcd' then
       url, num, title, alt = getXkcdRandom(msg)
@@ -43,6 +45,8 @@ do
     end
     util.apiSendPhoto(msg, url, title .. '\n\n' .. alt)
   end
+
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Returns the latest xkcd strip and its alt text. If a number is given, returns that number strip.'),

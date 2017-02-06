@@ -37,6 +37,8 @@ do
     sendText(msg.chat_id_, msg.id_, apod .. '\n\n' .. img_url, 0)
   end
 
+--------------------------------------------------------------------------------
+
   return {
     description = _msg("Returns the NASA's Astronomy Picture of the Day."),
     usage = {

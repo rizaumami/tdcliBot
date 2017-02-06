@@ -27,6 +27,8 @@ do
     sendText(msg.chat_id_, msg.id_, output)
   end
 
+--------------------------------------------------------------------------------
+
   return {
     description = _msg('Returns the up or down status of a website.'),
     usage = {

@@ -33,6 +33,7 @@ local function getInputFile(file)
 end
 
 local function getParseMode(parse_mode)
+  local P
   if parse_mode then
     local mode = parse_mode:lower()
 
@@ -42,7 +43,6 @@ local function getParseMode(parse_mode)
       P = {ID = "TextParseModeHTML"}
     end
   end
-
   return P
 end
 

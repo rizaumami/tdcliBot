@@ -1,7 +1,7 @@
 do
 
-  local function mathjs(msg, exp)
-    local result = http.request('http://api.mathjs.org/v1/?expr=' .. URL.escape(exp))
+  local function run(msg, matches)
+    local result = http.request('http://api.mathjs.org/v1/?expr=' .. URL.escape(matches[1]))
 
     if not result then
       result = _msg('Unexpected error\nIs api.mathjs.org up?')
@@ -10,9 +10,7 @@ do
     sendText(msg.chat_id_, msg.id_, '<b>' .. result .. '</b>')
   end
 
-  local function run(msg, matches)
-    mathjs(msg, matches[1])
-  end
+--------------------------------------------------------------------------------
 
   return {
     description = _msg('Returns solutions to mathematical expressions and conversions between common units.'

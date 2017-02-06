@@ -58,6 +58,8 @@ do
     sendText(msg.chat_id_, msg.id_, url:format(hex), 0)
   end
 
+--------------------------------------------------------------------------------
+
   return {
     description = _msg('Returns an image of the given color code. Color codes must be in hexadecimal.\n'
                   .. 'Acceptable code formats:\n'

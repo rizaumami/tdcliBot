@@ -13,6 +13,8 @@ do
     sendText(msg.chat_id_, msg.id_, '<i>' .. result .. '</i>')
   end
 
+--------------------------------------------------------------------------------
+
   return {
     description = _msg('Returns a random fact!'),
     usage = {

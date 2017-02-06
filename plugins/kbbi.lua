@@ -25,18 +25,17 @@ do
     return html
   end
 
+--------------------------------------------------------------------------------
+
   local function run(msg, matches)
     local webkbbi = 'http://kbbi.web.id/'
-    local lema = matches[1]
-
-    if #matches == 2 then
-      lema = matches[1] .. '+' .. matches[2]
-    end
-
+    local lema = matches[2] and matches[1] .. '+' .. matches[2] or matches[1]
     local res, code = http.request(webkbbi .. lema .. '/ajax_0')
+    local chat_id = msg.chat_id_
+    local kbbi_desc
 
     if res == '' then
-      return sendText(msg.chat_id_, msg.id_, 'Tidak ada arti kata "<b>' .. lema:gsub('+', ' ') .. '</b>" di kbbi.web.id')
+      return sendText(chat_id, msg.id_, 'Tidak ada arti kata "<b>' .. lema:gsub('+', ' ') .. '</b>" di kbbi.web.id')
     end
 
     if #matches == 2 then
@@ -52,10 +51,10 @@ do
       end
     end
 
-    local footer = '\n\n' .. webkbbi .. lema
+    local footer = '\n' .. webkbbi .. lema
     local hasil = cleanTag(kbbi_desc .. footer)
 
-    sendText(msg.chat_id_, msg.id_, hasil)
+    sendText(chat_id, msg.id_, hasil)
   end
 
 --------------------------------------------------------------------------------

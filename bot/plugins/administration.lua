@@ -157,6 +157,8 @@ do
     if _config.chats.managed[chat_id] then
       text = _msg('I am already administrating this group.')
     else
+      _config.chats.managed[chat_id] = {unlisted = false}
+      saveConfig()
       db:set('autoban' .. chat_id, 3)
       db:hmset('anti' .. chat_id,
                'bot', 'false',
@@ -184,7 +186,7 @@ do
           db:set('username' .. a, d.channel_.username_ or false)
           if d.invite_link_ then
             db:set('link' .. a, d.invite_link_)
-            _config.chats.managed[a] = {link = d.invite_link_, unlisted = false}
+            _config.chats.managed[a].link = d.invite_link_
             saveConfig()
           end
         end, chat_id)
@@ -380,7 +382,7 @@ do
 --------------------------------------------------------------------------------
 
   return {
-    description = _msg('Sends the name, ID, and (if applicable) username for the given user, group, channel or bot.'),
+    description = _msg('Plugin to manage chat groups.'),
     usage = {
       admin = {
         '<code>!mkgroup [title]</code>',
