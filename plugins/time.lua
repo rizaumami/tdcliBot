@@ -70,7 +70,7 @@ do
     usage = {
       user = {
         '<code>!time [area]</code>',
-        _msg('Displays the local time in that <code>[area]</code><b>Example</b>') .. ': <code>!time yogyakarta</code>',
+        _msg('Displays the local time in that <code>[area]</code>\n<b>Example</b>') .. ': <code>!time yogyakarta</code>',
       },
     },
     patterns = {

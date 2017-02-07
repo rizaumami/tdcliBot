@@ -82,15 +82,23 @@ do
         td.getUser(data.sender_user_id_, getUser_cb, extra)
       end, extra)
     elseif matches[2] == '@' then
+      extra.username = matches[3]
       td.searchPublicChat(matches[3], function(a, d)
-        local user = d.type_.user_
-        local name = '[<code>' .. user.id_ .. '</code>] <b>' .. user.first_name_ .. '</b>'
+        local exist, err = util.checkUsername(d)
+        local username = a.username
+        local chat_id = a.chat_id
+        local msg_id = a.msg_id
 
-        if user.last_name_ then
-          name = name .. ' <b>' .. user.last_name_ .. '</b>'
+        if not exist then
+          return sendText(chat_id, msg_id, _msg(err):format(username))
         end
 
-        whitelisting(a.chat_id, user.id_, a.msg_id, name, a.cmd)
+        local user = d.type_.user_
+        local user_id = user.id_
+        local name = '[<code>' .. user_id .. '</code>] <b>' .. user.first_name_ .. '</b>'
+        local fullname = user.last_name_ and name .. ' <b>' .. user.last_name_ .. '</b>' or name
+
+        whitelisting(chat_id, user_id, msg_id, fullname, a.cmd)
       end, extra)
     elseif matches[3] and matches[3]:match('^%d+$') then
       td.getUser(matches[3], getUser_cb, extra)

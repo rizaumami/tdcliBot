@@ -1,5 +1,3 @@
--- TODO: Remove block when user kicked from a supergroup.
-
 do
 
   -- Kicks user and re-kick if re-join
@@ -32,6 +30,10 @@ do
       text = _msg('%s has been unbanned.'):format(user)
     else
       text = _msg('%s is not banned.'):format(user)
+    end
+    -- Unblock user
+    if util.isSuperGroup(chat_id) then
+      td.changeChatMemberStatus(chat_id, user_id, 'Left')
     end
     sendText(arg.chat_id, arg.msg_id, text)
   end
@@ -112,12 +114,7 @@ do
     local cmd = arg.cmd
     local chat_id = arg.chat_id
     local user_id = data.id_
-    local name = data.first_name_
-
-    if data.username_ then
-      name = '@' .. data.username_
-    end
-
+    local name = data.username_ and '@' .. data.username_ or data.first_name_
     local extra = {
       chat_id = arg.chat_id,
       msg_id = arg.msg_id,
@@ -137,31 +134,24 @@ do
     end
   end
 
-  -- By-reply callback
-  local function hammerByReply(arg, data)
-    td.getUser(data.sender_user_id_, hammerVictim, {
-        chat_id = arg.chat_id,
-        msg_id = data.id_,
-        cmd = arg.cmd
-    })
-  end
-
   -- Get user ids from its @username
   local function resolveUsername_cb(arg, data)
-    local cmd = arg.cmd
-    local user = data.type_.user_
+    local exist, err = util.checkUsername(data)
+    local username = arg.username
     local chat_id = arg.chat_id
-    local user_id = user.id_
-    local name = user.first_name_
+    local msg_id = arg.msg_id
 
-    if user.username_ then
-      name = '@' .. user.username_
+    if not exist then
+      return sendText(chat_id, msg_id, _msg(err):format(username))
     end
 
+    local user = data.type_.user_
+    local cmd = arg.cmd
+    local user_id = user.id_
     local extra = {
-      chat_id = arg.chat_id,
-      msg_id = arg.msg_id,
-      name = name
+      chat_id = chat_id,
+      msg_id = msg_id,
+      name = '@' .. user.username_
     }
 
     if cmd == 'kick' then
@@ -232,8 +222,15 @@ do
       local extra = {chat_id = chat_id, msg_id = msg.id_, cmd = matches[1]}
 
       if util.isReply(msg) then
-        td.getMessage(chat_id, msg.reply_to_message_id_, hammerByReply, extra)
+        td.getMessage(chat_id, msg.reply_to_message_id_, function(a, d)
+          td.getUser(d.sender_user_id_, hammerVictim, {
+              chat_id = a.chat_id,
+              msg_id = d.id_,
+              cmd = a.cmd
+          })
+        end, extra)
       elseif matches[2] == '@' then
+        extra.username = matches[3]
         td.searchPublicChat(matches[3], resolveUsername_cb, extra)
       elseif matches[2]:match('%d+$') then
         td.getUser(matches[2], hammerVictim, extra)

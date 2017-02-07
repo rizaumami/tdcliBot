@@ -104,12 +104,7 @@ do
     local cmd = arg.cmd
     local chat_id = arg.chat_id
     local user_id = data.id_
-    local name = data.first_name_
-
-    if data.username_ then
-      name = '@' .. data.username_
-    end
-
+    local name = data.username_ and '@' .. data.username_ or data.first_name_
     local extra = {
       chat_id = arg.chat_id,
       msg_id = arg.msg_id,
@@ -134,20 +129,22 @@ do
 
   -- Callback for moderation by user id, resolving username.
   local function resolveMod_cb(arg, data)
-    local cmd = arg.cmd
-    local user = data.type_.user_
+    local exist, err = util.checkUsername(data)
+    local username = arg.username
     local chat_id = arg.chat_id
-    local user_id = user.id_
-    local name = user.first_name_
+    local msg_id = arg.msg_id
 
-    if user.username_ then
-      name = '@' .. user.username_
+    if not exist then
+      return sendText(chat_id, msg_id, _msg(err):format(username))
     end
 
+    local user = data.type_.user_
+    local cmd = arg.cmd
+    local user_id = user.id_
     local extra = {
-      chat_id = arg.chat_id,
-      msg_id = arg.msg_id,
-      name = name
+      chat_id = chat_id,
+      msg_id = msg_id,
+      name = '@' .. user.username_
     }
 
     if cmd == 'mod' then
@@ -214,7 +211,7 @@ do
       -- Anti bot
       if db:hget(key, 'bot') == 'true' then
         td.getUser(user_id, function(a, d)
-          local name = d.username_:lower()
+          local name = d.username_ and d.username_:lower() or 'nousername'
           if name:match('bot$') then
             util.kickUser(a.chat_id, a.user_id)
           end
@@ -854,10 +851,10 @@ do
         _msg("Sets the group's rules. Rules will be automatically numbered. Separate rules with a new line. HTML is supported."),
         '',
         '<code>!addrule [num] [rule]</code>',
-        _msg('Inserts a single rule as i. If i is a number for which there is no rule, adds a rule indexed higher than the highest-indexed rule.'),
+        _msg('Inserts a single rule as <code>num</code>. If <code>num</code> is a number for which there is no rule, adds a rule indexed higher than the highest-indexed rule.'),
         '',
         '<code>!changerule [num] [rule]</code>',
-        _msg('Changes a single rule. If i is a number for which there is no rule, adds a rule indexed higher than the highest-indexed rule.'),
+        _msg('Changes a single rule. If <code>num</code> is a number for which there is no rule, adds a rule indexed higher than the highest-indexed rule.'),
         '',
         '<code>!resetrules [num]</code>',
         _msg('Delete a single rule.'),

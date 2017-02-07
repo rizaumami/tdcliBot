@@ -160,6 +160,24 @@ end
 
 U.scanDir = scanDir
 
+-- Check if a username exist and a user's username.
+local function checkUsername(data)
+  local username = true
+  local text
+
+  if data.code_ == 400 then
+    text = 'User @%s not found.'
+    username = false
+  elseif not data.type_.user_ then
+    text = "@%s is not a user username.\nPerhaps it's a channel's or supergroup's username?"
+    username = false
+  end
+
+  return username, text
+end
+
+U.checkUsername = checkUsername
+
 local function groupIntoThree(number)
   while true do
     number, k = string.gsub(number, "^(-?%d+)(%d%d%d)", '%1.%2')

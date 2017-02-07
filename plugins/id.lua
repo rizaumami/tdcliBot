@@ -38,7 +38,15 @@ do
         end, {chat_id = msg.chat_id_})
       elseif matches[1] == '@' then
         td.searchPublicChat(matches[2], function(a, d)
-          getUserIds(a.chat_id, a.msg_id, d.type_.user_)
+          local exist, err = util.checkUsername(d)
+          local username = a.username
+          local chat_id = a.chat_id
+          local msg_id = a.msg_id
+
+          if not exist then
+            return sendText(chat_id, msg_id, _msg(err):format(username))
+          end
+          getUserIds(chat_id, msg_id, d.type_.user_)
         end, extra)
       elseif matches[1]:match('%d+$') then
         td.getUser(matches[1], getUser_cb, extra)

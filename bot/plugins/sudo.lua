@@ -86,8 +86,18 @@ do
       end
       if matches[2] then
         if matches[2]:match('^@%g+$') then
-          td.searchPublicChat(matches[2], function(a, d)
-            td.getUser(d.id_, visudo, a)
+          local username = matches[2]:sub(2, -1)
+          extra.username = username
+          td.searchPublicChat(username, function(a, d)
+            local exist, err = util.checkUsername(d)
+            local username = a.username
+            local chat_id = a.chat_id
+            local msg_id = a.msg_id
+
+            if not exist then
+              return sendText(chat_id, msg_id, _msg(err):format(username))
+            end
+            td.getUser(d.type_.user_.id_, visudo, a)
           end, extra)
         elseif matches[2]:match('^%d+$') then
           td.getUser(matches[2], visudo, extra)

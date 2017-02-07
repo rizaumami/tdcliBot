@@ -1175,7 +1175,7 @@ local function getChannelMembers(channel_id, filter, offset, limit, cb, cmd)
     filter_ = {
       ID = "ChannelMembers" .. filter
     },
-    offset_ = offset,
+    offset_ = offset or 0,
     limit_ = limit
   }, cb or dl_cb, cmd)
 end

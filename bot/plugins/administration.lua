@@ -93,12 +93,7 @@ do
     local cmd = arg.cmd
     local chat_id = arg.chat_id
     local user_id = data.id_
-    local name = data.first_name_
-
-    if data.username_ then
-      name = '@' .. data.username_
-    end
-
+    local name = data.username_ and '@' .. data.username_ or data.first_name_
     local extra = {
       chat_id = arg.chat_id,
       msg_id = arg.msg_id,
@@ -127,20 +122,22 @@ do
 
   -- Administration by user id, resolving username.
   local function resolveAdmin_cb(arg, data)
-    local cmd = arg.cmd
-    local user = data.type_.user_
+    local exist, err = util.checkUsername(data)
+    local username = arg.username
     local chat_id = arg.chat_id
-    local user_id = user.id_
-    local name = user.first_name_
+    local msg_id = arg.msg_id
 
-    if user.username_ then
-      name = '@' .. user.username_
+    if not exist then
+      return sendText(chat_id, msg_id, _msg(err):format(username))
     end
 
+    local user = data.type_.user_
+    local cmd = arg.cmd
+    local user_id = user.id_
     local extra = {
-      chat_id = arg.chat_id,
-      msg_id = arg.msg_id,
-      name = name
+      chat_id = chat_id,
+      msg_id = msg_id,
+      name = '@' .. user.username_
     }
 
     if cmd == 'admin' then
