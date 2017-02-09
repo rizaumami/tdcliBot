@@ -180,9 +180,19 @@ do
       td.sendAnimation(chat_id, msg.id_, 0, 1, nil, db:hget(hash, 'animation'))
     end
   end
+
+  local function cron(msg)
+    local flash = 'floods' .. msg.chat_id_
+    if db:hgetall(flash) then
+      --print(">> Delete " .. msg.chat_id_ .. "'s floods record.")
+      db:del(flash)
+    end
+  end
+
 --------------------------------------------------------------------------------
 
   local function pre_process(msg)
+    -- Only process message from managed groups
     if not _config.chats.managed[msg.chat_id_] then return msg end
 
     local chat_id = msg.chat_id_
@@ -233,7 +243,7 @@ do
           db:hdel(hash, invited)
         end
       else
-        local inviter = 'bannedinviter:' .. chat_id
+        local inviter = 'bannedinviter' .. chat_id
         db:hincrby(inviter, user_id, 1)
         local count = db:hexists(inviter, user_id)
         local autoban = db:get('autoban' .. chat_id)
@@ -292,33 +302,29 @@ do
     if db:hget(key, 'flood') == 'true' then
       local flash = 'floods' .. chat_id
       local antiflood = 'antiflood' .. chat_id
-      local ID = msg.content_.ID
-      if ID == 'MessageSticker' then
-        db:hincrby(flash, user_id, db:hget(antiflood, 'sticker'))
-      elseif ID == 'MessagePhoto' then
-        db:hincrby(flash, user_id, db:hget(antiflood, 'photo'))
-      elseif ID == 'MessageAudio' then
-        db:hincrby(flash, user_id, db:hget(antiflood, 'audio'))
-      elseif ID == 'MessageContact' then
-        db:hincrby(flash, user_id, db:hget(antiflood, 'contact'))
-      elseif ID == 'MessageLocation' then
-        db:hincrby(flash, user_id, db:hget(antiflood, 'location'))
-      elseif ID == 'MessageVoice' then
-        db:hincrby(flash, user_id, db:hget(antiflood, 'voice'))
-      elseif ID == 'MessageDocument' then
+      local ID = msg.content_.ID:lower()
+      local ftype
+      if ID == 'messagesticker' or ID == 'messagephoto'
+                                or ID == 'messageaudio'
+                                or ID == 'messagecontact'
+                                or ID == 'messagelocation'
+                                or ID == 'messagevoice' then
+        ftype = ID:sub(8, -1)
+      elseif ID == 'messagedocument' then
         local document = msg.content_.document_
         if document.mime_type_ and document.mime_type_:match('^image') then
-          db:hincrby(flash, user_id, db:hget(antiflood, 'photo'))
+          ftype = 'photo'
         elseif document.mime_type_ and document.mime_type_:match('^video') then
-          db:hincrby(flash, user_id, db:hget(antiflood, 'video'))
+          ftype = 'video'
         else
-          db:hincrby(flash, user_id, db:hget(antiflood, 'document'))
+          ftype = 'document'
         end
       else
-        db:hincrby(flash, user_id, db:hget(antiflood, 'text'))
+        ftype = 'text'
       end
+      db:hincrby(flash, user_id, db:hget(antiflood, ftype))
       local floods = db:hget(flash, user_id)
-      if tonumber(floods) > 99 then
+      if db:hexists(flash, user_id) and tonumber(floods) > 99 then
         util.kickUser(chat_id, user_id)
         db:hdel(flash, user_id)
       end
@@ -776,7 +782,7 @@ do
 
     -- Sets welcome and/or goodbye message
     if matches[1] == 'setwelcome' or matches == 'setgoodbye' then
-      local greet = matches[1]:gsub('set', '')
+      local greet = matches[1]:sub(4, -1)
       local kgreet = greet .. chat_id
       local message = matches[2] or ''
 
@@ -816,7 +822,7 @@ do
     end
     -- Sets welcome and/or goodbye message
     if matches[1] == 'resetwelcome' or matches == 'resetgoodbye' then
-      local greet = matches[1]:gsub('reset', '')
+      local greet = matches[1]:sub(6, -1)
       local text = _msg('%s has been disabled.'):format(greet)
       db:hset(greet .. chat_id, 'disabled', 'false')
       sendText(chat_id, msg.id_, text:gsub('^%l', string.upper))
@@ -1012,6 +1018,7 @@ do
     },
     run = run,
     pre_process = pre_process,
+    cron = cron
   }
 
 end

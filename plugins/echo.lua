@@ -18,15 +18,16 @@ do
     description = _msg('Repeats a string of text.'),
     usage = {
       user = {
-        '<code>!echo [text]</code>',
-        _msg('Repeats a string of text.'),
-        '',
-        '<code>!html [text]</code>',
-        _msg('HTML format a string of text.\nNot support link format.'),
-        '',
-        '<code>!md [text]</code>',
-        _msg('Markdown format a string of text.\nNot support link format'),
-        '',
+        'See: https://t.me/tdclibotmanual/42'
+        --'<code>!echo [text]</code>',
+        --_msg('Repeats a string of text.'),
+        --'',
+        --'<code>!html [text]</code>',
+        --_msg('HTML format a string of text.\nNot support link format.'),
+        --'',
+        --'<code>!md [text]</code>',
+        --_msg('Markdown format a string of text.\nNot support link format'),
+        --'',
       },
     },
     patterns = {

@@ -33,8 +33,9 @@ do
     description = _msg('Returns the up or down status of a website.'),
     usage = {
       user = {
-        '<code>!isup github.com</code>',
-        _msg('Returns the up or down status of github.com.'),
+        'See: https://t.me/tdclibotmanual/66'
+        --'<code>!isup github.com</code>',
+        --_msg('Returns the up or down status of github.com.'),
       },
     },
     patterns = {

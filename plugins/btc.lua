@@ -25,12 +25,13 @@ do
     description = _msg('Displays the current Bitcoin price.'),
     usage = {
       user = {
-        '<code>!btc</code>',
-        _msg('Displays Bitcoin price in USD'),
-        '',
-        '<code>!btc [currency]</code>',
-        _msg('Displays Bitcoin price in <code>[currency]</code>'),
-        _msg('<code>[currency]</code> is in ISO 4217 format.'),
+        'See: https://t.me/tdclibotmanual/21'
+        --'<code>!btc</code>',
+        --_msg('Displays Bitcoin price in USD'),
+        --'',
+        --'<code>!btc [currency]</code>',
+        --_msg('Displays Bitcoin price in <code>[currency]</code>'),
+        --_msg('<code>[currency]</code> is in ISO 4217 format.'),
       },
     },
     patterns = {

@@ -84,8 +84,9 @@ do
     description = _msg('Executes the specified code in the given language and returns the output.'),
     usage = {
       user = {
-        '<code>!exec [language] [code]</code>',
-        _msg('Executes the specified <code>code</code> in the given <code>language</code> and returns the output.')
+        'See: https://t.me/tdclibotmanual/45'
+        --'<code>!exec [language] [code]</code>',
+        --_msg('Executes the specified <code>code</code> in the given <code>language</code> and returns the output.')
       },
     },
     patterns = {

@@ -97,10 +97,11 @@ do
     description = _msg('Returns mobile phone specification.'),
     usage = {
       user = {
-        '<code>!phone [phone]</code>',
-        '<code>!gsm [phone]</code>',
-        _msg('Returns <code>phone</code> specification.'),
-        _msg('<b>Example</b>') .. ': <code>!gsm xiaomi mi4c</code>',
+        'See: https://t.me/tdclibotmanual/57'
+        --'<code>!phone [phone]</code>',
+        --'<code>!gsm [phone]</code>',
+        --_msg('Returns <code>phone</code> specification.'),
+        --_msg('<b>Example</b>') .. ': <code>!gsm xiaomi mi4c</code>',
       },
     },
     patterns = {

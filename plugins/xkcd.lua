@@ -52,12 +52,13 @@ do
     description = _msg('Returns the latest xkcd strip and its alt text. If a number is given, returns that number strip.'),
     usage = {
       user = {
-        '<code>!xkcd</code>',
-        _msg('Send random xkcd image and title.'),
-        '',
-        '<code>!xkcd (id)</code>',
-        _msg('Send an xkcd image and title.'),
-        _msg('<b>Example</b>') .. ': <code>!xkcd 149</code>',
+        'See: https://t.me/tdclibotmanual/104'
+        --'<code>!xkcd</code>',
+        --_msg('Send random xkcd image and title.'),
+        --'',
+        --'<code>!xkcd (id)</code>',
+        --_msg('Send an xkcd image and title.'),
+        --_msg('<b>Example</b>') .. ': <code>!xkcd 149</code>',
       },
     },
     patterns = {

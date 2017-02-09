@@ -82,16 +82,17 @@ do
     description = _msg('Returns an article from Wikipedia.'),
     usage = {
       user = {
-        '<code>!w [query]</code>',
-        '<code>!wiki [query]</code>',
-        '<code>!wikipedia [query]</code>',
-        _msg('Returns wikipedia article for <code>query</code>.'),
-        '',
-        '<code>!w[lang] [query]</code>',
-        '<code>!wiki[lang] [query]</code>',
-        '<code>!wikipedia[lang] [query]</code>',
-        _msg('Returns wikipedia article in <code>[language]</code> for <code>query</code>.\n'
-        .. '<b>Example</b>: <code>!wid, !wikiid, !wikipediaid</code> for wikipedia entry in Bahasa Indonesia.')
+        'See: https://t.me/tdclibotmanual/101'
+        --'<code>!w [query]</code>',
+        --'<code>!wiki [query]</code>',
+        --'<code>!wikipedia [query]</code>',
+        --_msg('Returns wikipedia article for <code>query</code>.'),
+        --'',
+        --'<code>!w[lang] [query]</code>',
+        --'<code>!wiki[lang] [query]</code>',
+        --'<code>!wikipedia[lang] [query]</code>',
+        --_msg('Returns wikipedia article in <code>[language]</code> for <code>query</code>.\n'
+        --.. '<b>Example</b>: <code>!wid, !wikiid, !wikipediaid</code> for wikipedia entry in Bahasa Indonesia.')
       },
     },
     patterns = {

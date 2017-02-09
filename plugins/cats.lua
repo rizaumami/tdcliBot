@@ -24,13 +24,14 @@ do
     description = _msg('A random picture of a cat!'),
     usage = {
       user = {
-        '<code>!cat</code>',
-        '<code>!cats</code>',
-        _msg('Returns a picture of cat!'),
-        '',
-        '<code>!cat gif</code>',
-        '<code>!cats gif</code>',
-        _msg('Returns an animated picture of cat!'),
+        'See: https://t.me/tdclibotmanual/30'
+        --'<code>!cat</code>',
+        --'<code>!cats</code>',
+        --_msg('Returns a picture of cat!'),
+        --'',
+        --'<code>!cat gif</code>',
+        --'<code>!cats gif</code>',
+        --_msg('Returns an animated picture of cat!'),
       },
     },
     patterns = {

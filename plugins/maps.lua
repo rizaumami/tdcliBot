@@ -14,11 +14,12 @@ do
     description = _msg('Returns a location from Google Maps.'),
     usage = {
       user = {
-        '<code>!loc [query]</code>',
-        '<code>!location [query]</code>',
-        '<code>!maps [query]</code>',
-        _msg('Returns Google Maps of <code>[query]</code>.'),
-        _msg('<b>Example</b>') .. ': <code>!loc raja ampat</code>',
+        'See: https://t.me/tdclibotmanual/71'
+        --'<code>!loc [query]</code>',
+        --'<code>!location [query]</code>',
+        --'<code>!maps [query]</code>',
+        --_msg('Returns Google Maps of <code>[query]</code>.'),
+        --_msg('<b>Example</b>') .. ': <code>!loc raja ampat</code>',
       },
     },
     patterns = {

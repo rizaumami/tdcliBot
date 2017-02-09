@@ -15,8 +15,9 @@ do
     description = _msg('Converts the given string to a QR code.'),
     usage = {
       user = {
-      '<code>!qr [string]</code>',
-      _msg('Converts the given <code>string</code> to a QR code.')
+        'See: https://t.me/tdclibotmanual/77'
+        --'<code>!qr [string]</code>',
+        --_msg('Converts the given <code>string</code> to a QR code.')
       },
     },
     patterns = {

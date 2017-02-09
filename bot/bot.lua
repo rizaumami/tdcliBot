@@ -19,6 +19,7 @@ config_file = './bot/config.lua'
 -- Set line below to "true" to append sender first_name_, last_name_, and username_ to the message
 -- NOTE: This will requesting getUser for every valid messages, I'm not quite sure for its implications.
 local append_ids_to_msg = false
+local last_cron
 
 
 -- FUNCTIONS -------------------------------------------------------------------
@@ -447,6 +448,15 @@ function tdcli_update_callback(data)
                   plugin = plugin
               })
             end
+          end
+        end
+      end
+      -- Run cron jobs every minute.
+      if last_cron ~= os.date('%M') then
+        last_cron = os.date('%M')
+        for name, plugin in pairs(plugins) do
+          if plugin.cron then -- Call each plugin's cron function, if it has one.
+            plugin.cron(msg)
           end
         end
       end

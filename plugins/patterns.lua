@@ -44,12 +44,13 @@ do
     description = _msg('Replace all matches for the given pattern.'),
     usage = {
       user = {
-        '<code>/s/from/to/</code>',
-        '<code>/s/from/to</code>',
-        '<code>s/from/to</code>',
-        '<code>!s/from/to/</code>',
-        '<code>!s/from/to</code>',
-        _msg('Replace <code>from</code> with <code>to</code>')
+        'See: https://t.me/tdclibotmanual/74'
+        --'<code>/s/from/to/</code>',
+        --'<code>/s/from/to</code>',
+        --'<code>s/from/to</code>',
+        --'<code>!s/from/to/</code>',
+        --'<code>!s/from/to</code>',
+        --_msg('Replace <code>from</code> with <code>to</code>')
       },
     },
     patterns = {

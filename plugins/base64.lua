@@ -37,9 +37,10 @@ do
     description = _msg('Converts the given string to base64.'),
     usage = {
       user = {
-        '<code>!base64 [string]</code>',
-        '<code>!b64 [string]</code>',
-        _msg('Converts the given <code>string</code> to base64.')
+        'See: https://t.me/tdclibotmanual/12'
+        --'<code>!base64 [string]</code>',
+        --'<code>!b64 [string]</code>',
+        --_msg('Converts the given <code>string</code> to base64.')
       },
     },
     patterns = {

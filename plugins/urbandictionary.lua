@@ -48,15 +48,16 @@ do
     description = _msg('Returns a definition from Urban Dictionary.'),
     usage = {
       user = {
-        '<code>!ud [query]</code>',
-        '<code>!urban [query]</code>',
-        '<code>!urbandictionary [query]</code>',
-        _msg('Returns a <code>[query]</code> definition from urbandictionary.com.\n<b>Example</b>') .. ': <code>!ud fam</code>',
-        '',
-        '<code>!ud</code>',
-        '<code>!urban</code>',
-        '<code>!urbandictionary</code>',
-        _msg('By reply. Returns a <code>[query]</code> definition from urbandictionary.com.\nThe <code>[query]</code> is the replied message text.')
+        'See: https://t.me/tdclibotmanual/95'
+        --'<code>!ud [query]</code>',
+        --'<code>!urban [query]</code>',
+        --'<code>!urbandictionary [query]</code>',
+        --_msg('Returns a <code>[query]</code> definition from urbandictionary.com.\n<b>Example</b>') .. ': <code>!ud fam</code>',
+        --'',
+        --'<code>!ud</code>',
+        --'<code>!urban</code>',
+        --'<code>!urbandictionary</code>',
+        --_msg('By reply. Returns a <code>[query]</code> definition from urbandictionary.com.\nThe <code>[query]</code> is the replied message text.')
       },
     },
     patterns = {

@@ -73,11 +73,12 @@ do
     description = _msg('Returns the current weather conditions for a given location.'),
     usage = {
       user = {
-        '<code>!cast [area]</code>',
-        '<code>!forecast [area]</code>',
-        '<code>!weather [area]</code>',
-        _msg('Forecast for that <code>[area]</code>.'),
-        _msg('<b>Example</b>') .. ': <code>!weather dago parung panjang</code>',
+        'See: https://t.me/tdclibotmanual/51'
+        --'<code>!cast [area]</code>',
+        --'<code>!forecast [area]</code>',
+        --'<code>!weather [area]</code>',
+        --_msg('Forecast for that <code>[area]</code>.'),
+        --_msg('<b>Example</b>') .. ': <code>!weather dago parung panjang</code>',
       },
     },
     patterns = {

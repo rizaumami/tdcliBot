@@ -21,10 +21,11 @@ do
     description = _msg('Doge-ifies the given text.\nSentences are separated using slashes.'),
     usage = {
       user = {
-        '<code>!dogify (your/words/with/slashes)</code>',
-        '<code>!doge (your/words/with/slashes)</code>',
-        _msg('Create a doge with the image and words.'),
-        _msg('<b>Example</b>') .. ': <code>!doge wow/merbot/soo/cool</code>',
+        'See: https://t.me/tdclibotmanual/39'
+        --'<code>!dogify (your/words/with/slashes)</code>',
+        --'<code>!doge (your/words/with/slashes)</code>',
+        --_msg('Create a doge with the image and words.'),
+        --_msg('<b>Example</b>') .. ': <code>!doge wow/merbot/soo/cool</code>',
       },
     },
     patterns = {

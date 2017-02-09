@@ -32,8 +32,9 @@ do
     description = _msg('Returns the given text as a json-encoded table of Unicode (UTF-32) values.'),
     usage = {
       user = {
-        '<code>!unicode [text]</code>',
-        _msg('Returns the given <code>text</code> as a json-encoded table of Unicode (UTF-32) values.')
+        'See: https://t.me/tdclibotmanual/92'
+        --'<code>!unicode [text]</code>',
+        --_msg('Returns the given <code>text</code> as a json-encoded table of Unicode (UTF-32) values.')
       },
     },
     patterns = {

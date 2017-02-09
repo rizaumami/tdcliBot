@@ -88,7 +88,7 @@ do
 
     if matches[2] then
       if matches[2] == 'all' then
-        return sendText(chat_id, msg.id_, _msg('Please read @thefinemanual'))
+        return sendText(chat_id, msg.id_, _msg('Please read @tdclibotmanual'))
       elseif matches[2]:match('^%d+$') then
           text = pluginHelp(nil, matches[2], requester)
       else
@@ -100,7 +100,7 @@ do
 
     if not text then
       text =  _msg('No help entry for "<b>%s</b>".\n'
-              .. 'Please visit @thefinemanual for the complete list.'):format(matches[2])
+              .. 'Please visit @tdclibotmanual for the complete list.'):format(matches[2])
     end
     sendText(chat_id, msg.id_, text)
   end

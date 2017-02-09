@@ -19,8 +19,9 @@ do
     description = _msg('Returns a random fact!'),
     usage = {
       user = {
-        '<code>!fact</code>',
-        _msg('Returns a random fact.'),
+        'See: https://t.me/tdclibotmanual/48'
+        --'<code>!fact</code>',
+        --_msg('Returns a random fact.'),
       },
     },
     patterns = {

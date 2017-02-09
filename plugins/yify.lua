@@ -40,10 +40,11 @@ do
     description = _msg('Searches Yify torrents for the given query.'),
     usage = {
       user = {
-        '<code>!yify [search term]</code>',
-        '<code>!yts [search term]</code>',
-        _msg('Search YTS YIFY movie torrents from yts.ag'),
-        _msg('<b>Example</b>') .. ': <code>!yts ex machina</code>',
+        'See: https://t.me/tdclibotmanual/107'
+        --'<code>!yify [search term]</code>',
+        --'<code>!yts [search term]</code>',
+        --_msg('Search YTS YIFY movie torrents from yts.ag'),
+        --_msg('<b>Example</b>') .. ': <code>!yts ex machina</code>',
       },
     },
     patterns = {

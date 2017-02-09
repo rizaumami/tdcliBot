@@ -31,8 +31,9 @@ do
     description = _msg('Returns information about the specified GitHub repository.'),
     usage = {
       user = {
-        '<code>github [username] [repository]</code>',
-        _msg('Returns information about the specified GitHub repository.')
+        'See: https://t.me/tdclibotmanual/54'
+        --'<code>github [username] [repository]</code>',
+        --_msg('Returns information about the specified GitHub repository.')
       },
     },
     patterns = {

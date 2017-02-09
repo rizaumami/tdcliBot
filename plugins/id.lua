@@ -63,21 +63,22 @@ do
   return {
     description = _msg('Sends the name, ID, and (if applicable) username for the given user, group, channel or bot.'),
     usage = {
-      moderator = {
-        '<code>!id</code>',
-        _msg('Returns the IDs of the replied users.'),
-        '',
-        '<code>!id [user_id]</code>',
-        _msg('Return the IDs for the given user_id.'),
-        '',
-        '<code>!id @[username]</code>',
-        _msg('Return the IDs for the given username.'),
-        '',
-      },
+      --moderator = {
+        --'<code>!id</code>',
+        --_msg('Returns the IDs of the replied users.'),
+        --'',
+        --'<code>!id [user_id]</code>',
+        --_msg('Return the IDs for the given user_id.'),
+        --'',
+        --'<code>!id @[username]</code>',
+        --_msg('Return the IDs for the given username.'),
+        --'',
+      --},
       user = {
-        '<code>!id</code>',
-        _msg('Returns your IDs.'),
-        '',
+        'See: https://t.me/tdclibotmanual/63'
+        --'<code>!id</code>',
+        --_msg('Returns your IDs.'),
+        --'',
       },
     },
     patterns = {

@@ -30,8 +30,9 @@ do
     description = _msg('Converts the given number to binary.'),
     usage = {
       user = {
-        '<code>!binary [number]</code>',
-        _msg('Converts the given <code>number</code> to binary.')
+        'See: https://t.me/tdclibotmanual/15'
+        --'<code>!binary [number]</code>',
+        --_msg('Converts the given <code>number</code> to binary.')
       },
     },
     patterns = {

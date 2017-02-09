@@ -22,8 +22,9 @@ do
     description = _msg('Returns a cat fact.'),
     usage = {
       user = {
-        '<code>!catfact</code>',
-        _msg('Returns a cat fact.'),
+        'See: https://t.me/tdclibotmanual/27'
+        --'<code>!catfact</code>',
+        --_msg('Returns a cat fact.'),
       },
     },
     patterns = {

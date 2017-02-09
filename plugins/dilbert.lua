@@ -29,13 +29,14 @@ do
                   .. 'Source: dilbert.com'),
     usage = {
       user = {
-        '<code>!dilbert</code>',
-        _msg('Returns todays Dilbert comic'),
-        '',
-        '<code>!dilbert YYYY-MM-DD</code>',
-        _msg('Returns Dilbert comic published on <code>YYYY-MM-DD</code>'),
-        _msg('<b>Example</b>') .. ': <code>!dilbert 2016-08-17</code>',
-        '',
+        'See: https://t.me/tdclibotmanual/36'
+        --'<code>!dilbert</code>',
+        --_msg('Returns todays Dilbert comic'),
+        --'',
+        --'<code>!dilbert YYYY-MM-DD</code>',
+        --_msg('Returns Dilbert comic published on <code>YYYY-MM-DD</code>'),
+        --_msg('<b>Example</b>') .. ': <code>!dilbert 2016-08-17</code>',
+        --'',
       },
     },
     patterns = {

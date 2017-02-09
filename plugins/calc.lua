@@ -17,9 +17,10 @@ do
                   .. 'Results provided by mathjs.org.'),
     usage = {
       user = {
-        '<code>!calc [expression]</code>',
-        '<code>!calculator [expression]</code>',
-        _msg('Evaluates the expression and sends the result.'),
+        'See: https://t.me/tdclibotmanual/24'
+        --'<code>!calc [expression]</code>',
+        --'<code>!calculator [expression]</code>',
+        --_msg('Evaluates the expression and sends the result.'),
       },
     },
     patterns = {

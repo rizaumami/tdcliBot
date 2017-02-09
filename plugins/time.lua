@@ -69,8 +69,9 @@ do
     description = _msg('Returns the time, date, and timezone for the given location.'),
     usage = {
       user = {
-        '<code>!time [area]</code>',
-        _msg('Displays the local time in that <code>[area]</code>\n<b>Example</b>') .. ': <code>!time yogyakarta</code>',
+        'See: https://t.me/tdclibotmanual/89'
+        --'<code>!time [area]</code>',
+        --_msg('Displays the local time in that <code>[area]</code>\n<b>Example</b>') .. ': <code>!time yogyakarta</code>',
       },
     },
     patterns = {
