@@ -7,7 +7,8 @@ do
       local info =  _msg('From: %s\nID: %s\nDate: %s'):format(value.chat_id_, value.id_, os.date('%c', value.date_))
       saveConfig(value, textfile, 'noname')
       td.sendDocument(_config.bot.id, 0, 0, 1, nil, textfile, info)
-      os.remove(textfile)
+      -- TODO: delete textfile after it's successfully sent
+      --os.remove(textfile)
     else
       if #dump > 4000 then
         local text = _msg('Message is more than 4000 characters.\n'

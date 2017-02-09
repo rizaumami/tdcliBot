@@ -63,8 +63,9 @@ do
     description = 'Kamus Besar Bahasa Indonesia dari http://kbbi.web.id.',
     usage = {
       user = {
-        '<code>!kbbi [lema]</code>',
-        'Menampilkan arti dari <code>[lema]</code>'
+        'See: http://telegra.ph/KBBI-02-09'
+        --'<code>!kbbi [lema]</code>',
+        --'Menampilkan arti dari <code>[lema]</code>'
       },
     },
     patterns = {

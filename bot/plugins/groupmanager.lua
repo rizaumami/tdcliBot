@@ -182,11 +182,8 @@ do
   end
 
   local function cron(msg)
-    local flash = 'floods' .. msg.chat_id_
-    if db:hgetall(flash) then
-      --print(">> Delete " .. msg.chat_id_ .. "'s floods record.")
-      db:del(flash)
-    end
+    --print(">> Delete " .. msg.chat_id_ .. "'s floods record.")
+    db:del('floods')
   end
 
 --------------------------------------------------------------------------------
@@ -300,7 +297,6 @@ do
     end
     -- Anti flood
     if db:hget(key, 'flood') == 'true' then
-      local flash = 'floods' .. chat_id
       local antiflood = 'antiflood' .. chat_id
       local ID = msg.content_.ID:lower()
       local ftype
@@ -322,11 +318,11 @@ do
       else
         ftype = 'text'
       end
-      db:hincrby(flash, user_id, db:hget(antiflood, ftype))
-      local floods = db:hget(flash, user_id)
-      if db:hexists(flash, user_id) and tonumber(floods) > 99 then
+      db:hincrby('floods', user_id .. chat_id, db:hget(antiflood, ftype))
+      local floods = db:hget('floods', user_id .. chat_id)
+      if db:hexists('floods', user_id .. chat_id) and tonumber(floods) > 99 then
         util.kickUser(chat_id, user_id)
-        db:hdel(flash, user_id)
+        db:hdel('floods', user_id .. chat_id)
       end
     end
     if action == "MessageChatDeleteMember" then
@@ -352,7 +348,13 @@ do
     -- Returns a description of the group
     if matches[1] == 'about' then
       local title = db:get('title' .. chat_id)
-      local about = db:exists('about' .. chat_id) and db:get('about' .. chat_id) .. '\n\n' or ''
+      local abash = 'about' .. chat_id
+      local about = ''
+
+      if db:exists(abash) and db:get(abash) ~= 'false' then
+        about = db:get(abash) .. '\n\n'
+      end
+
       local kanti = db:hgetall('anti' ..  chat_id)
       local anti = {}
       local i = 1
@@ -381,7 +383,7 @@ do
 
       if not util.emptyTable(rule) then
         local rules = table.concat(rule, '\n')
-        text = _msg('<b>%s</b> rules:\n%s'):format(title, rules)
+        text = _msg('<b>Rules for %s</b>:\n%s'):format(title, rules)
       end
       sendText(chat_id, msg.id_, text)
     end

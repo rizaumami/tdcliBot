@@ -1,6 +1,7 @@
 URL = require 'socket.url'
 http = require 'socket.http'
 multipart = require 'multipart-post'
+feedparser = require 'feedparser'
 
 http.TIMEOUT = 10
 

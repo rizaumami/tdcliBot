@@ -5,11 +5,11 @@ package.cpath = package.cpath .. ';.luarocks/lib/lua/5.2/?.so'
 
 -- VARIABLES -------------------------------------------------------------------
 
-https = require "ssl.https"
-ltn12 = require "ltn12"
-json = require "cjson"
-db = (loadfile "./bot/libs/redis.lua")()
-serpent = require "serpent"
+https = require 'ssl.https'
+ltn12 = require 'ltn12'
+json = require 'cjson'
+db = (loadfile './bot/libs/redis.lua')()
+serpent = require 'serpent'
 td = (loadfile './bot/libs/tdcli.lua')()
 util = (loadfile './bot/utils.lua')()
 
@@ -46,8 +46,7 @@ function sendText(chat_id, reply_to_message_id, text, disable_web_page_preview, 
   end
 end
 
--- Save into file the data serialized for lua.
--- Set uglify true to minify the file.
+-- Save serialized data into a file. Set uglify true to minify the file.
 function saveConfig(data, file, extra)
   local data = data or _config
   local file = file or config_file
@@ -66,13 +65,15 @@ function saveConfig(data, file, extra)
 end
 
 function fileExists(name)
-  local f = io.open(name, 'r')
-  if f ~= nil then
-    io.close(f)
-    return true
-  else
-    return false
+  local exist = false
+  if name then
+    local f = io.open(name, 'r')
+    if f ~= nil then
+      io.close(f)
+      exist = true
+    end
   end
+  return exist
 end
 
 -- Print text in colour
@@ -169,6 +170,7 @@ local function loadConfig()
           'calc',
           'catfact',
           'cats',
+          'commit',
           'currency',
           'dilbert',
           'doge',
@@ -178,6 +180,7 @@ local function loadConfig()
           'forecast',
           'github',
           'gsmarena',
+          'hackernews',
           'hexcolor',
           'id',
           'imdb',
