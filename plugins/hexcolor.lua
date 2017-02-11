@@ -31,12 +31,13 @@ do
       return
     end
 
+    local chat_id, user_id, _, _ = util.extractIds(msg)
     local url = 'http://www.colorhexa.com/%s.png'
     local input = matches[2]:lower()
     input = input:gsub('#', '')
 
     if not tonumber('0x' .. input) then
-      return sendText(msg.chat_id_, msg.id_, _msg('Invalid number.'))
+      return sendText(chat_id, msg.id_, _msg('Invalid number.'))
     end
 
     local hex
@@ -52,10 +53,10 @@ do
     elseif #input == 6 then
       hex = input
     else
-      return sendText(msg.chat_id_, msg.id_, _msg('Invalid length.'))
+      return sendText(chat_id, msg.id_, _msg('Invalid length.'))
     end
 
-    sendText(msg.chat_id_, msg.id_, url:format(hex), 0)
+    sendText(chat_id, msg.id_, url:format(hex), 0)
   end
 
 --------------------------------------------------------------------------------

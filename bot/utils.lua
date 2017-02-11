@@ -98,7 +98,7 @@ end
 U.isChatMsg = isChatMsg
 
 -- Is it a chat or a private message?
-local function extractGUId(msg)
+local function extractIds(msg)
   local gid = msg.chat_id_
   local uid = msg.sender_user_id_
   local gid_str = tostring(gid)
@@ -106,7 +106,7 @@ local function extractGUId(msg)
   return gid, uid, gid_str, uid_str
 end
 
-U.extractGUId = extractGUId
+U.extractIds = extractIds
 
 local function isSuperGroup(chat_id)
   local chat_id = tostring(chat_id)

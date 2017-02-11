@@ -70,8 +70,7 @@ do
 --------------------------------------------------------------------------------
 
   local function run(msg, matches)
-    local user_id = msg.sender_user_id_
-    local chat_id = msg.chat_id_
+    local chat_id, user_id, _, _ = util.extractIds(msg)
     local text
 
     if _config.sudoers[user_id] then

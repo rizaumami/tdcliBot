@@ -88,8 +88,7 @@ do
 --------------------------------------------------------------------------------
 
   local function run(msg, matches)
-    local chat_id = msg.chat_id_
-    local user_id = msg.sender_user_id_
+    local chat_id, user_id, _, _ = util.extractIds(msg)
     local plugin = matches[2]
 
     if msg.content_.text_:match('sysplug') then

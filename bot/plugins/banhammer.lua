@@ -170,8 +170,7 @@ do
 --------------------------------------------------------------------------------
 
   local function run(msg, matches)
-    local chat_id = msg.chat_id_
-    local user_id = msg.sender_user_id_
+    local chat_id, user_id, _, _ = util.extractIds(msg)
     local rank, role = getRank(user_id, chat_id)
 
     -- Kick a user from current group
@@ -187,11 +186,11 @@ do
       if matches[2] then
         if matches[2] == 'clear' then
           db:del('bans' .. chat_id)
-          return sendText(msg.chat_id_, msg.id_, _msg('Bans record for this group has been cleared.'))
+          return sendText(chat_id, msg.id_, _msg('Bans record for this group has been cleared.'))
         end
       else
         local banlist = banList(chat_id)
-        return sendText(msg.chat_id_, msg.id_, banlist)
+        return sendText(chat_id, msg.id_, banlist)
       end
     end
 
@@ -200,11 +199,11 @@ do
       if matches[2] then
         if matches[2] == 'clear' then
           db:del('globalbans')
-          return sendText(msg.chat_id_, msg.id_, _msg('Global bans has been cleared.'))
+          return sendText(chat_id, msg.id_, _msg('Global bans has been cleared.'))
         end
       else
         local gbanlist = globalBanList()
-        return sendText(msg.chat_id_, msg.id_, gbanlist)
+        return sendText(chat_id, msg.id_, gbanlist)
       end
     end
 

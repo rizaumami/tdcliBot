@@ -15,10 +15,11 @@ do
 --------------------------------------------------------------------------------
 
   local function run(msg, matches)
+    local chat_id, user_id, _, _ = util.extractIds(msg)
     local input = msg.content_.text_:upper()
 
     if not input:match('%a%a%a TO %a%a%a') then
-      return sendText(msg.chat_id_, msg.id_, _msg('<b>Example:</b> <code>!cash 5 USD to IDR</code>'))
+      return sendText(chat_id, msg.id_, _msg('<b>Example:</b> <code>!cash 5 USD to IDR</code>'))
     end
 
     local from = input:match('(%a%a%a) TO')
@@ -33,13 +34,13 @@ do
       local str, res = https.request(url)
 
       if res ~= 200 then
-        return sendText(msg.chat_id_, msg.id_, _msg('Connection error'))
+        return sendText(chat_id, msg.id_, _msg('Connection error'))
       end
 
       str = str:match('<span class=bld>(.*) %u+</span>')
 
       if not str then
-        return sendText(msg.chat_id_, msg.id_, _msg('Connection error'))
+        return sendText(chat_id, msg.id_, _msg('Connection error'))
       end
 
       result = string.format('%.2f', str):gsub('%.', ',')
@@ -48,7 +49,7 @@ do
     local headerapi = '<b>' .. amount .. ' ' .. from .. ' = ' .. util.groupIntoThree(result) .. ' ' .. to .. '</b>\n\n'
     local source = _msg('Source: Google Finance\n<code>') .. os.date('%F %T %Z') .. '</code>'
 
-    sendText(msg.chat_id_, msg.id_, headerapi .. source)
+    sendText(chat_id, msg.id_, headerapi .. source)
   end
 
 --------------------------------------------------------------------------------

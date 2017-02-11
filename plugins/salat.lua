@@ -51,6 +51,7 @@ do
 --------------------------------------------------------------------------------
 
   function run(msg, matches)
+    local chat_id, user_id, _, _ = util.extractIds(msg)
     local area = matches[1]
     local method = 5
     local notif = ''
@@ -61,7 +62,7 @@ do
 
       if c_method == 0 or c_method > 7 then
         local text = _msg('<b>Calculation method is out of range</b>\nConsult <code>!help salat</code>')
-        return sendText(msg.chat_id_, msg.id_, text)
+        return sendText(chat_id, msg.id_, text)
       else
         method = c_method
         url = base_api .. '/' .. URL.escape(matches[2]) .. '.json'
@@ -73,7 +74,7 @@ do
     local res, code = http.request(url .. '/' .. method .. '?key=' .. _config.key.salat)
 
     if code ~= 200 then
-      return sendText(msg.chat_id_, msg.id_, _msg('<b>Error</b>') .. ': <code>' .. code .. '</code>')
+      return sendText(chat_id, msg.id_, _msg('<b>Error</b>') .. ': <code>' .. code .. '</code>')
     end
 
     local salat = json.decode(res)
@@ -104,7 +105,7 @@ do
                                             toTwentyFour(salat.items[1].isha)
     ) .. notif
 
-    sendText(msg.chat_id_, msg.id_, is_salat_time)
+    sendText(chat_id, msg.id_, is_salat_time)
   end
 
 --------------------------------------------------------------------------------

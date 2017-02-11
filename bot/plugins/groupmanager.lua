@@ -181,8 +181,8 @@ do
     end
   end
 
-  local function cron(msg)
-    --print(">> Delete " .. msg.chat_id_ .. "'s floods record.")
+  local function cron()
+    --print(">> Deleting floods record.")
     db:del('floods')
   end
 
@@ -192,8 +192,7 @@ do
     -- Only process message from managed groups
     if not _config.chats.managed[msg.chat_id_] then return msg end
 
-    local chat_id = msg.chat_id_
-    local user_id = msg.sender_user_id_
+    local chat_id, user_id, _, _ = util.extractIds(msg)
     local rank, role = getRank(user_id, chat_id)
     local text = msg.content_.text_
     local action = msg.content_.ID
@@ -339,8 +338,7 @@ do
 --------------------------------------------------------------------------------
 
   local function run(msg, matches)
-    local chat_id = msg.chat_id_
-    local user_id = msg.sender_user_id_
+    local chat_id, user_id, _, _ = util.extractIds(msg)
     local rank, role = getRank(user_id, chat_id)
 
     if not _config.chats.managed[chat_id] then return end
@@ -683,14 +681,14 @@ do
     if matches[1] == 'private' then
       _config.chats.managed[chat_id].unlisted = true
       saveConfig()
-      sendText(msg.chat_id_, msg.id_, settingsMsg['unlisted'].enabled)
+      sendText(chat_id, msg.id_, settingsMsg['unlisted'].enabled)
     end
 
     -- List this group in the group listing.
     if matches[1] == 'public' then
       _config.chats.managed[chat_id].unlisted = false
       saveConfig()
-      sendText(msg.chat_id_, msg.id_, settingsMsg['unlisted'].disabled)
+      sendText(chat_id, msg.id_, settingsMsg['unlisted'].disabled)
     end
 
     -- returns group's settings
@@ -771,7 +769,7 @@ do
     -- mod = promotes a user to a moderator
     -- demod = demote a moderator to a user
     if matches[1] == 'mod' or matches[1] == 'demod' then
-      local extra = {chat_id = msg.chat_id_, msg_id = msg.id_, cmd = matches[1]}
+      local extra = {chat_id = chat_id, msg_id = msg.id_, cmd = matches[1]}
 
       if util.isReply(msg) then
         td.getMessage(chat_id, msg.reply_to_message_id_, moderationByReply, extra)

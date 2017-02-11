@@ -454,15 +454,6 @@ function tdcli_update_callback(data)
           end
         end
       end
-      -- Run cron jobs every minute.
-      if last_cron ~= os.date('%M') then
-        last_cron = os.date('%M')
-        for name, plugin in pairs(plugins) do
-          if plugin.cron then -- Call each plugin's cron function, if it has one.
-            plugin.cron(msg)
-          end
-        end
-      end
     end
   elseif (data.ID == 'UpdateOption' and data.name_ == 'my_id') then
     local id = data.value_.value_
@@ -482,6 +473,15 @@ function tdcli_update_callback(data)
       offset_chat_id_ = 0,
       limit_ = 20
     }, dl_cb, nil)
+  end
+  -- Run cron jobs every minute.
+  if last_cron ~= os.date('%M') then
+    last_cron = os.date('%M')
+    for name, plugin in pairs(plugins) do
+      if plugin.cron then -- Call each plugin's cron function, if it has one.
+        plugin.cron()
+      end
+    end
   end
 end
 

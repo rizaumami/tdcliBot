@@ -97,9 +97,9 @@ install() {
       if [ -x "$(which apt-get)" ]; then
         prtgrn '>> Updating packages'
         sudo apt-get update --yes && sudo apt-get upgrade
-  
+
         prtgrn '>> Installing dependencies'
-        sudo apt-get --yes install wget libconfig9 libjansson4 lua5.2 liblua5.2 make unzip git redis-server g++
+        sudo apt-get --yes install wget libconfig9 libjansson4 lua5.2 liblua5.2 make unzip git redis-server g++ whois fortune fortunes
       else
         prtbrown " No apt-get found." " If you're on non Debian based systems, please manually install these following packages:"
         printf ' %s\n' wget libconfig9 libjansson4 lua5.2 liblua5.2 make unzip git redis-server g++ ''

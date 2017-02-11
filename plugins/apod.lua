@@ -1,6 +1,7 @@
 do
 
   local function run(msg, matches)
+    local chat_id, user_id, _, _ = util.extractIds(msg)
     local url = 'https://api.nasa.gov/planetary/apod?api_key=' .. _config.key.apod
 
     if matches[2] then
@@ -8,7 +9,7 @@ do
         url = url .. '&date=' .. URL.escape(matches[2])
       else
         local text = _msg('*Request must be in following format*:\n`!%s YYYY-MM-DD`'):format(matches[1])
-        return sendText(msg.chat_id_, msg.id_, text, 1, 'Markdown')
+        return sendText(chat_id, msg.id_, text, 1, 'Markdown')
       end
     end
 
@@ -16,11 +17,11 @@ do
     local jstr = json.decode(str)
 
     if res ~= 200 then
-      return sendText(msg.chat_id_, msg.id_, jstr.error.message)
+      return sendText(chat_id, msg.id_, jstr.error.message)
     end
 
     if jstr.error then
-      return sendText(msg.chat_id_, msg.id_, _msg('No results found'))
+      return sendText(chat_id, msg.id_, _msg('No results found'))
     end
 
     local img_url = jstr.hdurl or jstr.url
@@ -34,7 +35,7 @@ do
       apod = apod .. _msg('\n\n<i>Copyright') .. ': ' .. jstr.copyright .. '</i>'
     end
 
-    sendText(msg.chat_id_, msg.id_, apod .. '\n\n' .. img_url, 0)
+    sendText(chat_id, msg.id_, apod .. '\n\n' .. img_url, 0)
   end
 
 --------------------------------------------------------------------------------

@@ -43,8 +43,7 @@ do
     if db:get('whitelist:enabled') and not _config.sudoers[user_id] then
       print('>>> Whitelist enabled and not sudo')
       -- Check if user or chat is whitelisted
-      local chat_id = msg.chat_id_
-      local user_id = msg.sender_user_id_
+      local chat_id, user_id, _, _ = util.extractIds(msg)
       local allowed_user = db:sismember('whitelist', user_id) or false
       local allowed_chat = db:sismember('whitelist', chat_id) or false
       if not allowed_user then
@@ -63,8 +62,7 @@ do
   end
 
   local function run(msg, matches)
-    local chat_id = msg.chat_id_
-    local user_id = msg.sender_user_id_
+    local chat_id, user_id, _, _ = util.extractIds(msg)
     local extra = {chat_id = chat_id, user_id = user_id, msg_id = msg.id_}
 
     if not db:hexists('owner' .. chat_id, user_id) then return end

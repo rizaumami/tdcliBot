@@ -62,7 +62,7 @@ do
 --------------------------------------------------------------------------------
 
   local function pre_process(msg)
-    local chat_id = msg.chat_id_
+    local chat_id, user_id, _, _ = util.extractIds(msg)
 
     if msg.content_.ID == "MessageChatAddMembers" and _config.autoleave then
       print 'Autoleave is enabled and this is not our groups, leaving...'
@@ -75,12 +75,11 @@ do
 --------------------------------------------------------------------------------
 
   function run(msg, matches)
-    local chat_id = msg.chat_id_
-    local user_id = msg.sender_user_id_
+    local chat_id, user_id, _, _ = util.extractIds(msg)
 
     -- add a user as a sudo user
     if matches[1] == 'sudo' or matches[1] == 'desudo' then
-      local extra = {cmd = matches[1], chat_id = msg.chat_id_, msg_id = msg.id_}
+      local extra = {cmd = matches[1], chat_id = chat_id, msg_id = msg.id_}
 
       if util.isReply(msg) then
         td.getMessage(chat_id, msg.reply_to_message_id_, sudoByReply, extra)

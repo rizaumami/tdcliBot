@@ -1,15 +1,17 @@
 do
 
   local function run(msg, matches)
+    local chat_id, user_id, _, _ = util.extractIds(msg)
+
     if matches[2] then
       if matches[2]:match('%a%a') then
         local lang = matches[2]:lower()
         _config.language.default = lang
         saveConfig()
         local text = _msg('Bot language is set to <b>%s</b>'):format(matches[2])
-        sendText(msg.chat_id_, msg.id_, text)
+        sendText(chat_id, msg.id_, text)
       else
-        sendText(msg.chat_id_, msg.id_, _msg('Language must be in form of two letter ISO 639-1 language code.'))
+        sendText(chat_id, msg.id_, _msg('Language must be in form of two letter ISO 639-1 language code.'))
       end
     elseif matches[1] == 'listlang' or matches[1] == 'setlang' then
       local l = {}
@@ -26,7 +28,7 @@ do
       local title = _msg("<b>List of available languages</b>:\n")
       local langs = table.concat(l, '\n')
 
-      sendText(msg.chat_id_, msg.id_, title .. langs)
+      sendText(chat_id, msg.id_, title .. langs)
     end
   end
 
