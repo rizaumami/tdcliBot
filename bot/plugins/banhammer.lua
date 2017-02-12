@@ -1,9 +1,23 @@
 do
 
+  local function getName(chat_id, user_id)
+    local name
+    if _config.sudoers[user_id] then
+      name = _config.sudoers[user_id]
+    elseif _config.administrators[user_id] then
+      name = _config.administrators[user_id]
+    elseif db:hexists('owner' .. chat_id, user_id) then
+      name = db:hexists('owner' .. chat_id, user_id)
+    elseif db:hexists('moderators' .. chat_id, user_id) then
+      name = db:hexists('moderators' .. chat_id, user_id)
+    end
+    return name .. ' [' .. user_id .. ']'
+  end
+
   -- Kicks user and re-kick if re-join
   local function banUser(chat_id, user_id, arg)
     local rank, role = getRank(user_id, chat_id)
-    local user = arg.name .. ' [<code>' .. user_id .. '</code>] '
+    local user = arg.victim .. ' [<code>' .. user_id .. '</code>] '
     local text
 
     if rank > 1 then
@@ -11,9 +25,9 @@ do
     elseif rank == 0 then
       text = _msg('%s is already banned.'):format(user)
     else
-      db:hset('bans' .. chat_id, user_id, arg.name)
+      db:hset('bans' .. chat_id, user_id, arg.victim)
       text = _msg('%s has been banned.'):format(user)
-      td.kickChatMember(chat_id, user_id)
+      util.kickUser(chat_id, user_id, 'Banned by ' .. arg.name .. arg.reason)
     end
     sendText(arg.chat_id, arg.msg_id, text)
   end
@@ -21,7 +35,7 @@ do
   -- Unbans a user from the group
   local function unbanUser(chat_id, user_id, arg)
     local hash = 'bans' .. chat_id
-    local user = arg.name .. ' [<code>' .. user_id .. '</code>] '
+    local user = arg.victim .. ' [<code>' .. user_id .. '</code>] '
     local text
 
     if db:hexists(hash, user_id) then
@@ -41,7 +55,7 @@ do
   -- Bans user on every bots managed groups
   local function globalBanUser(chat_id, user_id, arg)
     local rank, role = getRank(user_id, chat_id)
-    local user = arg.name .. ' [<code>' .. user_id .. '</code>] '
+    local user = arg.victim .. ' [<code>' .. user_id .. '</code>] '
     local text
 
     if rank > 1 then
@@ -50,15 +64,15 @@ do
       text = _msg('%s is already globally banned.'):format(user)
     else
       text = _msg('%s has been globally banned.'):format(user)
-      db:hset('globalbans', user_id, arg.name)
-      td.kickChatMember(chat_id, user_id)
+      db:hset('globalbans', user_id, arg.vname)
+      util.kickUser(chat_id, user_id, 'Globally banned by ' .. arg.name .. arg.reason)
     end
     sendText(arg.chat_id, arg.msg_id, text)
   end
 
   -- Unbans user from global ban
   local function globalUnbanUser(chat_id, user_id, arg)
-    local user = arg.name .. ' [<code>' .. user_id .. '</code>] '
+    local user = arg.vname .. ' [<code>' .. user_id .. '</code>] '
     local text
 
     if db:hexists('globalbans', user_id) then
@@ -114,15 +128,12 @@ do
     local cmd = arg.cmd
     local chat_id = arg.chat_id
     local user_id = data.id_
-    local name = data.username_ and '@' .. data.username_ or data.first_name_
-    local extra = {
-      chat_id = arg.chat_id,
-      msg_id = arg.msg_id,
-      name = name
-    }
+    local victim = data.username_ and '@' .. data.username_ or data.first_name_
+    local extra = arg
+    extra.victim = victim
 
     if cmd == 'kick' then
-      util.kickUser(chat_id, user_id)
+      util.kickUser(chat_id, user_id, 'Kicked by ' .. arg.name .. arg.reason)
     elseif cmd == 'ban' then
       banUser(chat_id, user_id, extra)
     elseif cmd == 'unban' then
@@ -146,16 +157,12 @@ do
     end
 
     local user = data.type_.user_
-    local cmd = arg.cmd
     local user_id = user.id_
-    local extra = {
-      chat_id = chat_id,
-      msg_id = msg_id,
-      name = '@' .. user.username_
-    }
+    local extra = arg
+    extra.victim = '@' .. user.username_
 
     if cmd == 'kick' then
-      util.kickUser(chat_id, user_id)
+      util.kickUser(chat_id, user_id, 'Kicked by ' .. arg.name .. arg.reason)
     elseif cmd == 'ban' then
       banUser(chat_id, user_id, extra)
     elseif cmd == 'unban' then
@@ -175,7 +182,7 @@ do
 
     -- Kick a user from current group
     if matches[1] == 'kickme' then
-      util.kickUser(chat_id, user_id)
+      util.kickUser(chat_id, user_id, 'Kickme request')
     end
 
     -- Moderators and higher privileged commands start here
@@ -218,20 +225,24 @@ do
         -- Unans a user from all groups
         or (matches[1] == 'gunban' and rank > 3) then
 
-      local extra = {chat_id = chat_id, msg_id = msg.id_, cmd = matches[1]}
-
+      local extra = { chat_id = chat_id,
+                      cmd = matches[1],
+                      msg_id = msg.id_,
+                      name = getName(chat_id, user_id)
+      }
       if util.isReply(msg) then
+        extra.reason = matches[2] and ': ' .. matches[2] or ''
         td.getMessage(chat_id, msg.reply_to_message_id_, function(a, d)
-          td.getUser(d.sender_user_id_, hammerVictim, {
-              chat_id = a.chat_id,
-              msg_id = d.id_,
-              cmd = a.cmd
-          })
+          local extra = a
+          extra.msg_id = d.id_
+          td.getUser(d.sender_user_id_, hammerVictim, extra)
         end, extra)
       elseif matches[2] == '@' then
         extra.username = matches[3]
+        extra.reason = matches[4] and ': ' .. matches[4] or ''
         td.searchPublicChat(matches[3], resolveUsername_cb, extra)
       elseif matches[2]:match('%d+$') then
+        extra.reason = matches[3] and ': ' .. matches[3] or ''
         td.getUser(matches[2], hammerVictim, extra)
       end
     end
@@ -310,16 +321,22 @@ do
     patterns = {
       _config.cmd .. '(kickme)$',
       _config.cmd .. '(kick)$',
-      _config.cmd .. '(kick) (@)(.+)$',
+      _config.cmd .. '(kick) (.*)$',
+      _config.cmd .. '(kick) (@)(%w+)$',
+      _config.cmd .. '(kick) (@)(%w+) (.*)$',
       _config.cmd .. '(kick) (%d+)$',
+      _config.cmd .. '(kick) (%d+) (.*)$',
       _config.cmd .. '(ban)$',
-      _config.cmd .. '(ban) (@)(.+)$',
+      _config.cmd .. '(ban) (.*)$',
+      _config.cmd .. '(ban) (@)(%w+)$',
+      _config.cmd .. '(ban) (@)(%w+) (.*)$',
       _config.cmd .. '(ban) (%d+)$',
+      _config.cmd .. '(ban) (%d+) (.*)$',
       _config.cmd .. '(unban)$',
-      _config.cmd .. '(unban) (@)(.+)$',
+      _config.cmd .. '(unban) (@)(%w+)$',
       _config.cmd .. '(unban) (%d+)$',
       _config.cmd .. '(gban)$',
-      _config.cmd .. '(gban) (@)(.+)$',
+      _config.cmd .. '(gban) (@)(%w+)$',
       _config.cmd .. '(gban) (%d+)$',
       _config.cmd .. '(gunban)$',
       _config.cmd .. '(gunban) (@)(.+)$',

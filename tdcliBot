@@ -92,7 +92,7 @@ install() {
   case "$install" in
     Y|y)
       prtgrn '>> Create tg folder'
-      mkdir -p tg
+      mkdir -p tg data
 
       if [ -x "$(which apt-get)" ]; then
         prtgrn '>> Updating packages'

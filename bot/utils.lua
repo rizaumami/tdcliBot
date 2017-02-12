@@ -280,21 +280,45 @@ end
 
 U.trim = trim
 
+-- Logs kick to log chat, if exist
+local function sendLog(chat_id, user_id, reason)
+  local log_chat = db:exists('log' .. chat_id) and db:get('log' .. chat_id) or false
+  if log_chat then
+    td.getUser(user_id, function(a, d)
+      local name = d.username_ and '@' .. d.username_ .. ' AKA ' .. d.first_name_ or d.first_name_
+      local group = db:get('title' .. chat_id)
+      local output = string.format('[%s]\n%s\n%s',
+        os.date('%F %T'),
+        name .. ' [' .. user_id .. '] kicked from ' .. group .. ' [' .. chat_id .. ']',
+        a.reason
+      )
+      print(log_chat, 0, '<pre>' .. escapeHtml(output) .. '</pre>')
+      return sendText(log_chat, 0, '<pre>' .. escapeHtml(output) .. '</pre>')
+    end, {chat_id = chat_id, user_id = user_id, reason = reason})
+  end
+end
+
+U.sendLog = sendLog
+
 -- Kick user
-local function kickUser(chat_id, user_id, block)
-  local hash = 'autokicks' .. chat_id
+local function kickUser(chat_id, user_id, reason, block)
+  local khash = 'autokicks' .. chat_id
+  local autokicks = db:hexists(khash, user_id) and tonumber(db:hget(khash, user_id)) or false
+  local autoban = tonumber(db:get('autoban' .. chat_id))
   local rank, role = getRank(user_id, chat_id)
+
   if rank > 1 then
-    return _msg("I won't kick %s"):format(role)
+    return sendText(chat_id, 0, _msg("I won't kick %s"):format(role))
   else
-    if db:hexists(hash, user_id) and db:hget(hash, user_id) >= db:get('autoban' .. chat_id) then
+    if autokicks >= autoban then
       db:hset('bans' .. chat_id, user_id, 'autobanned')
       block = true
       sendText(chat_id, 0, _msg('You have been banned for being autokicked too many times.'))
     end
     td.kickChatMember(chat_id, user_id, block)
-    local count = (db:hget(hash, user_id) or 0) + 1
+    local count = (db:hget(khash, user_id) or 0) + 1
     db:hset(hash, user_id, count)
+    sendLog(chat_id, user_id, reason)
   end
 end
 

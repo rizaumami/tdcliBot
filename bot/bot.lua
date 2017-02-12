@@ -13,7 +13,7 @@ serpent = require 'serpent'
 td = (loadfile './bot/libs/tdcli.lua')()
 util = (loadfile './bot/utils.lua')()
 
-config_file = './bot/config.lua'
+config_file = './data/config.lua'
 
 -- The message structure is lack of its sender identifications
 -- Set line below to "true" to append sender first_name_, last_name_, and username_ to the message
@@ -178,6 +178,7 @@ local function loadConfig()
           'exec',
           'fact',
           'forecast',
+          'fortune',
           'github',
           'gsmarena',
           'hackernews',
@@ -188,6 +189,7 @@ local function loadConfig()
           'kbbi',
           'maps',
           'patterns',
+          'pun',
           'qr',
           'quran',
           'reddit',

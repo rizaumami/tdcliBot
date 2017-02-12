@@ -156,6 +156,7 @@ do
     else
       _config.chats.managed[chat_id] = {unlisted = false}
       saveConfig()
+      db:set('log' .. chat_id, user_id)
       db:set('autoban' .. chat_id, 3)
       db:hmset('anti' .. chat_id,
                'bot', 'false',

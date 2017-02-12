@@ -198,10 +198,11 @@ do
     local action = msg.content_.ID
     local key = 'anti' .. chat_id
 
-    -- Anti squig
+    -- When a user enter the group
     if action == "MessageChatAddMembers" or action == "MessageChatJoinByLink" then
-      if db:hget(key, 'squig') == 'true' then
-        td.getUser(user_id, function(a, d)
+      td.getUser(user_id, function(a, d)
+        -- Check for it's spammy name (anti-squig)
+        if db:hget(key, 'squig') == 'true' then
           local name = d.last_name_ and d.first_name_ .. ' ' .. d.last_name_ or d.first_name_
           if (name:match(util.char.arabic)
             or name:match(util.char.rtl_override)
@@ -210,19 +211,17 @@ do
             or name:match(util.char.braille_space .. '$')) then
             local text = _msg("You're kicked because of Arabic script and/or RTL characters on your name.")
             sendText(a.chat_id, a.msg_id, text)
-            util.kickUser(a.chat_id, a.user_id)
+            util.kickUser(a.chat_id, a.user_id, 'RTL chars on name')
           end
-        end, {chat_id = chat_id, user_id = user_id, msg_id = msg.id_})
-      end
-      -- Anti bot
-      if db:hget(key, 'bot') == 'true' then
-        td.getUser(user_id, function(a, d)
+        end
+        -- Check if it's an api bot
+        if db:hget(key, 'bot') == 'true' then
           local name = d.username_ and d.username_:lower() or 'nousername'
           if name:match('bot$') then
-            util.kickUser(a.chat_id, a.user_id)
+            util.kickUser(a.chat_id, a.user_id, 'Bot')
           end
-        end, {chat_id = chat_id, user_id = user_id})
-      end
+        end
+      end, {chat_id = chat_id, user_id = user_id, msg_id = msg.id_})
       -- Greetings
       if db:hexists('welcome' .. chat_id, 'enabled') then
         if rank > 0 then
@@ -245,7 +244,7 @@ do
         local autoban = db:get('autoban' .. chat_id)
 
         if count and tonumber(count) > tonumber(autoban) then
-          util.kickUser(chat_id, user_id)
+          util.kickUser(chat_id, user_id, 'Autobanned for inviting banned user.')
           db:set(inviter, 0)
         end
       end
@@ -254,7 +253,7 @@ do
 
     -- Autokick banned user
     if rank == 0 then
-      util.kickUser(chat_id, user_id)
+      util.kickUser(chat_id, user_id, 'Banned user.')
     elseif rank == 1 and text then
       -- Anti right-to-left message
       if db:hget(key, 'rtl') == 'true' and (text:match(util.char.arabic)
@@ -263,7 +262,7 @@ do
         local post = msg.forward_info_ and 'forwarding' or 'posting'
         local text = _msg("You're kicked for %s Arabic script and/or RTL characters."):format(post)
         sendText(chat_id, msg_id, text)
-        util.kickUser(chat_id, user_id)
+        util.kickUser(chat_id, user_id, 'RTL chars on message')
       -- Anti chats/channels promotion
       elseif db:hget(key, 'link') == 'true' then
         if not util.emptyTable(msg.content_.entities_) and msg.content_.entities_[0].ID == 'MessageEntityUrl' then
@@ -275,7 +274,7 @@ do
             if not _config.chats.managed[d.chat_id_] then
               local text = _msg("You're kicked for posting an outside join link.")
               sendText(a.chat_id, a.msg_id, text)
-              util.kickUser(a.chat_id, a.user_id)
+              util.kickUser(a.chat_id, a.user_id, 'Posting outside join link')
             end
           end, {chat_id = chat_id, user_id = user_id, msg_id = msg.id_})
         end
@@ -288,7 +287,7 @@ do
           if input:match(filter[i]) then
             local text = _msg("You're kicked for using a filtered term: %s"):format(filter[i])
             sendText(chat_id, msg_id, text)
-            util.kickUser(chat_id, user_id)
+            util.kickUser(chat_id, user_id, 'Posting filtered term: ' .. filter[i])
             break
           end
         end
@@ -320,7 +319,7 @@ do
       db:hincrby('floods', user_id .. chat_id, db:hget(antiflood, ftype))
       local floods = db:hget('floods', user_id .. chat_id)
       if db:hexists('floods', user_id .. chat_id) and tonumber(floods) > 99 then
-        util.kickUser(chat_id, user_id)
+        util.kickUser(chat_id, user_id, 'Flooding: (' .. floods .. ')')
         db:hdel('floods', user_id .. chat_id)
       end
     end
@@ -630,7 +629,7 @@ do
           cfg[key] = db:zrange(keys[i], 0, -1)
         end
       end
-      local file = '/tmp/config' .. chat_id .. '.lua'
+      local file = './data/config' .. chat_id .. '.lua'
       saveConfig(cfg, file)
       td.sendDocument(_config.bot.id, 0, 0, 1, nil, file, name)
     end
@@ -695,6 +694,7 @@ do
     if matches[1] == 'settings' then
       local kanti = db:hgetall('anti' .. chat_id)
       local antiflood = db:hgetall('antiflood' .. chat_id)
+      local logchat = 'Log: `' .. db:get('log' .. chat_id) .. '`\n'
       local autoban = 'Autoban: `' .. db:get('autoban' .. chat_id) .. '`\n'
       local welcome = db:hget('welcome' .. chat_id, 'enabled') and 'Welcome: ' .. db:hget('welcome' .. chat_id, 'enabled') or 'Welcome: disabled'
       local goodbye = db:hget('goodbye' .. chat_id, 'enabled') and 'Goodbye: ' .. db:hget('goodbye' .. chat_id, 'enabled') or 'Goodbye: disabled'
@@ -717,7 +717,7 @@ do
         n = n + 1
       end
       local fcount = table.concat(fsetts, '\n')
-      local text = "*Group's settings*:\n" .. autoban .. welcome
+      local text = "*Group's settings*:\n" .. logchat .. autoban .. welcome
                 .. '\n' .. goodbye .. '\n' .. lock .. '\n\n*Flood count*:\n' .. fcount
       sendText(chat_id, msg.id_, text, 1, 'md')
     end
@@ -780,6 +780,22 @@ do
       end
     end
 
+    -- The channel, group, or user to send error reports to.
+    if matches[1] == 'setlog' then
+      local text
+      if matches[2] then
+        if matches[2]:match('%d+') then
+          db:set('log' .. chat_id, matches[2])
+          text = _msg('Logs from now on will be send to: <code>%s</code>'):format(matches[2])
+        else
+          text = _msg('Channel, group, or user id must be in number form!')
+        end
+      else
+        text = _msg('Please specify the channel, group, or user id to send error reports to.')
+      end
+      sendText(chat_id, msg.id_, text)
+    end
+
     -- Sets welcome and/or goodbye message
     if matches[1] == 'setwelcome' or matches == 'setgoodbye' then
       local greet = matches[1]:sub(4, -1)
@@ -835,6 +851,9 @@ do
     description = _msg('Plugin to manage a chat group.'),
     usage = {
       moderator = {
+        '<code>!setlog id</code>',
+        _msg("Sets the channel, group, or user to send logs to."),
+        '',
         '<code>!setabout [about]</code>',
         _msg("Sets group's description."),
         '',
@@ -1012,6 +1031,8 @@ do
       _config.cmd .. '(setwelcome)$',
       _config.cmd .. '(setwelcome) (.*)$',
       _config.cmd .. '(resetwelcome)$',
+      _config.cmd .. '(setlog)$',
+      _config.cmd .. '(setlog) (%g+)$',
       _config.cmd .. '(setgoodbye)$',
       _config.cmd .. '(setgoodbye) (.*)$',
       _config.cmd .. '(setgoodbye)$',
