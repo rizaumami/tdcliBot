@@ -75,12 +75,12 @@ end
 U.isMod = isMod
 
 -- User has privileges
-local function isPrivileged(user_id)
+local function isPrivileged(user_id, chat_id)
   local priv = false
-  if getRank(user_id) >= 5 then
-    su = true
+  if getRank(user_id, chat_id) > 1 then
+    priv = true
   end
-  return su
+  return priv
 end
 
 U.isPrivileged = isPrivileged

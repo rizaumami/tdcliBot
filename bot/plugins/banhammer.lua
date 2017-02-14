@@ -7,9 +7,9 @@ do
     elseif _config.administrators[user_id] then
       name = _config.administrators[user_id]
     elseif db:hexists('owner' .. chat_id, user_id) then
-      name = db:hexists('owner' .. chat_id, user_id)
+      name = db:hget('owner' .. chat_id, user_id)
     elseif db:hexists('moderators' .. chat_id, user_id) then
-      name = db:hexists('moderators' .. chat_id, user_id)
+      name = db:hget('moderators' .. chat_id, user_id)
     end
     return name .. ' [' .. user_id .. ']'
   end

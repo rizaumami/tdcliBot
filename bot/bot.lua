@@ -154,7 +154,9 @@ local function loadConfig()
           'channels',
           'groupmanager',
           'help',
+          'pin',
           'plugins',
+          'report',
           'setlang',
           'sudo',
           'whitelist'

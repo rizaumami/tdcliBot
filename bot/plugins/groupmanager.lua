@@ -454,6 +454,35 @@ do
         db:del('motd' .. chat_id)
         sendText(chat_id, msg.id_, _msg('The MOTD has been cleared.'))
       end
+      -- update the group's invite link
+      if matches[1] == 'link update' then
+        local msgerr = _msg('No link has been set for %s'):format(db:get('title' .. chat_id))
+        local msgok = _msg('The link has been updated.')
+        local extra = {chat_id = chat_id, msg_id = msg.id_, msgok = msgok, msgerr = msgerr}
+        if util.isSuperGroup(chat_id) then
+          td.getChannelFull(chat_id, function(a, d)
+            if d.invite_link_ then
+              db:set('link' .. a.chat_id, d.invite_link_)
+              _config.chats.managed[a.chat_id].link = d.invite_link_
+              saveConfig()
+              sendText(a.chat_id, a.msg_id, a.msgok)
+            else
+              sendText(a.chat_id, a.msg_id, a.msgerr)
+            end
+          end, extra)
+        else
+          td.getGroupFull(chat_id, function(a, d)
+            if d.invite_link_ then
+              db:set('link' .. a.chat_id, d.invite_link_)
+              _config.chats.managed[a.chat_id].link = d.invite_link_
+              saveConfig()
+              sendText(a.chat_id, a.msg_id, a.msgok)
+            else
+              sendText(a.chat_id, a.msg_id, a.msgerr)
+            end
+          end, extra)
+        end
+      end
       -- Sets the group's invite link
       if matches[1] == 'setlink' then
         td.exportChatInviteLink(chat_id, function(a, d)
@@ -1008,6 +1037,7 @@ do
       _config.cmd .. '(changerule) (%d+) (.*)$',
       _config.cmd .. '(resetrules) (.*)$',
       _config.cmd .. '(link)$',
+      _config.cmd .. '(link update)$',
       _config.cmd .. '(setlink)$',
       _config.cmd .. '(filter)$',
       _config.cmd .. '(filter) (.*)$',

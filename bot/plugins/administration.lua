@@ -93,31 +93,21 @@ do
     local cmd = arg.cmd
     local chat_id = arg.chat_id
     local user_id = data.id_
-    local name = data.username_ and '@' .. data.username_ or data.first_name_
-    local extra = {
-      chat_id = arg.chat_id,
-      msg_id = arg.msg_id,
-      name = name
-    }
+    arg.name = data.username_ and '@' .. data.username_ or data.first_name_
 
     if cmd == 'admin' then
-      admin(user_id, extra)
+      admin(user_id, arg)
     elseif cmd == 'deadmin' then
-      deAdmin(user_id, extra)
+      deAdmin(user_id, arg)
     elseif cmd == 'setowner' then
-      setOwner(user_id, chat_id, extra)
+      setOwner(user_id, chat_id, arg)
     end
   end
 
   -- Administration by reply
   local function adminByReply(arg, data)
-    util.vardump(arg)
-    util.vardump(data)
-    td.getUser(data.sender_user_id_, administration, {
-        chat_id = arg.chat_id,
-        msg_id = data.id_,
-        cmd = arg.cmd
-    })
+    arg.msg_id = data.id_,
+    td.getUser(data.sender_user_id_, administration, arg)
   end
 
   -- Administration by user id, resolving username.
@@ -134,18 +124,14 @@ do
     local user = data.type_.user_
     local cmd = arg.cmd
     local user_id = user.id_
-    local extra = {
-      chat_id = chat_id,
-      msg_id = msg_id,
-      name = '@' .. user.username_
-    }
+    arg.name = '@' .. user.username_
 
     if cmd == 'admin' then
-      admin(user_id, extra)
+      admin(user_id, arg)
     elseif cmd == 'deadmin' then
-      deAdmin(user_id, extra)
+      deAdmin(user_id, arg)
     elseif cmd == 'setowner' then
-      setOwner(user_id, chat_id, extra)
+      setOwner(user_id, chat_id, arg)
     end
   end
 
@@ -223,8 +209,7 @@ do
 --------------------------------------------------------------------------------
 
   local function run(msg, matches)
-    local chat_id = msg.chat_id_
-    local user_id = msg.sender_user_id_
+    local chat_id, user_id, _, _ = util.extractIds(msg)
     local rank, role = getRank(user_id, chat_id)
     local text
 
@@ -234,7 +219,7 @@ do
       local owner = db:hgetall('owner' .. chat_id)
       local text
       for k, v in pairs(owner) do
-        text = _msg('%s [<code>%s</code>] is the owner of <b>%s</b>'):format(k, v, title)
+        text = _msg('%s [<code>%s</code>] is the owner of <b>%s</b>'):format(v, k, title)
       end
       return sendText(chat_id, msg.id_, text)
     end

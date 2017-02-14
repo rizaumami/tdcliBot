@@ -166,7 +166,7 @@ do
     end
 
     -- Show the available system/admin plugins
-    if matches[1] == 'sysplugs' then
+    if matches[1]:match('sysplug') then
       return listPlugins(msg, false, plugins_type)
     end
 
@@ -277,7 +277,7 @@ do
       _config.cmd .. 'plugins? (enable) ([%w_%.%-]+) (chat)$',
       _config.cmd .. 'plugins? (disable) ([%w_%.%-]+) (chat)$',
       _config.cmd .. 'plugins? (reload)$',
-      _config.cmd .. '(sysplugs)$',
+      _config.cmd .. '(sysplugs?)$',
       _config.cmd .. 'sysplugs? (enable) ([%w_%.%-]+)$',
       _config.cmd .. 'sysplugs? (disable) ([%w_%.%-]+)$',
       _config.cmd .. '(setkey) (%g+) (.*)$',
