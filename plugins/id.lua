@@ -1,16 +1,18 @@
 do
 
   local function getUserIds(chat_id, msg_id, user)
-    local name =  _msg("<b>%s</b>\nFirst name: %s"):format(user.first_name_, user.first_name_)
+    local fname = util.escapeHtml(user.first_name_)
+    local name = _msg("<b>%s</b>\nFirst name: %s"):format(fname, fname)
 
     if user.last_name_ then
-      name =  _msg("<b>%s %s</b>\nFirst name: %s\nLast name: %s"):format(user.first_name_, user.last_name_, user.first_name_, user.last_name_)
+      local lname = util.escapeHtml(user.last_name_)
+      name = _msg("<b>%s %s</b>\nFirst name: %s\nLast name: %s"):format(fname, lname, fname, lname)
     end
 
-    local text =  util.unescapeHtml(name) .. '\nID: <code>' .. user.id_ .. '</code>\n'
+    local text =  name .. '\nID: <code>' .. user.id_ .. '</code>'
 
     if user.username_ then
-      text = text .. _msg('Username: @%s\nLink: https://t.me/%s'):format(user.username_, user.username_)
+      text = _msg('%s\nUsername: @%s\nLink: https://t.me/%s'):format(text, user.username_, user.username_)
     end
 
     sendText(chat_id, msg_id, text, 0)

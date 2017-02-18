@@ -19,13 +19,14 @@ U.vardump = vardump
 -- This table will store unsavory characters that are not properly displayed,
 -- or are just not fun to type.
 local char = {
-  zwnj = '‌',
+  zwnj = utf8.char(0x200c),
   arabic = '[\216-\219][\128-\191]',
-  rtl_override = '‮',
-  rtl_mark = '‏',
+  rtl_override = utf8.char(0x202e),
+  rtl_mark = utf8.char(0x200f),
   em_dash = '—',
   utf_8 = '[%z\1-\127\194-\244][\128-\191]',
-  braille_space = '⠀',
+  braille_space = utf8.char(0x2800),
+  invisible_separator = utf8.char(0x2063)
 }
 
 U.char = char

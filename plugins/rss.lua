@@ -171,7 +171,7 @@ do
     if matches[1] == 'subscribe' or matches[1] == 'sub' then
       return subscribe(id, matches[2])
     end
-    if matches[1] == 'unsubscribe' or matches[1] == 'uns' then
+    if matches[1] == 'unsubscribe' or matches[1] == 'uns' or matches[1] == 'del' then
       return unsubscribe(id, matches[2])
     end
   end
@@ -186,9 +186,12 @@ do
       'Get your rss (or chat rss) subscriptions',
       '',
       '<code>!rss subscribe [url]</code>',
+      '<code>!rss sub [url]</code>',
       'Subscribe to that url',
       '',
       '<code>!rss unsubscribe [id]</code>',
+      '<code>!rss uns [id]</code>',
+      '<code>!rss del [id]</code>',
       'Unsubscribe of that id',
       '',
       '<code>!rss sync</code>',
@@ -201,6 +204,7 @@ do
       _config.cmd .. 'rss (sub) (https?://[%w-_%.%?%.:/%+=&]+)$',
       _config.cmd .. 'rss (unsubscribe) (%d+)$',
       _config.cmd .. 'rss (uns) (%d+)$',
+      _config.cmd .. 'rss (del) (%d+)$',
       _config.cmd .. 'rss (sync)$'
     },
     run = run,

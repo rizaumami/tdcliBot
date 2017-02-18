@@ -47,7 +47,7 @@ do
   end
 
   local function listPlugins(msg, only_enabled, plugins_type)
-    local text = ''
+    local plist = {}
     local psum = 0
     local plug_name = pluginsNames(plugins_dir)
 
@@ -69,14 +69,15 @@ do
       if not only_enabled or status == '✅' then
         -- get the name
         pname = pname:match('(.*)%.lua')
-        text = text .. status .. '  ' .. pname .. '\n'
+        plist[l] = status .. '  ' .. pname
       end
     end
 
+    plist = plist and table.concat(plist, '\n') or ''
     local footer = _msg('\n<b>%s plugins installed</b>\n'
         .. '✅  %s enabled.\n❌  %s disabled.'):format(psum, pact, psum-pact)
 
-    sendText(msg.chat_id_, msg.id_, text .. footer)
+    sendText(msg.chat_id_, msg.id_, plist .. footer)
   end
 
   local function reloadPlugins(msg, only_enabled, plugins_type)
@@ -191,8 +192,8 @@ do
             if not _config.key[plugin] or _config.key[plugin] == '' then
               local missing = _msg('<b>%s.lua is missing its api key</b>\n'
                               .. 'Will not be enabled.\n\n'
-                              .. 'Get it from ' .. plug.need_api_key .. ' and set by using these command:\n'
-                              .. '<code>!setkey %s [api_key]</code>'):format(plugin, plugin)
+                              .. 'Get it from %s and set by using these command:\n'
+                              .. '<code>!setkey %s [api_key]</code>'):format(plugin, plug.need_api_key, plugin)
               return sendText(chat_id, msg.id_, missing)
             end
           end
@@ -221,11 +222,11 @@ do
         local k = pluginsEnabled(plugin, plugins_type)
         -- Check if plugin is enabled
         if not k then
-          text = text .. _msg('\nPlugin %s not enabled.'):format(plugin)
+          text = _msg('Plugin %s not enabled.'):format(plugin)
         end
 
         if text then
-          sendText(chat_id, msg.id_, text)
+          return sendText(chat_id, msg.id_, text)
         end
 
         -- Disable and reload

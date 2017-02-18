@@ -207,6 +207,12 @@ do
           if (name:match(util.char.arabic)
             or name:match(util.char.rtl_override)
             or name:match(util.char.rtl_mark)
+            -- excessive space detection
+            or from_name:match('[ ' ..
+              util.char.braille_space .. util.char.invisible_separator .. util.char.zwnj .. '][ ' ..
+              util.char.braille_space .. util.char.invisible_separator .. util.char.zwnj .. ']')
+            or from_name:match('^[' .. util.char.braille_space .. util.char.invisible_separator .. util.char.zwnj .. ']')
+            or from_name:match('[' .. util.char.braille_space .. util.char.invisible_separator .. util.char.zwnj .. ']$')
             or name:match('^' .. util.char.braille_space)
             or name:match(util.char.braille_space .. '$')) then
             local text = _msg("You're kicked because of Arabic script and/or RTL characters on your name.")
