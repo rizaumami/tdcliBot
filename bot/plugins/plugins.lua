@@ -47,8 +47,7 @@ do
   end
 
   local function listPlugins(msg, only_enabled, plugins_type)
-    local plist = {}
-    local psum = 0
+    local plist, psum, n = {}, 0, 1
     local plug_name = pluginsNames(plugins_dir)
 
     for l = 1, #plug_name do
@@ -66,15 +65,16 @@ do
         end
         pact = pact + 1
       end
-      if not only_enabled or status == '✅' then
-        -- get the name
-        pname = pname:match('(.*)%.lua')
+      if only_enabled and status == '✅' then
+        plist[n] = status .. '  ' .. pname
+        n = n + 1
+      elseif not only_enabled then
         plist[l] = status .. '  ' .. pname
       end
     end
 
     plist = plist and table.concat(plist, '\n') or ''
-    local footer = _msg('\n<b>%s plugins installed</b>\n'
+    local footer = _msg('\n\n<b>%s plugins installed</b>\n'
         .. '✅  %s enabled.\n❌  %s disabled.'):format(psum, pact, psum-pact)
 
     sendText(msg.chat_id_, msg.id_, plist .. footer)
@@ -102,7 +102,7 @@ do
 
     if util.isMod(user_id, chat_id) then
       -- Show the available plugins
-      if matches[1] == 'plugins' then
+      if matches[1]:match('plugin') then
         return listPlugins(msg, false, 'user')
       end
 
@@ -272,7 +272,7 @@ do
       },
     },
     patterns = {
-      _config.cmd .. '(plugins)$',
+      _config.cmd .. '(plugins?)$',
       _config.cmd .. 'plugins? (enable) ([%w_%.%-]+)$',
       _config.cmd .. 'plugins? (disable) ([%w_%.%-]+)$',
       _config.cmd .. 'plugins? (enable) ([%w_%.%-]+) (chat)$',

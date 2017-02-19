@@ -2,6 +2,7 @@ URL = require 'socket.url'
 http = require 'socket.http'
 multipart = require 'multipart-post'
 feedparser = require 'feedparser'
+local utf8 = require 'lua-utf8'
 
 http.TIMEOUT = 10
 
