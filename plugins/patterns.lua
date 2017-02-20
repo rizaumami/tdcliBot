@@ -6,9 +6,7 @@ do
 
     if not m2 then return true end
 
-    local res
-
-    res, text = pcall(
+    local res, text = pcall(
       function()
         return arg.replied_text:gsub(m1, m2)
       end

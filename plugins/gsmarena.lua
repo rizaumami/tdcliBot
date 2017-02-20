@@ -69,7 +69,7 @@ do
     local dimensions = gsm.data.body.dimensions:gsub('%(.-%)', '')
     local display = gsm.data.display.size:gsub(' .*$', '"') .. ', '
         .. gsm.data.display.resolution:gsub('%(.-%)', '')
-    local output = title .. _msg('<b>Status</b>: %s\n'
+    local output = _msg('%s<b>Status</b>: %s\n'
         .. '<b>Dimensions</b>: %s\n'
         .. '<b>Weight</b>: %s\n'
         .. '<b>SIM</b>: %s\n'
@@ -77,16 +77,19 @@ do
         .. '\n<b>MC</b>: %s\n'
         .. '<b>Battery</b>: %s\n'
         .. '<b>Pic</b>: %s\n'
-        .. '<b>Link</b>: '):format( launch,
-                                    dimensions,
-                                    gsm.data.body.weight:gsub('%(.-%)', ''),
-                                    gsm.data.body.sim,
-                                    display,
-                                    gadata,
-                                    gsm.data.memory.card_slot,
-                                    gsm.data.battery._empty_:gsub('battery', ''),
-                                    gsm.img
-    ) .. phone
+        .. '<b>Link</b>: %s'):format(
+      title,
+      launch,
+      dimensions,
+      gsm.data.body.weight:gsub('%(.-%)', ''),
+      gsm.data.body.sim,
+      display,
+      gadata,
+      gsm.data.memory.card_slot,
+      gsm.data.battery._empty_:gsub('battery', ''),
+      gsm.img,
+      phone
+    )
 
     sendText(msg.chat_id_, msg.id_, output:gsub('<br>', ''))
   end

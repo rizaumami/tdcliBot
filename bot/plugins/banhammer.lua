@@ -128,49 +128,44 @@ do
     local cmd = arg.cmd
     local chat_id = arg.chat_id
     local user_id = data.id_
-    local victim = data.username_ and '@' .. data.username_ or data.first_name_
-    local extra = arg
-    extra.victim = victim
+    arg.victim = data.username_ and '@' .. data.username_ or data.first_name_
 
     if cmd == 'kick' then
       util.kickUser(chat_id, user_id, 'Kicked by ' .. arg.name .. arg.reason)
     elseif cmd == 'ban' then
-      banUser(chat_id, user_id, extra)
+      banUser(chat_id, user_id, arg)
     elseif cmd == 'unban' then
-      unbanUser(chat_id, user_id, extra)
+      unbanUser(chat_id, user_id, arg)
     elseif cmd == 'gban' then
-      globalBanUser(chat_id, user_id, extra)
+      globalBanUser(chat_id, user_id, arg)
     elseif cmd == 'gunban' then
-      globalUnbanUser(chat_id, user_id, extra)
+      globalUnbanUser(chat_id, user_id, arg)
     end
   end
 
   -- Get user ids from its @username
   local function resolveUsername_cb(arg, data)
     local exist, err = util.checkUsername(data)
-    local username = arg.username
     local chat_id = arg.chat_id
-    local msg_id = arg.msg_id
+    local cmd = arg.cmd
 
     if not exist then
-      return sendText(chat_id, msg_id, _msg(err):format(username))
+      return sendText(chat_id, arg.msg_id, _msg(err):format(arg.username))
     end
 
     local user = data.type_.user_
-    local user_id = user.id_
-    local extra = arg
-    extra.victim = '@' .. user.username_
+    arg.victim = '@' .. user.username_
 
     if cmd == 'kick' then
-      util.kickUser(chat_id, user_id, 'Kicked by ' .. arg.name .. arg.reason)
+      util.kickUser(chat_id, user.id_, 'Kicked by ' .. arg.name .. arg.reason)
     elseif cmd == 'ban' then
-      banUser(chat_id, user_id, extra)
+      banUser(chat_id, user.id_, arg)
     elseif cmd == 'unban' then
-      unbanUser(chat_id, user_id, extra)
+      unbanUser(chat_id, user.id_, arg)
     elseif cmd == 'gban' then
-      globalBanUser(chat_id, user_id, extra)
+      globalBanUser(chat_id, user.id_, arg)
     elseif cmd == 'gunban' then
-      globalUnbanUser(chat_id, user_id, extra)
+      globalUnbanUser(chat_id, user.id_, arg)
     end
   end
 

@@ -1,10 +1,10 @@
 do
 
   local function getLastId(msg)
-    local res, code  = https.request('https://xkcd.com/info.0.json')
+    local res, code = https.request('https://xkcd.com/info.0.json')
 
     if code ~= 200 then
-      sendText(msg.chat_id_, msg.id_, _msg('HTTP ERROR'))
+      return sendText(msg.chat_id_, msg.id_, _msg('HTTP ERROR'))
     end
 
     local data = json.decode(res)
@@ -13,10 +13,10 @@ do
   end
 
   local function getXkcd(msg, id)
-    local res,code  = https.request('https://xkcd.com/' .. id .. '/info.0.json')
+    local res, code = https.request('https://xkcd.com/' .. id .. '/info.0.json')
 
     if code ~= 200 then
-      sendText(msg.chat_id_, msg.id_, _msg('HTTP ERROR'))
+      return sendText(msg.chat_id_, msg.id_, _msg('HTTP ERROR'))
     end
 
     local data = json.decode(res)

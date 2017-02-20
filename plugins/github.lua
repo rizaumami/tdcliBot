@@ -15,12 +15,15 @@ do
     end
 
     local description = '\n' .. util.escapeHtml(jdat.description) .. '\n\n' or '\n\n'
-    local text =  jdat.html_url .. description
-                  .. '<b>Language</b>: ' .. jdat.language
-                  .. '\n<b>Fork</b>: ' .. jdat.forks_count
-                  .. '\n<b>Star</b>: ' .. jdat.stargazers_count
-                  .. '\n<b>Watcher</b>: ' .. jdat.subscribers_count
-                  .. '\n\n• Last updated at ' .. jdat.updated_at:gsub('%a', ' ')
+    local text = _msg('%s%s<b>Language</b>: %s\n<b>Fork</b>: %s\n<b>Star</b>: %s\n<b>Watcher</b>: %s\n\n• Last updated at %s'):format(
+      jdat.html_url,
+      description,
+      jdat.language,
+      jdat.forks_count,
+      jdat.stargazers_count,
+      jdat.subscribers_count,
+      jdat.updated_at:gsub('%a', ' ')
+    )
 
     sendText(chat_id, msg.id_, text)
   end

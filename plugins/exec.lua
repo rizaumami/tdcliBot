@@ -28,12 +28,7 @@ do
 
     local language = matches[1]
     local code = matches[2]
-    local args = getLanguageArguments(language)
-
-    if not args then
-      args = ''
-    end
-
+    local args = getLanguageArguments(language) or ''
     local parameters = {
       ['LanguageChoice'] = language,
       ['Program'] = code,

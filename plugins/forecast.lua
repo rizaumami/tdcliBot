@@ -7,13 +7,13 @@ do
 
   local function wemoji(weather_data)
     if weather_data.icon == 'clear-day' then
-    return '☀️'
+      return '☀️'
     elseif weather_data.icon == 'clear-night' then
       return '🌙'
     elseif weather_data.icon == 'rain' then
       return '☔️'
     elseif weather_data.icon == 'snow' then
-    return '❄️'
+      return '❄️'
     elseif weather_data.icon == 'sleet' then
       return '🌨'
     elseif weather_data.icon == 'wind' then

@@ -104,53 +104,40 @@ do
     local cmd = arg.cmd
     local chat_id = arg.chat_id
     local user_id = data.id_
-    local name = data.username_ and '@' .. data.username_ or data.first_name_
-    local extra = {
-      chat_id = arg.chat_id,
-      msg_id = arg.msg_id,
-      name = name
-    }
+    arg.name = data.username_ and '@' .. data.username_ or data.first_name_
 
     if cmd == 'mod' then
-      proMod(user_id, chat_id, extra)
+      proMod(user_id, chat_id, arg)
     elseif cmd == 'demod' then
-      deMod(user_id, chat_id, extra)
+      deMod(user_id, chat_id, arg)
     end
   end
 
   -- Callback for moderation by reply
   local function moderationByReply(arg, data)
-    td.getUser(data.sender_user_id_, promotion, {
-        chat_id = arg.chat_id,
-        msg_id = data.id_,
-        cmd = arg.cmd
-    })
+    arg.msg_id = data.id_
+    td.getUser(data.sender_user_id_, promotion, arg)
   end
 
   -- Callback for moderation by user id, resolving username.
   local function resolveMod_cb(arg, data)
     local exist, err = util.checkUsername(data)
-    local username = arg.username
     local chat_id = arg.chat_id
     local msg_id = arg.msg_id
 
     if not exist then
-      return sendText(chat_id, msg_id, _msg(err):format(username))
+      return sendText(chat_id, msg_id, _msg(err):format(arg.username))
     end
 
     local user = data.type_.user_
     local cmd = arg.cmd
     local user_id = user.id_
-    local extra = {
-      chat_id = chat_id,
-      msg_id = msg_id,
-      name = '@' .. user.username_
-    }
+    arg.name = '@' .. user.username_
 
     if cmd == 'mod' then
-      proMod(user_id, chat_id, extra)
+      proMod(user_id, chat_id, arg)
     elseif cmd == 'demod' then
-      deMod(user_id, chat_id, extra)
+      deMod(user_id, chat_id, arg)
     end
   end
 
@@ -246,8 +233,8 @@ do
       else
         local inviter = 'bannedinviter' .. chat_id
         db:hincrby(inviter, user_id, 1)
-        local count = db:hexists(inviter, user_id)
-        local autoban = db:get('autoban' .. chat_id)
+        local count = db:hget(inviter, user_id) or 0
+        local autoban = db:get('autoban' .. chat_id) or 0
 
         if count and tonumber(count) > tonumber(autoban) then
           util.kickUser(chat_id, user_id, 'Autobanned for inviting banned user.')

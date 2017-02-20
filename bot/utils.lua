@@ -305,7 +305,7 @@ U.sendLog = sendLog
 -- Kick user
 local function kickUser(chat_id, user_id, reason, block)
   local khash = 'autokicks' .. chat_id
-  local autokicks = db:hexists(khash, user_id) and tonumber(db:hget(khash, user_id)) or false
+  local autokicks = db:hexists(khash, user_id) and tonumber(db:hget(khash, user_id)) or 0
   local autoban = tonumber(db:get('autoban' .. chat_id))
   local rank, role = getRank(user_id, chat_id)
 

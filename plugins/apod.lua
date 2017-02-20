@@ -32,7 +32,7 @@ do
     end
 
     if jstr.copyright then
-      apod = apod .. _msg('\n\n<i>Copyright') .. ': ' .. jstr.copyright .. '</i>'
+      apod = _msg('%s\n\n<i>Copyright: %s</i>'):format(apod, jstr.copyright)
     end
 
     sendText(chat_id, msg.id_, apod .. '\n\n' .. img_url, 0)

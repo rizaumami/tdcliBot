@@ -4,8 +4,7 @@ do
     local chat_id, user_id, _, _ = util.extractIds(msg)
 
     if not os.execute('which fortune') then
-      local text =  _msg('<b>sh: 1: fortune: not found</b>'
-                    .. '\nPlease install <code>fortune</code> and <code>fortunes</code> packages on your system.')
+      local text =  _msg('<b>sh: 1: %s: not found</b>\nPlease install <code>%s</code> and <code>%s</code> packages on your system.'):format('fortune')
       return sendText(chat_id, msg.id_, text)
     end
 

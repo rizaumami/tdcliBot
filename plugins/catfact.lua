@@ -10,7 +10,7 @@ do
 
     local data = json.decode(jstr)
     local facts = '<i>' .. data.facts[1] .. '</i>'
-    local output = util.isChatMsg(msg) and facts or _msg('<b>Cat Fact</b>\n') .. facts
+    local output = util.isChatMsg(msg) and facts or _msg('<b>Cat Fact</b>\n%s'):format(facts)
     local msg_id = util.isChatMsg(msg) and msg.id_ or 0
 
     sendText(msg.chat_id_, msg_id, output)

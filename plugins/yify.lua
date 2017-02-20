@@ -13,22 +13,34 @@ do
     local jresult = json.decode(resp)
 
     if not jresult.data.movies then
-      sendText(msg.chat_id_, msg.id_, _msg('<b>No torrent results for</b>: ') .. query)
+      sendText(msg.chat_id_, msg.id_, _msg('No torrent results for: %s'):format(query))
     else
       local yify = jresult.data.movies[1]
       local yts = yify.torrents
       local yifylist = {}
 
       for i=1, #yts do
-        yifylist[i] = '<b>' .. yts[i].quality .. '</b>: <a href="' .. yts[i].url .. '">.torrent</a>\n'
-            .. 'Seeds: <code>' .. yts[i].seeds .. '</code> | ' .. 'Peers: <code>' .. yts[i].peers .. '</code> | ' .. 'Size: <code>' .. yts[i].size .. '</code>'
+        local torrent = yts[i]
+        yifylist[i] = string.format(
+          '<b>%s</b>: <a href="%s">.torrent</a>\nSeeds: <code>%s</code> | Peers: <code>%s</code> | Size: <code>%s</code>',
+          torrent.quality,
+          torrent.url,
+          torrent.seeds,
+          torrent.peers,
+          torrent.size
+        )
       end
 
-      local torrlist = table.concat(yifylist, '\n\n')
-      local title = '<b>' .. yify.title_long .. '</b>'
-      local output = title .. '\n\n'
-          .. '<b>' .. yify.rating .. '</b>/10 <a href="' .. yify.large_cover_image .. '">|</a> ' .. yify.runtime .. ' min\n\n'
-          .. torrlist .. '\n\n' .. yify.synopsis:sub(1, 2000) .. '\n<a href="' .. yify.url .. '"> More on yts.ag ...</a>'
+      local output = string.format(
+        '<b>%s</b>\n\n<b>%s</b>/10 <a href="%s">|</a> %s min\n\n%s\n\n%s\n<a href="%s">More on yts.ag...</a>',
+        yify.title_long,
+        yify.rating,
+        yify.large_cover_image,
+        yify.runtime,
+        table.concat(yifylist, '\n\n'),
+        yify.synopsis:sub(1, 2000),
+        yify.url
+      )
 
       util.apiSendMessage(msg, output, 'HTML')
     end

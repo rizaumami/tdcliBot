@@ -12,9 +12,11 @@ do
     local data = json.decode(res)
     local ask = string.gsub(data.ask, '%.', ',')
     local bid = string.gsub(data.bid, '%.', ',')
-    local index = '<b>BTC</b> in <b>' .. currency .. ':</b>\n'
-        .. _msg('• Buy: ') .. util.groupIntoThree(ask) .. '\n'
-        .. _msg('• Sell: ') .. util.groupIntoThree(bid)
+    local index = _msg('<b>BTC</b> in <b>%s:</b>\n• Buy: %s\n• Sell: %s'):format(
+      currency,
+      util.groupIntoThree(ask),
+      util.groupIntoThree(bid)
+    )
 
     sendText(msg.chat_id_, msg.id_, index)
   end

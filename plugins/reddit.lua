@@ -2,12 +2,8 @@ do
 
   local function run(msg, matches)
     local thread_limit = util.isChatMsg(msg) and 4 or 8
-    local is_nsfw = false
+    local is_nsfw = matches[1] == 'nsfw' and true or false
     local url = 'https://www.reddit.com/'
-
-    if matches[1] == 'nsfw' then
-      is_nsfw = true
-    end
 
     if #matches == 1 then
       url = url .. '.json?limit=' .. thread_limit

@@ -1,27 +1,21 @@
 do
 
   local function run(msg, matches)
+    local query = matches[2] and matches[2] or matches[1]
+
+    if not query then return end
+
     local chat_id = msg.chat_id_
-    local lang = _config.language.default
-    local query = matches[1]
-
-    if matches[2] then
-      lang = matches[1]
-      query = matches[2]
-    end
-
+    local lang = matches[2] and matches[1] or _config.language.default
+    local query = matches[2] and matches[2] or matches[1]
     local search_url = 'https://' .. lang .. '.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch='
     local res_url = 'https://' .. lang .. '.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exchars=4000&explaintext=&titles='
     local art_url = 'https://' .. lang .. '.wikipedia.org/wiki/'
-
-    if not query then
-      return
-    end
-
     local jstr, code = https.request(search_url .. URL.escape(query))
+    local title
 
     if code ~= 200 then
-      return sendText(chat_id, msg.id_, _msg('<b>Connection error</b>'))
+      return sendText(chat_id, msg.id_, _msg('Connection error'))
     end
 
     local data = json.decode(jstr)
@@ -29,9 +23,6 @@ do
     if data.query.searchinfo.totalhits == 0 then
       return sendText(chat_id, msg.id_, _msg('No results found'))
     end
-
-    local title
-
     for _, v in ipairs(data.query.search) do
       if not v.snippet:match('may refer to:') then
         title = v.title

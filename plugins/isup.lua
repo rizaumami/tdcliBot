@@ -1,20 +1,11 @@
 do
 
   local function run(msg, matches)
-    if not matches[1] then
-      return
-    end
+    if not matches[1] then return end
 
-    local protocol = http
     local url = matches[1]:lower()
-
-    if url:match('^https') then
-      protocol = https
-    elseif not url:match('^http') then
-      url = 'http://' .. matches[1]
-    end
-
-    local _, code = protocol.request(url)
+    local protocol = url:match('^https://') and https or http
+    local _, code = protocol.request(matches[1])
     code = tonumber(code)
     local output
 
