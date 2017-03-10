@@ -29,7 +29,7 @@ do
                   .. 'Source: dilbert.com'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/36'
+        'https://telegra.ph/Dilbert-02-08',
         --'<code>!dilbert</code>',
         --_msg('Returns todays Dilbert comic'),
         --'',

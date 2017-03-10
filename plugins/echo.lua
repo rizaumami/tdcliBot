@@ -18,7 +18,7 @@ do
     description = _msg('Repeats a string of text.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/42'
+        'https://telegra.ph/Echo-02-08',
         --'<code>!echo [text]</code>',
         --_msg('Repeats a string of text.'),
         --'',

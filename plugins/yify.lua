@@ -52,7 +52,7 @@ do
     description = _msg('Searches Yify torrents for the given query.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/107'
+        'https://telegra.ph/Yify-02-08',
         --'<code>!yify [search term]</code>',
         --'<code>!yts [search term]</code>',
         --_msg('Search YTS YIFY movie torrents from yts.ag'),

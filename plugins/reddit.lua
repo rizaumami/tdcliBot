@@ -75,7 +75,7 @@ do
                   .. 'Querying specific subreddits is not supported.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/83'
+        'https://telegra.ph/Reddit-02-08',
         --'<code>!reddit</code>',
         --_msg('Reddit frontpage.'),
         --'',

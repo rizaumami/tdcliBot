@@ -30,7 +30,7 @@ do
     description = _msg('Converts the given number to binary.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/15'
+        'https://telegra.ph/Binary-02-08',
         --'<code>!binary [number]</code>',
         --_msg('Converts the given <code>number</code> to binary.')
       },

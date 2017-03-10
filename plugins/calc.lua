@@ -17,7 +17,7 @@ do
                   .. 'Results provided by mathjs.org.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/24'
+        'https://telegra.ph/Calculator-02-08',
         --'<code>!calc [expression]</code>',
         --'<code>!calculator [expression]</code>',
         --_msg('Evaluates the expression and sends the result.'),

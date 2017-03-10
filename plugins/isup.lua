@@ -24,7 +24,7 @@ do
     description = _msg('Returns the up or down status of a website.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/66'
+        'https://telegra.ph/Isup-02-08',
         --'<code>!isup github.com</code>',
         --_msg('Returns the up or down status of github.com.'),
       },

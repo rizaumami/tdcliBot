@@ -19,7 +19,7 @@ do
     description = _msg('Returns a random fact!'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/48'
+        'https://telegra.ph/Fact-02-08-3',
         --'<code>!fact</code>',
         --_msg('Returns a random fact.'),
       },

@@ -49,7 +49,7 @@ do
         --'',
       --},
       user = {
-        'See: https://t.me/tdclibotmanual/9'
+        'https://telegra.ph/Astronomy-Picture-of-the-Day-02-08',
         --'<code>!apod</code>',
         --_msg('Returns the Astronomy Picture of the Day (APOD).'),
         --'',

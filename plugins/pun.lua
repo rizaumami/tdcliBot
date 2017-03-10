@@ -144,9 +144,10 @@ do
     description = 'Returns a pun.',
     usage = {
       user = {
-        '<code>!pun</code>',
-        'Returns a pun.',
-        '',
+        'https://telegra.ph/Pun-03-10',
+        --'<code>!pun</code>',
+        --'Returns a pun.',
+        --'',
       },
     },
     patterns = {

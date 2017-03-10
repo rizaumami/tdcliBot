@@ -26,7 +26,7 @@ do
     description = _msg('Returns a random image from the latest 9gag posts.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/6'
+        'https://telegra.ph/9gag-02-07',
         --'<code>!9gag</code>',
         --_msg('Send random image from 9gag'),
       },

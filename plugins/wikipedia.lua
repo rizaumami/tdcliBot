@@ -73,7 +73,7 @@ do
     description = _msg('Returns an article from Wikipedia.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/101'
+        'https://telegra.ph/Wikipedia-02-08',
         --'<code>!w [query]</code>',
         --'<code>!wiki [query]</code>',
         --'<code>!wikipedia [query]</code>',

@@ -22,7 +22,7 @@ do
     description = _msg('Returns a cat fact.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/27'
+        'https://telegra.ph/Cat-Facts-02-08',
         --'<code>!catfact</code>',
         --_msg('Returns a cat fact.'),
       },

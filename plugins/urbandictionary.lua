@@ -48,7 +48,7 @@ do
     description = _msg('Returns a definition from Urban Dictionary.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/95'
+        'https://telegra.ph/Urban-Dictionary-02-08',
         --'<code>!ud [query]</code>',
         --'<code>!urban [query]</code>',
         --'<code>!urbandictionary [query]</code>',

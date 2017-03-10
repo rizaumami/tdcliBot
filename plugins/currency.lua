@@ -58,7 +58,7 @@ do
     description = _msg('Returns (Google Finance) exchange rates for various currencies.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/33'
+        'https://telegra.ph/Currency-02-08',
         --'<code>!cash [amount] [from] to [to]</code>',
         --_msg('<b>Example</b>') .. ':',
         --'  *  <code>!cash 5 USD to EUR</code>',

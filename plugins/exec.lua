@@ -79,7 +79,7 @@ do
     description = _msg('Executes the specified code in the given language and returns the output.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/45'
+        'https://telegra.ph/Exec-02-08',
         --'<code>!exec [language] [code]</code>',
         --_msg('Executes the specified <code>code</code> in the given <code>language</code> and returns the output.')
       },

@@ -52,7 +52,7 @@ do
     description = _msg('Returns the latest xkcd strip and its alt text. If a number is given, returns that number strip.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/104'
+        'https://telegra.ph/xkcd-02-08',
         --'<code>!xkcd</code>',
         --_msg('Send random xkcd image and title.'),
         --'',

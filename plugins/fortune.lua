@@ -4,7 +4,7 @@ do
     local chat_id, user_id, _, _ = util.extractIds(msg)
 
     if not os.execute('which fortune') then
-      local text =  _msg('<b>sh: 1: %s: not found</b>\nPlease install <code>%s</code> and <code>%s</code> packages on your system.'):format('fortune')
+      local text =  _msg('<b>sh: 1: fortune: not found</b>\nPlease install <code>fortune</code> and <code>fortunes</code> packages on your system.')
       return sendText(chat_id, msg.id_, text)
     end
 
@@ -20,9 +20,10 @@ do
     description = 'Returns UNIX fortunes.',
     usage = {
       user = {
-        '<code>!fortune</code>',
-        'Returns UNIX fortunes.',
-        '',
+        'https://telegra.ph/Fortune-03-10',
+        --'<code>!fortune</code>',
+        --'Returns UNIX fortunes.',
+        --'',
       },
     },
     patterns = {

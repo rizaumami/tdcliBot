@@ -24,7 +24,7 @@ do
     description = _msg('A random picture of a cat!'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/30'
+        'https://telegra.ph/Cats-02-08',
         --'<code>!cat</code>',
         --'<code>!cats</code>',
         --_msg('Returns a picture of cat!'),

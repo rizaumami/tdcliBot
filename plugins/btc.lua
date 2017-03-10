@@ -27,7 +27,7 @@ do
     description = _msg('Displays the current Bitcoin price.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/21'
+        'https://telegra.ph/Bitcoin-02-08',
         --'<code>!btc</code>',
         --_msg('Displays Bitcoin price in USD'),
         --'',

@@ -71,7 +71,7 @@ do
                   .. 'The preceding hash symbol is optional.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/60'
+        'https://telegra.ph/Hex-Color-02-08',
         --'<code>!color [ffffff]</code>',
         --'<code>!hexcolor [ff00ff]</code>',
         --_msg('Returns an image of the given color code.'),

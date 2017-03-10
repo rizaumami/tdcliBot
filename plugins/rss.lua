@@ -182,20 +182,24 @@ do
     description = 'Manage User/Chat RSS subscriptions. If you are in a chat group, the RSS subscriptions will be of that chat. If you are in an one-to-one talk with the bot, the RSS subscriptions will be yours.',
     usage = {
       owner = {
-      '<code>!rss</code>',
-      'Get your rss (or chat rss) subscriptions',
-      '',
-      '<code>!rss subscribe [url]</code>',
-      '<code>!rss sub [url]</code>',
-      'Subscribe to that url',
-      '',
-      '<code>!rss unsubscribe [id]</code>',
-      '<code>!rss uns [id]</code>',
-      '<code>!rss del [id]</code>',
-      'Unsubscribe of that id',
-      '',
-      '<code>!rss sync</code>',
-      'Download now the updates and send it. Only sudo users can use this option.'
+        --'<code>!rss</code>',
+        --'Get your rss (or chat rss) subscriptions',
+        --'',
+        --'<code>!rss subscribe [url]</code>',
+        --'<code>!rss sub [url]</code>',
+        --'Subscribe to that url',
+        --'',
+        --'<code>!rss unsubscribe [id]</code>',
+        --'<code>!rss uns [id]</code>',
+        --'<code>!rss del [id]</code>',
+        --'Unsubscribe of that id',
+        --'',
+        --'<code>!rss sync</code>',
+        --'Download now the updates and send it. Only sudo users can use this option.'
+        --'',
+      },
+      user = {
+        'https://telegra.ph/RSS-03-10',
       },
     },
     patterns = {

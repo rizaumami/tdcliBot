@@ -73,7 +73,7 @@ do
     description = _msg('Returns the current weather conditions for a given location.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/51'
+        'https://telegra.ph/Forecast-02-08',
         --'<code>!cast [area]</code>',
         --'<code>!forecast [area]</code>',
         --'<code>!weather [area]</code>',

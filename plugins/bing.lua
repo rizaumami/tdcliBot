@@ -60,7 +60,7 @@ do
         --'',
       --},
       user = {
-        'See: https://t.me/tdclibotmanual/18'
+        'https://telegra.ph/Bing-02-08',
         --'<code>!bing [terms]</code>',
         --'<code>!b [terms]</code>',
         --_msg('Safe searches Bing'),

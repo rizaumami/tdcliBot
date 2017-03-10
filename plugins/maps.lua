@@ -14,7 +14,7 @@ do
     description = _msg('Returns a location from Google Maps.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/71'
+        'https://telegra.ph/Maps-02-08',
         --'<code>!loc [query]</code>',
         --'<code>!location [query]</code>',
         --'<code>!maps [query]</code>',

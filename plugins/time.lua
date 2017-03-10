@@ -69,7 +69,7 @@ do
     description = _msg('Returns the time, date, and timezone for the given location.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/89'
+        'https://telegra.ph/Time-02-08',
         --'<code>!time [area]</code>',
         --_msg('Displays the local time in that <code>[area]</code>\n<b>Example</b>') .. ': <code>!time yogyakarta</code>',
       },

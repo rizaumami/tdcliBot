@@ -100,7 +100,7 @@ do
     description = _msg('Returns mobile phone specification.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/57'
+        'https://telegra.ph/GSM-Arena-02-08',
         --'<code>!phone [phone]</code>',
         --'<code>!gsm [phone]</code>',
         --_msg('Returns <code>phone</code> specification.'),

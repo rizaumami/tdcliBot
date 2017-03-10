@@ -76,7 +76,7 @@ do
         --'',
       --},
       user = {
-        'See: https://t.me/tdclibotmanual/63'
+        'https://telegra.ph/Id-02-08',
         --'<code>!id</code>',
         --_msg('Returns your IDs.'),
         --'',

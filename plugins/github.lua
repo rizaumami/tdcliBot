@@ -34,7 +34,7 @@ do
     description = _msg('Returns information about the specified GitHub repository.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/54'
+        'https://telegra.ph/GitHub-02-08',
         --'<code>github [username] [repository]</code>',
         --_msg('Returns information about the specified GitHub repository.')
       },

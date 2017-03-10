@@ -42,7 +42,7 @@ do
     description = _msg('Replace all matches for the given pattern.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/74'
+        'https://telegra.ph/Patterns-02-08',
         --'<code>/s/from/to/</code>',
         --'<code>/s/from/to</code>',
         --'<code>s/from/to</code>',

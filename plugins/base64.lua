@@ -37,7 +37,7 @@ do
     description = _msg('Converts the given string to base64.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/12'
+        'https://telegra.ph/Base-64-02-08',
         --'<code>!base64 [string]</code>',
         --'<code>!b64 [string]</code>',
         --_msg('Converts the given <code>string</code> to base64.')

@@ -15,7 +15,7 @@ do
     description = _msg('Converts the given string to a QR code.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/77'
+        'https://telegra.ph/QR-02-08',
         --'<code>!qr [string]</code>',
         --_msg('Converts the given <code>string</code> to a QR code.')
       },

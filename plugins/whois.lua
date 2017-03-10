@@ -50,7 +50,7 @@ do
     description = 'Whois lookup.',
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/98'
+        'https://telegra.ph/Whois-02-08',
         --'<code>!whois [url]</code>',
         --'Returns whois lookup for <code>[url]</code>',
         --'',

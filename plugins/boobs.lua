@@ -40,12 +40,13 @@ do
     description = _msg('Gets a random boobs or butts pic'),
     usage = {
       user = {
-        '<code>!boobs</code>',
-        _msg('Get a boobs NSFW image. 🔞'),
-        '',
-        '<code>!butts</code>',
-        _msg('Get a butts NSFW image. 🔞'),
-        '',
+        'https://telegra.ph/Boobs-03-10',
+        --'<code>!boobs</code>',
+        --_msg('Get a boobs NSFW image. 🔞'),
+        --'',
+        --'<code>!butts</code>',
+        --_msg('Get a butts NSFW image. 🔞'),
+        --'',
       },
     },
     patterns = {

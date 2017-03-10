@@ -11,7 +11,7 @@ do
     description = _msg('Returns a commit message from whatthecommit.com.'),
     usage = {
       user = {
-        'See: http://telegra.ph/Commit-02-09'
+        'https://telegra.ph/Commit-02-09',
         --'<code>!commit</code>',
         --_msg('Returns a commit message from whatthecommit.com.'),
       },

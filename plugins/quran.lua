@@ -253,7 +253,7 @@ do
     description = _msg("Returns Al Qur'an verse."),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/80'
+        'https://telegra.ph/Quran-02-08',
         --'<code>!quran [verse number]</code>',
         --_msg("Returns Qur'an verse by its number."),
         --_msg('<b>Example</b>') .. ': <code>!quran 17</code>',

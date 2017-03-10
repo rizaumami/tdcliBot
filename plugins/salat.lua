@@ -114,7 +114,7 @@ do
     description = _msg('Returns todays prayer times.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/86'
+        'https://telegra.ph/Salat-02-08',
         --'<code>!salat [area]</code>',
         --_msg('Returns todays prayer times for that area.\n'),
         --_msg('<b>Example</b>') .. ': <code>!salat bandung</code>',

@@ -35,10 +35,10 @@ do
   description = _msg('Returns a list of top stories from Hacker News.'),
   usage = {
     user = {
-    'https://t.me/tdclibotmanual/116'
-    --'<code>!hn</code>',
-    --'<code>!hackernews</code>',
-    --_msg('Returns a list of top stories from Hacker News.'),
+      'https://telegra.ph/Hacker-News-02-09',
+      --'<code>!hn</code>',
+      --'<code>!hackernews</code>',
+      --_msg('Returns a list of top stories from Hacker News.'),
     },
   },
   patterns = {

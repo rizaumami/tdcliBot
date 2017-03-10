@@ -21,7 +21,7 @@ do
     description = _msg('Doge-ifies the given text.\nSentences are separated using slashes.'),
     usage = {
       user = {
-        'See: https://t.me/tdclibotmanual/39'
+        'https://telegra.ph/Doge-02-08',
         --'<code>!dogify (your/words/with/slashes)</code>',
         --'<code>!doge (your/words/with/slashes)</code>',
         --_msg('Create a doge with the image and words.'),

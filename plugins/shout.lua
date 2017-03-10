@@ -52,13 +52,13 @@ do
     description = _msg('Shouts something. Input may be the replied-to message.'),
     usage = {
       user = {
-        --'See: https://t.me/tdclibotmanual/'
-        '<code>!shout</code>',
-        _msg('Shouts replied message.'),
-        '',
-        '<code>!shout [text]</code>',
-        _msg('Shouts <code>text</code>.'),
-        '',
+        'https://telegra.ph/Shout-03-10',
+        --'<code>!shout</code>',
+        --_msg('Shouts replied message.'),
+        --'',
+        --'<code>!shout [text]</code>',
+        --_msg('Shouts <code>text</code>.'),
+        --'',
       },
     },
     patterns = {
