@@ -6,6 +6,4 @@
 
 `tdcliBot` is a multipurpose and plugin-wielding [Telegram](https://telegram.org/) bot based on the latest [telegram-cli](https://valtman.name/telegram-cli).
 
-Read the documentation on [tdcliBot wiki](https://github.com/rizaumami/tdcliBot/wiki) or [tdcliBot Documentation Channel](https://t.me/tdclibotmanual).
-
-Discuss tdcliBot on [tdcliBot Discussion Group](https://t.me/joinchat/AAAAAD9poeUnAKaTGkhVLA).
+Read the documentation on [tdcliBot wiki](https://github.com/rizaumami/tdcliBot/wiki).

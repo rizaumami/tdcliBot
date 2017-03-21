@@ -303,6 +303,19 @@ end
 U.sendLog = sendLog
 
 -- Kick user
+local function kickChatMember(chat_id, user_id, block, cb, cmd)
+  local gid = tostring(chat_id)
+  local block = block or false
+
+  td.changeChatMemberStatus(chat_id, user_id, 'Kicked', function(a, d)
+    if d.ID == 'Ok' and gid:match('^-100') and not block then
+      td.changeChatMemberStatus(a.chat_id, a.user_id, 'Left')
+    end
+  end, {chat_id = chat_id, user_id = user_id, block = block})
+end
+
+U.kickChatMember = kickChatMember
+
 local function kickUser(chat_id, user_id, reason, block)
   local khash = 'autokicks' .. chat_id
   local autokicks = db:hexists(khash, user_id) and tonumber(db:hget(khash, user_id)) or 0
@@ -317,7 +330,7 @@ local function kickUser(chat_id, user_id, reason, block)
       block = true
       sendText(chat_id, 0, _msg('You have been banned for being autokicked too many times.'))
     end
-    td.kickChatMember(chat_id, user_id, block)
+    kickChatMember(chat_id, user_id, block)
     local count = (db:hget(khash, user_id) or 0) + 1
     db:hset(hash, user_id, count)
     sendLog(chat_id, user_id, reason)

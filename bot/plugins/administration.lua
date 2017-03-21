@@ -254,8 +254,10 @@ do
         local i = 1
         for k, v in pairs(managed) do
           if not v.unlisted then
-            groups[i] = '• <a href="' .. v.link .. '">' .. util.escapeHtml(v.title) .. '</a>'
-            i = i + 1
+            if v.link or v.title then
+              groups[i] = '• <a href="' .. v.link .. '">' .. util.escapeHtml(v.title) .. '</a>'
+              i = i + 1
+            end
           end
         end
         local list = table.concat(groups, '\n')
@@ -297,7 +299,7 @@ do
     if matches[1] == 'broadcast' then
       local groups = _config.chats.managed
       for k, v in pairs(groups) do
-        sendText(v, 0, matches[2])
+        sendText(k, 0, matches[2])
       end
     end
 

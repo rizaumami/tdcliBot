@@ -10,7 +10,7 @@ ltn12 = require 'ltn12'
 json = require 'cjson'
 db = (loadfile './bot/libs/redis.lua')()
 serpent = require 'serpent'
-td = (loadfile './bot/libs/tdcli.lua')()
+td = require 'tdcli'
 util = (loadfile './bot/utils.lua')()
 
 config_file = './data/config.lua'

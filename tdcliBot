@@ -74,7 +74,7 @@ install_luarocks() {
 # Install rocks needed by tdcliBot or its plugins
 install_rocks() {
   prtgrn '>> Installing rocks'
-  for i in luasec luasocket oauth redis-lua lua-cjson luautf8 fakeredis xml feedparser serpent multipart-post; do
+  for i in tdcli.lua luasec luasocket oauth redis-lua lua-cjson luautf8 fakeredis xml feedparser serpent multipart-post; do
     ./.luarocks/bin/luarocks install "$i"
     RET=$?
     if [ $RET -ne 0 ]; then
