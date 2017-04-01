@@ -332,7 +332,7 @@ local function kickUser(chat_id, user_id, reason, block)
     end
     kickChatMember(chat_id, user_id, block)
     local count = (db:hget(khash, user_id) or 0) + 1
-    db:hset(hash, user_id, count)
+    db:hset(khash, user_id, count)
     sendLog(chat_id, user_id, reason)
   end
 end

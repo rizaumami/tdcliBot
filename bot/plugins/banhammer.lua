@@ -64,7 +64,7 @@ do
       text = _msg('%s is already globally banned.'):format(user)
     else
       text = _msg('%s has been globally banned.'):format(user)
-      db:hset('globalbans', user_id, arg.vname)
+      db:hset('globalbans', user_id, arg.victim)
       util.kickUser(chat_id, user_id, 'Globally banned by ' .. arg.name .. arg.reason)
     end
     sendText(arg.chat_id, arg.msg_id, text)
@@ -72,7 +72,7 @@ do
 
   -- Unbans user from global ban
   local function globalUnbanUser(chat_id, user_id, arg)
-    local user = arg.vname .. ' [<code>' .. user_id .. '</code>] '
+    local user = arg.victim .. ' [<code>' .. user_id .. '</code>] '
     local text
 
     if db:hexists('globalbans', user_id) then
@@ -235,6 +235,7 @@ do
       elseif matches[2] == '@' then
         extra.username = matches[3]
         extra.reason = matches[4] and ': ' .. matches[4] or ''
+        util.vardump(extra)
         td.searchPublicChat(matches[3], resolveUsername_cb, extra)
       elseif matches[2]:match('%d+$') then
         extra.reason = matches[3] and ': ' .. matches[3] or ''
@@ -332,9 +333,11 @@ do
       _config.cmd .. '(unban) (@)(%w+)$',
       _config.cmd .. '(unban) (%d+)$',
       _config.cmd .. '(gban)$',
+      _config.cmd .. '(gban) (.*)$',
       _config.cmd .. '(gban) (@)(%w+)$',
       _config.cmd .. '(gban) (%d+)$',
       _config.cmd .. '(gunban)$',
+      _config.cmd .. '(gunban) (.*)$',
       _config.cmd .. '(gunban) (@)(.+)$',
       _config.cmd .. '(gunban) (%d+)$',
       _config.cmd .. '(banlist)$',
